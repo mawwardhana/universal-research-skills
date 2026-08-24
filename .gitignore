@@ -1,0 +1,53 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# VS Code local settings
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# API keys / credentials
+*.key
+*.pem
+credentials.json
+secrets.json
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Build / cache
+.cache/
+dist/
+build/
+
+# Local research workspace
+.research/private/
+.research/cache/
+
+# Local datasets
+data/private/
+data/raw-private/
+
+# User-specific files
+*.local

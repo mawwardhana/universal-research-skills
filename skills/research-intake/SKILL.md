@@ -1,0 +1,1043 @@
+---
+
+name: research-intake
+description: Establish a researcher's starting point, goals, available materials, constraints, expertise, and publication ambitions before research discovery or design begins. Use when the user wants to start research, has only a broad interest or practical problem, is unsure what to study, or when the current research stage cannot yet be determined reliably.
+---
+
+# Research Intake
+
+## Purpose
+
+`research-intake` establishes the minimum research context needed to guide a researcher toward a scientifically defensible next step.
+
+It is designed for users ranging from beginners to experienced researchers.
+
+The intake process must be:
+
+* brief;
+* adaptive;
+* user-friendly;
+* discipline-agnostic;
+* evidence-aware;
+* publication-aware.
+
+Do not turn research intake into a long questionnaire.
+
+Ask only for information that materially changes the research pathway.
+
+---
+
+# Primary Goals
+
+Determine:
+
+1. what the researcher wants to accomplish;
+2. whether the research is new or continues previous work;
+3. the research domain or area of interest;
+4. what problem, phenomenon, or opportunity motivates the research;
+5. what materials or evidence already exist;
+6. what resources and constraints affect feasibility;
+7. what type of scientific output is desired;
+8. whether publication strategy is already an important constraint;
+9. what should happen next.
+
+---
+
+# Intake Principle
+
+Use the following rule:
+
+> Infer first. Ask second.
+
+If information can be reliably determined from:
+
+* uploaded articles;
+* previous manuscripts;
+* proposals;
+* theses or dissertations;
+* datasets;
+* research plans;
+* user-provided descriptions;
+
+do not ask the user to repeat it.
+
+---
+
+# Determine Research Entry Type
+
+Classify the user into the most appropriate entry type.
+
+## A. New Research
+
+Use when the user:
+
+* has no previous study to continue;
+* has only a field of interest;
+* has an observed problem;
+* wants a new research direction;
+* wants to explore emerging research topics.
+
+Set:
+
+`research_entry_mode: START_NEW_RESEARCH`
+
+Likely next route:
+
+`idea-discovery`
+
+---
+
+## B. Previous Research Continuation
+
+Use when the user:
+
+* has previously published or completed related research;
+* uploads a previous article, thesis, dissertation, proposal, or report;
+* asks what study should come next;
+* wants a research roadmap based on prior work.
+
+Set:
+
+`research_entry_mode: CONTINUE_PREVIOUS_RESEARCH`
+
+Do not perform a full new-research intake if prior research materials already establish the context.
+
+Likely next route:
+
+`research-resume`
+
+---
+
+## C. Existing Research Idea
+
+Use when the user already has:
+
+* a proposed topic;
+* tentative variables;
+* a phenomenon;
+* a research problem;
+* a provisional title.
+
+Set:
+
+`research_entry_mode: DEVELOP_EXISTING_IDEA`
+
+Determine whether the next need is:
+
+* landscape mapping;
+* gap validation;
+* research-question development;
+* or methodology design.
+
+---
+
+## D. Existing Research Question
+
+Use when a clear research question already exists.
+
+Set:
+
+`research_entry_mode: RESEARCH_DESIGN`
+
+Do not force the user back through idea discovery unless the research question is unsupported or internally unclear.
+
+Likely next route:
+
+`problem-solving-approach`
+or
+`methodology-architect`
+
+---
+
+## E. Existing Data
+
+Use when data have already been collected.
+
+Set:
+
+`research_entry_mode: DATA_ANALYSIS`
+
+Collect only the information required to understand:
+
+* research question;
+* design;
+* variables;
+* sampling;
+* data structure;
+* analysis already performed.
+
+Likely next route:
+
+`analysis-planner`
+
+---
+
+## F. Existing Results
+
+Use when analytical outputs or findings already exist.
+
+Set:
+
+`research_entry_mode: RESULT_INTERPRETATION`
+
+Likely next route:
+
+`result-interpreter`
+
+---
+
+## G. Existing Manuscript
+
+Use when the researcher already has a manuscript.
+
+Determine whether the goal is:
+
+* writing improvement;
+* scientific audit;
+* journal selection;
+* submission preparation;
+* reviewer simulation.
+
+Set the appropriate manuscript-stage entry mode.
+
+---
+
+# Minimum Intake Dimensions
+
+Do not mechanically ask every item.
+
+Collect only dimensions relevant to the current case.
+
+## 1. Research Domain
+
+Examples:
+
+* health;
+* pharmacy;
+* biomedical science;
+* education;
+* social science;
+* engineering;
+* environmental science;
+* business and management;
+* interdisciplinary research.
+
+Record:
+
+`discipline`
+
+and, when known:
+
+`research_area`
+
+---
+
+## 2. Research Interest
+
+Identify what the researcher is interested in understanding, improving, explaining, predicting, developing, evaluating, or implementing.
+
+Avoid converting a broad interest into a research title prematurely.
+
+Examples:
+
+Broad interest:
+
+"Artificial intelligence in education"
+
+is not yet a research problem.
+
+Likewise:
+
+"Chitosan"
+
+is not yet a research question.
+
+---
+
+## 3. Problem or Phenomenon
+
+Determine whether the user begins from:
+
+* a theoretical problem;
+* empirical inconsistency;
+* practical problem;
+* technological opportunity;
+* clinical problem;
+* educational problem;
+* policy problem;
+* social phenomenon;
+* unexplained observation;
+* previous research finding.
+
+Record the problem in neutral language before proposing solutions.
+
+---
+
+## 4. Research Purpose
+
+Determine the intended scientific goal.
+
+Possible purposes include:
+
+* explore;
+* describe;
+* compare;
+* explain;
+* test;
+* estimate;
+* predict;
+* validate;
+* develop;
+* evaluate;
+* optimize;
+* intervene;
+* implement;
+* translate;
+* synthesize evidence.
+
+Do not impose a quantitative, qualitative, or mixed-method design at this stage.
+
+---
+
+## 5. Existing Research Materials
+
+Identify available materials such as:
+
+* previous publications;
+* thesis/dissertation;
+* proposal;
+* research protocol;
+* dataset;
+* preliminary data;
+* instruments;
+* literature collection;
+* systematic review;
+* analysis results;
+* research roadmap.
+
+Existing materials may substantially shorten the workflow.
+
+---
+
+## 6. Research Context
+
+When relevant, identify:
+
+* population;
+* setting;
+* institution;
+* geographical context;
+* industry;
+* clinical context;
+* education level;
+* technology;
+* species;
+* intervention;
+* exposure;
+* outcome.
+
+Do not assume context when the user has not supplied it.
+
+---
+
+## 7. Feasibility Constraints
+
+Only ask about constraints when they may materially affect the research design.
+
+Possible constraints:
+
+* access to participants;
+* access to data;
+* laboratory availability;
+* research equipment;
+* software;
+* funding;
+* collaboration;
+* ethical approval;
+* study duration;
+* sample accessibility;
+* geographic access.
+
+Do not reject an idea merely because some resources are currently unavailable.
+
+Instead, use constraints later to compare feasible research pathways.
+
+---
+
+# Researcher Capability Context
+
+When useful, identify existing expertise.
+
+Examples:
+
+* methodological expertise;
+* laboratory capability;
+* statistical skills;
+* access to specialized instruments;
+* clinical access;
+* computational capability;
+* qualitative research experience;
+* previous publications.
+
+This information is used to identify research opportunities that are both novel and realistically executable.
+
+Do not assume that the researcher must remain within methods previously used.
+
+---
+
+# Publication Ambition
+
+When the user indicates publication goals, record them.
+
+Possible targets:
+
+* national journal;
+* Scopus-indexed journal;
+* international reputable journal;
+* Q1;
+* Q2;
+* Q3;
+* Q4;
+* conference;
+* thesis/dissertation output;
+* grant output.
+
+Do not guarantee publication.
+
+---
+
+# Scopus-First Publication Preference
+
+If publication in an international journal is an objective, record:
+
+`scopus_preference: true`
+
+The later literature workflow should prioritize peer-reviewed articles from active Scopus-indexed journals.
+
+However:
+
+* relevance comes before publisher prestige;
+* methodological quality comes before citation convenience;
+* seminal sources may be retained even when older;
+* non-Scopus authoritative sources may be used when scientifically necessary.
+
+Do not claim Scopus indexing without verification.
+
+---
+
+# No-Mandatory-APC Preference
+
+When publication cost matters, record:
+
+`prefer_no_mandatory_apc: true`
+
+This means the later journal-selection workflow should prioritize:
+
+1. strong scientific scope fit;
+2. active Scopus indexing;
+3. suitable journal quality;
+4. no mandatory APC where comparable options exist.
+
+Include legitimate subscription or hybrid journals that permit conventional publication without mandatory APC.
+
+Do not interpret "hybrid journal" automatically as a paid journal.
+
+Current publication policy must later be verified.
+
+---
+
+# Target-Journal Awareness
+
+If the researcher already has one or more target journals, record them.
+
+Later workflows may examine scientifically relevant articles from those journals to determine:
+
+* topic fit;
+* methodological fit;
+* ongoing scholarly conversations;
+* unresolved questions;
+* how the proposed study may extend, test, support, refine, or challenge prior work.
+
+Never recommend irrelevant citations merely because they were published in the target journal.
+
+---
+
+# High-Value Question Rule
+
+Ask no more than 1–3 questions at one time unless the user explicitly asks for a structured intake interview.
+
+Prioritize questions with the greatest effect on the route.
+
+For example, when a user says:
+
+"I want a new research topic in pharmacy."
+
+Good questions may be:
+
+1. Which area of pharmacy interests you most?
+2. Do you want to build on previous research or start a new line?
+3. What research resources or data can you realistically access?
+
+Do not ask twenty questions at once.
+
+---
+
+# Progressive Intake
+
+Intake may occur progressively.
+
+Example:
+
+User:
+"I want to research AI in early childhood education."
+
+Do not immediately request:
+
+* sample size;
+* statistical software;
+* hypothesis;
+* instruments;
+* journal quartile;
+* analysis technique.
+
+First determine the research direction.
+
+Later skills will collect details when they become relevant.
+
+---
+
+# Handling Uploaded Previous Research
+
+If the user uploads a previous publication and asks for research continuation:
+
+Do not summarize it as the final answer.
+
+Record the material and route to:
+
+`research-resume`
+
+The next workflow should determine:
+
+* what the previous study answered;
+* what remains unresolved;
+* how literature has evolved since publication;
+* whether previous limitations remain genuine gaps;
+* what scientifically defensible continuation pathways exist.
+
+---
+
+# Handling a Practical Problem
+
+Users may begin from a real-world problem rather than an academic topic.
+
+Example:
+
+"Medication adherence among elderly patients in our clinic is low."
+
+Preserve the practical problem first.
+
+Do not immediately transform it into:
+
+"Effect of X on Y."
+
+Instead determine:
+
+* what is happening;
+* who is affected;
+* what is not understood;
+* what evidence would be useful;
+* whether the scientific goal is explanatory, predictive, developmental, evaluative, or intervention-oriented.
+
+Then route toward research discovery.
+
+---
+
+# Handling a Proposed Title
+
+A proposed title is not automatically a valid research problem.
+
+Extract:
+
+* core phenomenon;
+* variables or concepts;
+* population;
+* context;
+* implied relationship;
+* intended contribution.
+
+Then determine which components require evidence validation.
+
+Do not polish the title before confirming that the study itself is scientifically defensible.
+
+---
+
+# Handling Highly Specific Research Ideas
+
+When the user already provides a highly developed idea, avoid unnecessary intake.
+
+Example:
+
+"I want to test whether X mediates the relationship between A and Y in population P."
+
+The route may already be near:
+
+* literature verification;
+* gap validation;
+* research-question refinement;
+* methodology.
+
+Do not return the user to broad idea discovery unless necessary.
+
+---
+
+# Idea Quality Must Not Be Judged During Intake Alone
+
+`research-intake` may assess feasibility signals but must not make definitive claims such as:
+
+* "This is novel."
+* "Nobody has studied this."
+* "This will publish in Q1."
+* "This is a strong research gap."
+
+Those claims require evidence from downstream literature workflows.
+
+---
+
+# Research Intake Brief
+
+At the end of intake, create an internal or user-visible Research Intake Brief when useful.
+
+Recommended fields:
+
+## Research Intake Brief
+
+**Research entry mode:**
+[START_NEW_RESEARCH / CONTINUE_PREVIOUS_RESEARCH / DEVELOP_EXISTING_IDEA / RESEARCH_DESIGN / DATA_ANALYSIS / RESULT_INTERPRETATION / MANUSCRIPT_STAGE]
+
+**Discipline:**
+[...]
+
+**Research area:**
+[...]
+
+**Current interest/problem:**
+[...]
+
+**Research purpose:**
+[...]
+
+**Existing materials:**
+[...]
+
+**Research context:**
+[...]
+
+**Available resources:**
+[...]
+
+**Important constraints:**
+[...]
+
+**Publication ambition:**
+[...]
+
+**Scopus-first preference:**
+[Yes / No / Not yet specified]
+
+**No-mandatory-APC preference:**
+[Yes / No / Not yet specified]
+
+**Target journal already known:**
+[...]
+
+**Current research stage:**
+[...]
+
+**Next recommended step:**
+[...]
+
+**Critical missing information:**
+[...]
+
+---
+
+# Research Passport Preparation
+
+When the framework supports a Research Passport, prepare or update relevant fields without inventing missing information.
+
+Suggested fields:
+
+```yaml
+researcher:
+  discipline:
+  expertise:
+  career_stage:
+
+research:
+  entry_mode:
+  topic:
+  problem:
+  context:
+  prior_research:
+
+resources:
+  data_access:
+  participant_access:
+  laboratory:
+  software:
+  funding:
+  collaborators:
+
+publication:
+  ambition:
+  scopus_preference:
+  prefer_no_mandatory_apc:
+  target_journals:
+
+workflow:
+  current_stage:
+  completed_stages:
+  next_stage:
+```
+
+Leave unknown fields empty rather than guessing.
+
+---
+
+# Routing Decisions
+
+Typical routes from `research-intake`:
+
+If no clear topic exists:
+
+`idea-discovery`
+
+If broad topic exists but scientific landscape is unclear:
+
+`research-landscape`
+
+If previous research exists:
+
+`research-resume`
+
+If the user already proposes a research gap:
+
+`gap-validator`
+
+If a research question already exists:
+
+`problem-solving-approach`
+
+If data already exist:
+
+`analysis-planner`
+
+If results already exist:
+
+`result-interpreter`
+
+If a manuscript already exists:
+
+`manuscript-auditor`
+
+---
+
+# Avoid These Behaviors
+
+Do not:
+
+* force every researcher through the same questionnaire;
+* ask for information already contained in uploaded material;
+* invent a research gap;
+* invent novelty;
+* choose statistics prematurely;
+* guarantee publication;
+* equate Scopus indexing with scientific quality;
+* equate high quartile with perfect journal fit;
+* equate hybrid publishing with mandatory APC;
+* optimize research solely for journal acceptance;
+* recommend citation padding;
+* overwhelm beginners with research jargon.
+
+---
+
+# User-Friendly Communication
+
+Match the researcher's apparent level of experience.
+
+For beginners:
+
+* explain research terminology briefly;
+* present limited choices;
+* guide sequentially.
+
+For experienced researchers:
+
+* avoid elementary explanations unless needed;
+* preserve technical terminology;
+* focus on evidence, methodological choices, and strategy.
+
+Do not patronize either group.
+
+---
+
+# Phenomenon Evidence Intake
+
+During research intake, determine whether the researcher already has evidence describing the real-world phenomenon behind the research problem.
+
+Possible available materials include:
+
+- official statistics;
+- government reports;
+- international-agency reports;
+- datasets;
+- registries;
+- surveillance data;
+- regulations;
+- policies;
+- institutional reports;
+- internal organizational data;
+- spreadsheets;
+- dashboards;
+- credible news;
+- uploaded files;
+- pasted URLs;
+- manually provided factual data.
+
+Do not require phenomenon evidence when it is not scientifically relevant, such as some purely theoretical or methodological studies.
+
+---
+
+# Phenomenon Evidence Intake Questions
+
+Ask only when necessary.
+
+Useful questions may include:
+
+> Do you already have official statistics, reports, datasets, regulations, or other factual evidence showing that this problem occurs?
+
+> Is there a particular country, population, institution, or period that the background must describe?
+
+> Do you have a report, dataset, regulation, spreadsheet, or URL that should be used?
+
+Do not turn intake into a long questionnaire.
+
+If the researcher has already supplied the material, record it instead of asking again.
+
+---
+
+# Phenomenon Evidence Availability
+
+Classify:
+
+- `PHENOMENON_EVIDENCE_AVAILABLE`
+- `PHENOMENON_EVIDENCE_PARTIAL`
+- `PHENOMENON_EVIDENCE_NOT_PROVIDED`
+- `PHENOMENON_EVIDENCE_NOT_REQUIRED`
+- `PHENOMENON_EVIDENCE_STATUS_UNKNOWN`
+
+If available, identify input type.
+
+Possible values include:
+
+- `OFFICIAL_STATISTICS`
+- `DATASET`
+- `REPORT`
+- `REGULATION`
+- `POLICY`
+- `INSTITUTIONAL_DATA`
+- `NEWS`
+- `URL`
+- `FILE_UPLOAD`
+- `USER_PROVIDED_FACT`
+- `MULTIPLE_SOURCES`
+
+---
+
+# Phenomenon Evidence Need
+
+Determine whether the research problem requires additional factual evidence about:
+
+- magnitude;
+- burden;
+- trend;
+- affected population;
+- geographic distribution;
+- policy context;
+- regulatory context;
+- service conditions;
+- institutional conditions;
+- real-world urgency.
+
+Use:
+
+- `PHENOMENON_EVIDENCE_REQUIRED`
+- `PHENOMENON_EVIDENCE_USEFUL`
+- `PHENOMENON_EVIDENCE_NOT_CENTRAL`
+- `UNKNOWN`
+
+When required or useful, route to:
+
+`phenomenon-evidence-builder`
+
+---
+
+# Phenomenon vs Scientific Problem
+
+During intake, distinguish:
+
+```text
+REAL-WORLD PROBLEM
+"What is happening?"
+
+from
+
+SCIENTIFIC PROBLEM
+"What does current knowledge fail to explain,
+validate, predict, or resolve?"
+```
+
+---
+
+# Uploaded Evidence Handling
+
+If the researcher supplies:
+
+- a report;
+- regulation;
+- spreadsheet;
+- dataset;
+- PDF;
+- institutional document;
+- URL;
+
+record that material as available evidence.
+
+Do not assume its authority or validity merely because it was supplied.
+
+Route verification and contextualization to:
+
+`phenomenon-evidence-builder`
+
+when appropriate.
+
+---
+
+# User-Provided Fact Handling
+
+If the researcher manually provides statistics or factual claims without source documentation, classify:
+
+`USER_PROVIDED_UNVERIFIED_FACT`
+
+Do not reject the information outright.
+
+Instead, preserve it as a candidate fact and identify whether:
+
+- documentation should be uploaded;
+- a URL should be supplied;
+- an authoritative source should be searched.
+
+---
+
+# Research Intake Evidence Architecture
+
+Where relevant, intake should capture both:
+
+```yaml
+evidence_inputs:
+  phenomenon_evidence:
+    status:
+    input_types:
+    files:
+    urls:
+    reported_statistics:
+    geography:
+    population:
+    reference_period:
+    verification_needed:
+
+  scholarly_evidence:
+    status:
+    previous_articles:
+    literature_files:
+    known_references:
+    search_needed:
+```
+
+Unknown fields remain unknown.
+
+---
+
+# Research Passport Addition
+
+When supported, add:
+
+```yaml
+phenomenon_context:
+  phenomenon:
+  population:
+  geography:
+  reference_period:
+  evidence_need:
+  evidence_status:
+  available_inputs:
+  official_statistics_available:
+  dataset_available:
+  regulation_or_policy_available:
+  institutional_data_available:
+  user_provided_urls:
+  user_provided_files:
+  unverified_facts:
+  verification_required:
+  phenomenon_evidence_next_stage:
+```
+
+Do not fabricate unavailable values.
+
+---
+
+# Routing After Intake
+
+Possible pathway:
+
+```text
+research-intake
+      ↓
+Is real-world factual evidence needed?
+      │
+      ├── YES
+      │    ↓
+      │ phenomenon-evidence-builder
+      │
+      └── NO
+           ↓
+      continue research workflow
+```
+
+Phenomenon evidence and scholarly evidence may also be developed in parallel.
+
+---
+
+# Background Readiness
+
+When a research background will eventually be written, intake should ideally determine whether enough evidence exists to support:
+
+1. phenomenon existence;
+2. magnitude or trend;
+3. consequence or burden;
+4. target-context relevance.
+
+Do not fabricate these elements if they are unavailable.
+
+Use:
+
+- `BACKGROUND_PHENOMENON_READY`
+- `BACKGROUND_PHENOMENON_PARTIAL`
+- `BACKGROUND_PHENOMENON_NOT_READY`
+- `NOT_APPLICABLE`
+
+---
+
+# Success Criterion
+
+`research-intake` succeeds when enough context has been established to identify the shortest scientifically defensible next research workflow without requiring unnecessary information from the researcher.

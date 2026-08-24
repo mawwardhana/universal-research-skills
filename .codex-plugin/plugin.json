@@ -1,0 +1,44 @@
+{
+  "name": "universal-research-skills",
+  "version": "0.6.0",
+  "description": "A universal, Scopus-first, evidence-driven research framework that guides researchers from idea discovery and continuation of previous studies through state-of-the-art mapping, research gap validation, novelty development, methodology, analysis, research roadmaps, manuscript preparation, and publication readiness.",
+  "author": {
+    "name": "Universal Research Skills Contributors"
+  },
+  "keywords": [
+    "research",
+    "academic-research",
+    "scopus",
+    "literature-review",
+    "state-of-the-art",
+    "research-gap",
+    "novelty",
+    "methodology",
+    "data-analysis",
+    "research-roadmap",
+    "academic-writing",
+    "publication",
+    "no-apc",
+    "journal-selection",
+    "publication-strategy",
+    "target-journal-intelligence"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Universal Research Skills",
+    "shortDescription": "End-to-end research guidance from ideas to publication",
+    "longDescription": "Supports researchers at any stage, including discovering new research ideas, continuing previous studies, mapping the state of the art, validating research gaps and novelty, designing research methods, planning analysis, building research roadmaps, interpreting findings, and preparing competitive international manuscripts.",
+    "developerName": "Universal Research Skills Contributors",
+    "category": "Research",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Help me discover a strong new research idea.",
+      "Analyze my previous study and recommend what to study next.",
+      "Guide my research from evidence to a publication-ready manuscript."
+    ]
+  }
+}
