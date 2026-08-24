@@ -2,6 +2,131 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.7.0] - Methodology & Study Design Layer
+
+### Added
+
+- `problem-solving-approach` skill for translating finalized research questions into scientifically justified evidence-generating strategies before detailed methodology is selected.
+- `methodology-architect` skill for converting an approved problem-solving approach into the smallest scientifically adequate, ethically defensible, feasible, and reproducible study architecture.
+- `protocol-builder` skill for translating approved methodology into version-controlled, auditable, implementation-ready research procedures without silently changing the scientific design.
+- `sampling-strategy` skill for connecting target and source populations, sampling frames, unit structures, selection mechanisms, sample-size rationale, clustering, stratification, attrition, representativeness, and feasibility to the intended inference.
+- `instrument-design` skill for selecting, adapting, translating, developing, validating, documenting, and quality-controlling questionnaires, scales, interview guides, observation tools, case report forms, laboratory assays, devices, rubrics, extraction forms, and other measurement systems.
+- Explicit separation between scientific problem-solving strategy and detailed methodology.
+- Method-before-software safeguards preventing statistical packages, SEM, PLS-SEM, machine learning, or familiar analytical tools from defining the research design.
+- Design-function classification covering descriptive, estimative, comparative, associational, causal, mechanistic, predictive, diagnostic, prognostic, validation, measurement-development, intervention, implementation, qualitative, mixed-method, evidence-synthesis, formulation, optimization, stability, safety, and performance-oriented research.
+- Design-family support for observational, experimental, quasi-experimental, qualitative, mixed-method, systematic-review, scoping-review, meta-analytic, bibliometric, laboratory, pharmaceutical, biomedical, educational, organizational, policy, computational, and implementation research.
+- Explicit distinction among unit of observation, unit of analysis, unit of assignment, sampling unit, experimental unit, and unit of inference.
+- Pseudoreplication safeguards distinguishing biological, technical, batch, and repeated-measure replication.
+- Counterfactual, comparator, temporal-order, randomization, allocation-concealment, blinding, clustering, contamination, fidelity, and bias-control architecture where scientifically relevant.
+- Sampling architecture covering probability and non-probability strategies, qualitative information power, complex sampling, cluster and multistage sampling, recruitment, nonresponse, attrition, event-based requirements, and design-effect awareness.
+- Sample-size safeguards preventing arbitrary minimum-N rules, unsupported effect sizes, misuse of the PLS-SEM 10-times rule, and confusion between precision, power, event counts, qualitative adequacy, and experimental replication.
+- Measurement architecture requiring conceptual definition before operationalization, construct-to-indicator mapping, existing-instrument review before new development, provenance, licensing, adaptation, translation, pilot testing, reliability, validity, responsiveness, invariance, scoring, calibration, measurement-bias control, and versioning.
+- Protocol architecture covering screening, eligibility, recruitment, consent, enrollment, allocation, intervention or exposure procedures, comparators, measurement schedules, specimen and laboratory workflows, data capture, quality control, safety, monitoring, deviations, documentation, roles, version control, and closeout.
+- Domain-specific methodological safeguards for pharmaceutical formulation, microbiology, pharmacokinetics, pharmacogenetics/pharmacogenomics, diagnostics, prediction models, education, organizational research, policy evaluation, implementation research, and laboratory science.
+- Explicit handoffs from study design to `protocol-builder`, `sampling-strategy`, `instrument-design`, and downstream `analysis-planner`.
+
+### Architecture
+
+The Methodology & Study Design Layer follows:
+
+```text
+Validated Gap
+      ↓
+Audited Novelty
+      ↓
+Research Question
+      ↓
+Theory / Hypothesis / Conceptual Framework
+when scientifically required
+      ↓
+problem-solving-approach
+      ↓
+methodology-architect
+      │
+      ├───────────────┬────────────────┐
+      ▼               ▼                ▼
+protocol-builder  sampling-strategy  instrument-design
+      │               │                │
+      └───────────────┴────────────────┘
+                      ↓
+                 DESIGN READY
+                      ↓
+                analysis-planner
+```
+
+The downstream branches are conditional rather than mandatory in a rigid order. Sampling, protocol, and instrument decisions may be refined iteratively when the study design requires it.
+
+### Functional Responsibilities
+
+`problem-solving-approach`
+
+- Determines what kind of evidence is required to answer the research question.
+- Classifies the knowledge function and intended inference before detailed design.
+- Compares scientifically defensible candidate approaches and prevents method-first or software-first decisions.
+
+`methodology-architect`
+
+- Converts the approved evidence-generating strategy into a complete study architecture.
+- Defines the design function, study design, setting, population, unit structure, intervention or exposure, comparator, outcomes or phenomena, temporal logic, sampling requirements, measurement requirements, validity safeguards, feasibility, ethics, and downstream analysis requirements.
+
+`protocol-builder`
+
+- Operationalizes methodology into reproducible, auditable, version-controlled procedures.
+- Preserves design fidelity while specifying implementation flow, quality control, safety, deviations, documentation, and closeout.
+
+`sampling-strategy`
+
+- Defines who, what, or which units should be selected, from where, by what mechanism, and in what quantity.
+- Aligns population representation, experimental independence, sample-size logic, clustering, attrition, and feasibility with the intended inference.
+
+`instrument-design`
+
+- Determines how required constructs, outcomes, exposures, experiences, biological measures, laboratory properties, or performance indicators will be measured or elicited.
+- Separates construct definition from item writing and supports reuse, adaptation, translation, development, validation, calibration, scoring, and measurement-quality documentation.
+
+### Integration
+
+Existing `research-router` and `research-intake` routing already recognizes the transition into `problem-solving-approach` and `methodology-architect`, so no additional routing patch was required for v0.7.0.
+
+The new layer provides a design-ready handoff to the forthcoming analysis-planning layer.
+
+### Scientific Integrity
+
+The Methodology & Study Design Layer establishes these principles:
+
+- the research question must precede detailed method selection;
+- evidence needs must be explicit before choosing a design;
+- methodology must not be determined by software availability;
+- SEM and PLS-SEM are analytical modeling families, not research designs;
+- machine learning is not a methodology by itself;
+- causal questions require designs capable of supporting causal inference;
+- cross-sectional association must not be presented automatically as causal effect;
+- prediction, explanation, diagnosis, validation, and causal inference are distinct scientific tasks;
+- mixed methods require explicit integration rather than parallel use of two methods for appearance;
+- qualitative sampling follows information needs rather than statistical representativeness;
+- probability sampling is not mandatory when population-level estimation is not the intended inference;
+- random assignment and representative sampling solve different scientific problems;
+- technical replicates do not automatically increase the number of independent experimental units;
+- pseudoreplication must be detected before analysis;
+- sample-size justification must follow the inferential task rather than arbitrary universal rules;
+- the PLS-SEM 10-times rule must not be used as the sole scientific sample-size justification;
+- existing validated instruments should be considered before creating new instruments;
+- construct definition and content validity precede factor-analytic validation;
+- translation alone does not establish cross-cultural validity;
+- Cronbach's alpha alone does not establish validity;
+- protocol convenience must not silently change the scientific design;
+- protocol amendments affecting scientific meaning must be distinguished from administrative edits;
+- target-journal preferences, quartile, APC status, and publication strategy must not determine methodology, sampling, protocol, or measurement design.
+
+### Downstream Readiness
+
+The framework can now hand off a complete study-design architecture to:
+
+- `analysis-planner`;
+- `statistical-method-selector`;
+- quantitative, qualitative, mixed-method, SEM, PLS-SEM, experimental, review, and other method adapters;
+- result-interpretation and manuscript-development workflows.
+
 ## [0.6.0] - Research Logic & Framework Layer
 
 ### Added
