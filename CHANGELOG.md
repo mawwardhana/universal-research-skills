@@ -2,6 +2,108 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.9.0] - Results Interpretation & Scientific Discussion Layer
+
+### Added
+
+- `result-interpreter` skill for translating completed analytical outputs into scientifically defensible findings while preserving effect magnitude, uncertainty, robustness, study-design boundaries, causal limits, hypothesis status, theory relationships, contradictions, and unsupported-claim safeguards.
+- `scientific-discussion` skill for positioning interpreted findings against verified scholarly evidence, current State of the Art, closest competitor studies, theory, mechanisms, competing explanations, contradictory evidence, context, boundary conditions, limitations, and the study's validated scientific contribution.
+- `implication-builder` skill for translating scientifically discussed findings into evidence-proportionate theoretical, scientific, mechanistic, methodological, measurement, practical, clinical, educational, organizational, engineering, policy, implementation, equity, safety, economic, and future-research implications.
+
+### Interpretation Safeguards
+
+- Separates statistical significance from scientific importance.
+- Prevents non-significant findings from being automatically interpreted as evidence of no effect.
+- Requires magnitude, uncertainty, robustness, practical meaning, and study-design boundaries to be considered before conclusions are formed.
+- Prevents unsupported causal escalation from association to mechanism, intervention, recommendation, or policy.
+- Distinguishes confirmatory, exploratory, post-hoc, and incidental findings.
+- Preserves contradictory, unexpected, negative, and context-specific findings rather than forcing a preferred narrative.
+- Prevents software labels, fit indices, path significance, or familiar reporting conventions from determining scientific conclusions.
+
+### Scientific Discussion Safeguards
+
+- Requires discussion to begin from defensibly interpreted findings rather than raw analytical output.
+- Uses verified scholarly evidence and State-of-the-Art positioning rather than citation accumulation.
+- Prioritizes closest direct comparators, high-quality evidence, relevant syntheses, seminal explanatory work, and credible contradictory evidence.
+- Distinguishes convergence, extension, refinement, contradiction, mixed evidence, and absence of close comparators.
+- Requires theory and mechanism claims to be calibrated as directly tested, indirectly supported, plausible, speculative, or unsupported.
+- Prevents post-hoc theory fitting, target-journal citation padding, and prestige-based evidence selection.
+- Maintains Scopus-first scholarly evidence principles while preserving source-verification and reference-integrity safeguards.
+
+### Implication Safeguards
+
+- Enforces the principle that implication strength must never exceed evidence strength.
+- Separates scientific implications from practical recommendations, clinical adoption, policy change, and implementation readiness.
+- Requires explicit consideration of feasibility, boundary conditions, harms, equity, costs, implementation context, and uncertainty before action recommendations are made.
+- Prevents laboratory findings from being translated directly into clinical recommendations.
+- Prevents observational associations from being translated directly into intervention or policy mandates.
+- Prevents predictive performance from being treated automatically as clinical utility.
+- Allows `Current practice should not change yet` to remain a scientifically valid implication.
+- Converts unresolved uncertainty into specific future-research requirements rather than generic calls for larger studies.
+
+### Results-to-Implications Architecture
+
+```text
+Completed Analysis
+      ↓
+result-interpreter
+      ↓
+Scientifically Defensible Finding
+      ↓
+scientific-discussion
+      ↓
+Evidence-Positioned Scientific Meaning
+      ↓
+implication-builder
+      ↓
+Bounded Scientific / Practical / Policy / Future-Research Implications
+```
+
+The complete downstream logic is:
+
+```text
+Research Question
+      ↓
+Methodology & Study Design
+      ↓
+Analysis Planning & Method Selection
+      ↓
+Results Interpretation
+      ↓
+Scientific Discussion
+      ↓
+Implication Building
+      ↓
+Manuscript Development
+```
+
+### Integration
+
+Existing routing compatibility was verified for:
+
+- `research-router`, which already routes results through:
+
+```text
+result-interpreter
+      ↓
+scientific-discussion
+      ↓
+implication-builder
+```
+
+- `research-intake`, which already routes existing analytical results to:
+
+```text
+research_entry_mode: RESULT_INTERPRETATION
+      ↓
+result-interpreter
+```
+
+No unnecessary routing changes were introduced.
+
+---
+
+
 ## [0.8.0] - Analysis Planning & Method Selection Layer
 
 ### Added
