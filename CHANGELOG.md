@@ -2,6 +2,672 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.11.0] - Manuscript Audit & Publication Readiness Layer
+
+### Added
+
+- `manuscript-auditor` skill for auditing completed or near-complete scientific manuscripts as scientific objects rather than merely proofreading them.
+- Structured audit of scientific integrity, internal consistency, reporting completeness, reference integrity, claim-evidence alignment, methodological fidelity, result-discussion-conclusion coherence, novelty calibration, ethics, declarations, tables, figures, supplementary materials, and publication readiness.
+- Explicit audit entry modes for full-manuscript audit, scientific-integrity audit, section audit, pre-submission audit, reporting-guideline audit, reference audit, consistency audit, statistical-reporting audit, claim-strength audit, novelty audit, journal-readiness audit, and revision re-audit.
+- Severity classification separating `CRITICAL`, `MAJOR`, `MODERATE`, `MINOR`, and `EDITORIAL` issues.
+- Transparent submission-readiness decisions and upstream routing when scientific problems require correction before publication-oriented work continues.
+- Version-aware audit logic preventing unnecessary repetition of a completed scientific audit when the same manuscript version has not materially changed.
+
+### Manuscript Audit Architecture
+
+```text
+manuscript-writer
+      ↓
+manuscript-auditor
+      ↓
+journal-matcher
+      ↓
+reviewer-simulator
+      ↓
+reviewer-response
+```
+
+`manuscript-auditor` now functions as a scientific gate between manuscript writing and downstream publication strategy.
+
+### Core Audit Principle
+
+```text
+Completed / Near-Complete Manuscript
+      ↓
+Scientific Integrity Audit
+      ↓
+Internal Consistency Audit
+      ↓
+Reporting Completeness Audit
+      ↓
+Reference Integrity Audit
+      ↓
+Claim-Evidence Audit
+      ↓
+Journal-Readiness Audit
+      ↓
+Revision Priorities
+      ↓
+Submission Readiness Decision
+```
+
+The governing principle is:
+
+> **Audit the science before polishing the submission.**
+
+### Audit Severity Architecture
+
+Audit findings are classified as:
+
+```text
+CRITICAL
+   ↓
+MAJOR
+   ↓
+MODERATE
+   ↓
+MINOR
+   ↓
+EDITORIAL
+```
+
+Scientific and methodological problems must be resolved before stylistic or formatting refinement is prioritized.
+
+### Scientific Integrity Audit
+
+The new layer checks alignment across:
+
+```text
+Research Question
+      ↓
+Study Design
+      ↓
+Methods
+      ↓
+Analysis
+      ↓
+Results
+      ↓
+Interpretation
+      ↓
+Discussion
+      ↓
+Implications
+      ↓
+Conclusion
+```
+
+It detects:
+
+- research-question drift;
+- hypothesis inconsistency;
+- design misclassification;
+- unsupported causal inference;
+- method-result mismatch;
+- outcome switching;
+- selective reporting;
+- contradictory numerical reporting;
+- unsupported mechanistic claims;
+- exaggerated novelty;
+- implication escalation;
+- conclusion overreach.
+
+### Study Design Safeguards
+
+The audit verifies whether the manuscript correctly identifies and respects the inferential limits of designs including:
+
+- cross-sectional studies;
+- cohort studies;
+- case-control studies;
+- randomized controlled trials;
+- quasi-experimental studies;
+- laboratory experiments;
+- qualitative studies;
+- mixed-method studies;
+- systematic reviews;
+- meta-analyses;
+- diagnostic studies;
+- prediction-model studies;
+- validation studies.
+
+The audit prevents labels such as `causal`, `experimental`, `prospective`, `longitudinal`, or `validation` from being used when the actual design does not support them.
+
+### Methodological Fidelity
+
+The audit checks whether Methods accurately describe what was actually done rather than retrospectively idealizing the study.
+
+Domains include:
+
+- population;
+- sampling;
+- inclusion and exclusion criteria;
+- variables;
+- measurement;
+- intervention or exposure;
+- procedures;
+- analytical methods;
+- ethics;
+- reproducibility.
+
+### Domain-Specific Audit Support
+
+The new layer includes audit logic for:
+
+- quantitative research;
+- qualitative research;
+- mixed methods;
+- laboratory and formulation research;
+- pharmacokinetics;
+- pharmacogenetics;
+- diagnostic accuracy;
+- prediction models;
+- validation studies;
+- longitudinal analysis;
+- multilevel analysis;
+- survival analysis;
+- SEM;
+- PLS-SEM;
+- mediation;
+- moderation;
+- machine learning;
+- systematic reviews;
+- meta-analysis.
+
+### Statistical Reporting Safeguards
+
+The audit checks:
+
+- effect magnitude;
+- direction;
+- uncertainty;
+- confidence intervals;
+- p-values;
+- assumptions;
+- missing-data handling;
+- multiplicity;
+- model specification;
+- reference categories;
+- clustering;
+- repeated measures;
+- sensitivity analyses.
+
+It explicitly prevents:
+
+```text
+significant
+→ important
+```
+
+and:
+
+```text
+non-significant
+→ no effect
+```
+
+from being treated as valid scientific conclusions without appropriate support.
+
+### Result Integrity
+
+The audit checks consistency of:
+
+- sample size;
+- outcome definitions;
+- group labels;
+- effect estimates;
+- p-values;
+- confidence intervals;
+- result direction;
+- primary and secondary outcome status;
+- exploratory analyses.
+
+When source outputs are available, manuscript values should be verified against them rather than assumed to have been copied correctly.
+
+### Abstract Integrity
+
+The audit verifies that the Abstract accurately represents:
+
+- objective;
+- design;
+- sample;
+- methods;
+- primary results;
+- uncertainty;
+- conclusion.
+
+The Abstract conclusion must not be stronger than the full manuscript conclusion.
+
+### Introduction Audit
+
+The Introduction is checked for coherent progression from:
+
+```text
+Problem
+      ↓
+Current Knowledge
+      ↓
+Unresolved Issue
+      ↓
+Validated Gap
+      ↓
+Audited Novelty
+      ↓
+Research Objective
+```
+
+Authority-first phenomenon evidence remains distinct from Scopus-first scholarly evidence.
+
+### Novelty Calibration
+
+The audit checks whether manuscript novelty claims remain consistent with the output of `novelty-auditor`.
+
+It distinguishes:
+
+- genuine novelty;
+- partial novelty;
+- contextual extension;
+- replication;
+- validation;
+- methodological refinement.
+
+Unverified claims such as “first,” “novel,” “unprecedented,” or “groundbreaking” are not accepted automatically.
+
+### Discussion Audit
+
+The Discussion is audited for:
+
+- accurate statement of the main findings;
+- comparison with closest evidence;
+- convergence and divergence;
+- theory and mechanism proportionality;
+- contradictory evidence;
+- validated contribution;
+- limitations;
+- bounded implications.
+
+The audit prevents the Discussion from degenerating into result repetition, literature listing, post-hoc theory fitting, or significance-driven storytelling.
+
+### Limitation Architecture
+
+Limitations should be expressed conceptually as:
+
+```text
+limitation
+      ↓
+affected inference
+      ↓
+likely consequence
+```
+
+Generic limitation lists without inferential consequences are discouraged.
+
+### Implication Safeguards
+
+The audit checks whether theoretical, scientific, clinical, educational, organizational, engineering, policy, implementation, safety, economic, and future-research implications remain proportional to the evidence.
+
+It prevents escalation such as:
+
+```text
+association
+→ treatment recommendation
+```
+
+or:
+
+```text
+single-context finding
+→ universal policy recommendation
+```
+
+### Conclusion Safeguards
+
+The Conclusion must:
+
+- answer the research question;
+- reflect the actual results;
+- preserve uncertainty;
+- introduce no new evidence;
+- avoid unsupported novelty claims;
+- avoid unsupported causal claims;
+- avoid recommendations stronger than the validated implications.
+
+### Reference Integrity Audit
+
+The new layer integrates with `reference-integrity-guard` and checks:
+
+- reference existence;
+- bibliographic accuracy;
+- DOI validity;
+- retraction status;
+- duplicate references;
+- reference mashups;
+- claim relevance;
+- in-text/reference-list correspondence;
+- uncited references;
+- citation padding.
+
+Target-journal citation padding and prestige-driven citation strategy remain prohibited.
+
+### Evidence Role Safeguard
+
+The established distinction remains:
+
+```text
+Phenomenon / Context
+      ↓
+Authority-first evidence
+
+Scientific Knowledge / Mechanism / Effect
+      ↓
+Scopus-first scholarly evidence
+```
+
+The manuscript audit checks whether these evidence roles remain appropriately separated.
+
+### Reporting Guideline Audit
+
+Applicable reporting guidelines may include:
+
+- CONSORT;
+- STROBE;
+- PRISMA;
+- STARD;
+- TRIPOD;
+- CARE;
+- COREQ;
+- SRQR;
+- ARRIVE;
+- CHEERS;
+- SPIRIT;
+- RECORD;
+- SAGER.
+
+Each required item may be classified as:
+
+```text
+COMPLETE
+PARTIAL
+MISSING
+NOT_APPLICABLE
+```
+
+A reporting checklist improves transparency but does not repair a weak study design.
+
+### Ethics and Declaration Audit
+
+The audit checks, when applicable:
+
+- ethics approval;
+- approval number;
+- informed consent;
+- consent waiver;
+- trial registration;
+- protocol registration;
+- privacy;
+- funding;
+- conflicts of interest;
+- CRediT roles;
+- data availability;
+- code availability;
+- AI-use disclosure.
+
+Missing information must remain explicit rather than being invented.
+
+### Table and Figure Audit
+
+Tables and figures are checked for:
+
+- titles;
+- numbering;
+- labels;
+- units;
+- denominators;
+- reference categories;
+- uncertainty;
+- abbreviations;
+- statistical notation;
+- consistency with manuscript text.
+
+Potentially misleading graphical practices such as truncated axes, inconsistent scales, selective panels, or omitted groups are flagged.
+
+### Internal Consistency Matrices
+
+The audit supports structured traceability including:
+
+```text
+Research Question
+→ Method
+→ Result
+→ Discussion
+→ Conclusion
+```
+
+and:
+
+```text
+Planned Analysis
+→ Methods
+→ Reported Result
+→ Interpretation
+```
+
+as well as cross-section consistency checks for sample sizes, effect estimates, confidence intervals, p-values, group definitions, and timepoints.
+
+### Claim-Evidence Audit
+
+Claims may be classified as:
+
+- `SUPPORTED_STRONG`
+- `SUPPORTED_MODERATE`
+- `SUPPORTED_TENTATIVE`
+- `PARTIALLY_SUPPORTED`
+- `UNSUPPORTED`
+- `CONTRADICTED`
+
+The audit detects claim escalation such as:
+
+```text
+association
+→ causation
+```
+
+```text
+prediction
+→ explanation
+```
+
+```text
+laboratory effect
+→ clinical efficacy
+```
+
+```text
+statistical significance
+→ practical recommendation
+```
+
+### Submission Readiness Decisions
+
+Possible outcomes include:
+
+- `READY_FOR_JOURNAL_MATCHING`
+- `READY_FOR_REVIEWER_SIMULATION`
+- `READY_FOR_SUBMISSION_PREPARATION`
+- `MINOR_REVISION_REQUIRED`
+- `MODERATE_REVISION_REQUIRED`
+- `MAJOR_REVISION_REQUIRED`
+- `CRITICAL_SCIENTIFIC_REVISION_REQUIRED`
+- `REFERENCE_VERIFICATION_REQUIRED`
+- `REPORTING_COMPLETENESS_REQUIRED`
+- `METHOD_REASSESSMENT_REQUIRED`
+- `RESULT_REINTERPRETATION_REQUIRED`
+- `NOVELTY_REASSESSMENT_REQUIRED`
+- `NOT_READY_FOR_SUBMISSION`
+
+A polished manuscript is not considered submission-ready while critical scientific issues remain unresolved.
+
+### Upstream Revision Routing
+
+When necessary, the audit can route back to:
+
+```text
+research-question-builder
+methodology-architect
+analysis-planner
+statistical-method-selector
+result-interpreter
+scientific-discussion
+implication-builder
+gap-validator
+novelty-auditor
+source-verification
+reference-integrity-guard
+manuscript-architect
+manuscript-writer
+```
+
+This prevents downstream publication preparation from silently repairing scientific problems at the wrong stage.
+
+### Audit Version Awareness
+
+Scientific audit should normally precede reviewer simulation.
+
+However, audit repetition is not required when the **same manuscript version** has already passed audit and no material scientific change has occurred.
+
+Conceptually:
+
+```text
+Reviewer Simulation Request
+        ↓
+Audit Status Check
+        │
+        ├── not audited / materially revised
+        │        ↓
+        │ manuscript-auditor
+        │        ↓
+        │ reviewer-simulator
+        │
+        └── same version already passed audit
+                 ↓
+          reviewer-simulator
+```
+
+This prevents both unsafe audit bypass and unnecessary repeated auditing.
+
+### `research-intake` Integration
+
+Existing-manuscript routing was expanded to recognize manuscript audit as a version-aware scientific gate.
+
+Scientific audit:
+
+```text
+scientific audit needed
+      ↓
+manuscript-auditor
+```
+
+Submission preparation:
+
+```text
+manuscript-auditor
+      ↓
+journal-matcher
+```
+
+Reviewer simulation now checks audit status before routing.
+
+### `research-router` Integration
+
+Existing Stage 12 routing was verified as already recognizing:
+
+```text
+## Stage 12 — Manuscript Audit
+```
+
+with:
+
+```text
+manuscript-auditor
+      ↓
+reviewer-simulator
+```
+
+No unnecessary router rewrite was introduced.
+
+### Manuscript Audit vs Reviewer Simulation
+
+```text
+manuscript-auditor
+```
+
+asks:
+
+> Is the manuscript scientifically defensible and sufficiently complete?
+
+while:
+
+```text
+reviewer-simulator
+```
+
+asks:
+
+> How might a critical external reviewer challenge this manuscript?
+
+Scientific audit should normally precede adversarial reviewer simulation.
+
+### Manuscript Audit vs Journal Matching
+
+`manuscript-auditor` evaluates scientific and reporting readiness.
+
+`journal-matcher` evaluates where the scientifically stable manuscript belongs.
+
+Journal selection must not compensate for scientific weakness.
+
+### Manuscript Audit vs Manuscript Writing
+
+`manuscript-writer` produces or revises prose.
+
+`manuscript-auditor` evaluates scientific integrity and publication readiness.
+
+Audit findings should route writing-only problems back to `manuscript-writer` rather than silently rewriting the manuscript.
+
+### Framework Progression
+
+```text
+Evidence Discovery & Verification
+      ↓
+Scientific Positioning
+      ↓
+Research Logic & Framework
+      ↓
+Methodology & Study Design
+      ↓
+Analysis Planning & Method Selection
+      ↓
+Results Interpretation
+      ↓
+Scientific Discussion
+      ↓
+Implication Building
+      ↓
+Manuscript Architecture
+      ↓
+Manuscript Writing
+      ↓
+Manuscript Audit & Publication Readiness
+      ↓
+Journal Matching
+      ↓
+Reviewer Simulation
+      ↓
+Reviewer Response
+```
+
+This release establishes a formal scientific quality gate between manuscript writing and publication strategy, ensuring that journal targeting, reviewer simulation, and submission preparation occur only after the manuscript's scientific integrity, reporting completeness, internal consistency, reference integrity, and claim boundaries have been adequately secured.
+
+---
+
 ## [0.10.0] - Manuscript Development Layer
 
 ### Added

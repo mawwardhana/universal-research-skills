@@ -312,11 +312,21 @@ Set:
 
 `research_entry_mode: REVIEWER_SIMULATION`
 
-Route to:
+Before reviewer simulation, determine whether the current manuscript version has already passed scientific audit.
+
+If the current manuscript version has not yet been audited, or if material scientific revisions have occurred since the last audit, route to:
+
+`manuscript-auditor`
+
+→ `reviewer-simulator`
+
+If the same manuscript version has already passed `manuscript-auditor` with no unresolved submission-blocking issues and no material scientific changes since that audit, route directly to:
 
 `reviewer-simulator`
 
-Reviewer simulation is downstream of manuscript development and should not replace scientific audit.
+Reviewer simulation is downstream of scientific audit and must not be used to substitute for unresolved manuscript-integrity, reporting, reference, methodological, analytical, or interpretation problems.
+
+Do not repeat a completed scientific audit unnecessarily when the audited manuscript version has not materially changed.
 
 ---
 
@@ -353,7 +363,17 @@ Existing Manuscript
         │
         └── reviewer simulation
                  ↓
-          reviewer-simulator
+    audit status check
+         │
+         ├── not yet audited / materially revised
+         │        ↓
+         │ manuscript-auditor
+         │        ↓
+         │ reviewer-simulator
+         │
+         └── same version already passed audit
+                  ↓
+           reviewer-simulator
 
 ```
 ---
