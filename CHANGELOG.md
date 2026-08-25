@@ -2,6 +2,259 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.10.0] - Manuscript Development Layer
+
+### Added
+
+- `manuscript-architect` skill for converting scientifically stable research into a complete manuscript blueprint before prose drafting begins, including article-type selection, reporting-guideline alignment, scientific narrative structure, claim hierarchy, section objectives, evidence placement, citation roles, table and figure strategy, supplementary-material planning, word-budget allocation, journal-aware constraints, and manuscript-writer handoff.
+- `manuscript-writer` skill for translating an approved manuscript architecture into clear, coherent, publication-ready scientific prose while preserving the research question, methods, numerical results, uncertainty, novelty boundaries, causal status, limitations, and approved implications.
+- Explicit manuscript-writing modes covering new manuscript drafting, section writing, continuation of incomplete manuscripts, controlled rewriting, compression, expansion, scientific translation, coherence improvement, abstract writing, title writing, and journal adaptation.
+- Manuscript readiness gates preventing prose generation when scientific architecture, results, interpretation, references, or reporting requirements remain materially unresolved.
+
+### Manuscript Development Architecture
+
+```text
+result-interpreter
+      ↓
+scientific-discussion
+      ↓
+implication-builder
+      ↓
+manuscript-architect
+      ↓
+manuscript-writer
+      ↓
+manuscript-auditor
+```
+
+### Architecture-before-Writing Safeguard
+
+The manuscript workflow now explicitly separates:
+
+```text
+manuscript-architect
+      ↓
+determines WHAT must be communicated,
+WHERE it belongs,
+WHY it belongs there,
+and in WHAT order
+      ↓
+manuscript-writer
+      ↓
+determines HOW the approved science
+is expressed as manuscript prose
+```
+
+Full scientific writing must not silently redesign the manuscript architecture.
+
+### Scientific Fidelity Safeguards
+
+- Prevents manuscript writing from silently changing research questions, hypotheses, methods, outcomes, group definitions, analyses, numerical results, or interpretation.
+- Prevents exploratory findings from being rewritten as confirmatory findings.
+- Prevents associational findings from being escalated into unsupported causal claims.
+- Preserves null, contradictory, negative, and context-specific findings.
+- Requires primary outcomes and prespecified hypotheses to retain their scientific priority.
+- Prevents polished prose from concealing unresolved scientific inconsistencies.
+- Prevents journal preferences, word limits, editorial strategy, or publication pressure from redefining the scientific record.
+
+### Reference Integrity Safeguards
+
+- Prohibits fabricated authors, article titles, journals, years, DOIs, PMIDs, URLs, or other bibliographic details.
+- Requires references to remain claim-relevant.
+- Allows explicit `[CITATION NEEDED]` placeholders when supporting evidence has not yet been verified.
+- Prevents target-journal citation padding.
+- Keeps APC status independent from scientific evidence selection.
+- Preserves the existing source-verification and reference-integrity architecture.
+
+### Manuscript Section Architecture
+
+The new layer supports scientifically distinct writing logic for:
+
+- Title
+- Abstract
+- Keywords
+- Introduction
+- Methods
+- Results
+- Discussion
+- Conclusion
+- Declarations
+- Tables
+- Figures
+- Supplementary Materials
+
+The default empirical logic remains:
+
+```text
+Introduction
+→ Why was the study needed?
+
+Methods
+→ How was the question answered?
+
+Results
+→ What was observed?
+
+Discussion
+→ What does it mean?
+
+Conclusion
+→ What is the bounded take-home message?
+```
+
+Alternative article structures remain available when IMRAD is not scientifically appropriate.
+
+### Introduction Safeguards
+
+- Preserves the sequence from phenomenon and current knowledge to validated gap, audited novelty, and research objective.
+- Distinguishes authority-first phenomenon evidence from Scopus-first scholarly evidence.
+- Prevents literature accumulation from replacing scientific argument.
+- Prevents unverified claims that a study is the “first” or entirely unprecedented.
+
+### Methods Safeguards
+
+- Requires Methods to describe what was actually done rather than retrospectively idealizing the study.
+- Preserves study-design naming, sampling logic, measurement architecture, intervention or exposure definitions, analytical methods, and ethics information.
+- Keeps statistical methodology conceptually prior to software reporting.
+- Supports discipline-specific structures for quantitative, qualitative, mixed-method, laboratory, pharmacokinetic, pharmacogenetic, systematic-review, and meta-analytic studies.
+
+### Results Safeguards
+
+- Organizes Results according to research questions, prespecified outcomes, and analysis logic rather than software-output order.
+- Gives primary results explicit priority.
+- Emphasizes estimates, magnitude, direction, and uncertainty rather than significance alone.
+- Requires transparent reporting of null and inconclusive primary findings.
+- Clearly labels exploratory and post-hoc analyses.
+
+### Discussion Safeguards
+
+- Uses the scientific position already established by `scientific-discussion`.
+- Prioritizes comparison with the closest relevant evidence.
+- Preserves contradictory evidence.
+- Calibrates theoretical and mechanistic interpretation to evidence strength.
+- Prevents discussion sections from degenerating into literature lists or significance-driven storytelling.
+
+### Implication and Conclusion Safeguards
+
+- Uses implications already bounded by `implication-builder`.
+- Prevents statistical associations from becoming treatment recommendations.
+- Prevents narrow studies from becoming universal policy recommendations.
+- Prevents new data, mechanisms, references, or claims from appearing for the first time in the Conclusion.
+- Requires the Abstract conclusion to remain no stronger than the full manuscript conclusion.
+
+### Journal-Aware but Science-Preserving Writing
+
+Journal requirements may influence:
+
+- word limits;
+- abstract format;
+- headings;
+- reference style;
+- table and figure limits;
+- supplementary-material placement;
+- declaration format.
+
+They must not influence:
+
+- scientific results;
+- novelty;
+- causal interpretation;
+- effect magnitude;
+- conclusion strength.
+
+The governing hierarchy remains:
+
+```text
+Scientific Integrity
+      >
+Reporting Completeness
+      >
+Journal Requirements
+      >
+Stylistic Preference
+```
+
+### Existing Manuscript Routing
+
+`research-intake` was expanded so an existing manuscript is no longer routed automatically to scientific audit.
+
+Routing now follows the actual goal:
+
+```text
+Existing Manuscript
+        │
+        ├── structure unclear
+        │        ↓
+        │ manuscript-architect
+        │        ↓
+        │ manuscript-writer
+        │
+        ├── structure stable, writing needed
+        │        ↓
+        │ manuscript-writer
+        │
+        ├── scientific audit needed
+        │        ↓
+        │ manuscript-auditor
+        │
+        ├── journal selection needed
+        │        ↓
+        │ journal-matcher
+        │
+        ├── submission preparation
+        │        ↓
+        │ manuscript-auditor
+        │        ↓
+        │ journal-matcher
+        │
+        └── reviewer simulation
+                 ↓
+          reviewer-simulator
+```
+
+### Integration
+
+Existing `research-router` Stage 10 routing was verified as already consistent with:
+
+```text
+manuscript-architect
+      ↓
+manuscript-writer
+```
+
+No unnecessary routing changes were introduced there.
+
+### Framework Progression
+
+```text
+Evidence Discovery & Verification
+      ↓
+Scientific Positioning
+      ↓
+Research Logic & Framework
+      ↓
+Methodology & Study Design
+      ↓
+Analysis Planning & Method Selection
+      ↓
+Results Interpretation
+      ↓
+Scientific Discussion
+      ↓
+Implication Building
+      ↓
+Manuscript Architecture
+      ↓
+Manuscript Writing
+      ↓
+Manuscript Audit & Publication Readiness
+```
+
+This release establishes a science-preserving bridge from completed research interpretation to structured manuscript development while ensuring that publication-oriented writing cannot silently redefine the underlying scientific record.
+
+---
+
+
 ## [0.9.0] - Results Interpretation & Scientific Discussion Layer
 
 ### Added

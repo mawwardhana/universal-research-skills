@@ -188,18 +188,174 @@ Likely next route:
 
 ## G. Existing Manuscript
 
-Use when the researcher already has a manuscript.
+Use when the researcher already has a manuscript, partial manuscript, article draft, thesis-derived article draft, or section that needs to be continued, restructured, rewritten, audited, targeted, or prepared for submission.
 
-Determine whether the goal is:
+First determine the actual goal.
 
-* writing improvement;
+Possible goals include:
+
+* manuscript architecture or restructuring;
+* writing a new section;
+* continuing an incomplete manuscript;
+* scientific writing improvement;
+* controlled rewriting or compression;
 * scientific audit;
 * journal selection;
 * submission preparation;
 * reviewer simulation.
 
-Set the appropriate manuscript-stage entry mode.
+Do not assume that every existing manuscript should go directly to scientific audit.
 
+### G1. Architecture or Restructuring
+
+Use when the manuscript exists but its scientific structure, argument flow, section logic, evidence placement, table or figure strategy, or journal-compatible architecture needs to be established or substantially reorganized.
+
+Set:
+
+`research_entry_mode: MANUSCRIPT_ARCHITECTURE`
+
+Route to:
+
+`manuscript-architect`
+
+Then, when the architecture is sufficiently stable:
+
+`manuscript-writer`
+
+---
+
+### G2. Writing, Continuing, or Rewriting
+
+Use when the manuscript architecture is already sufficiently clear and the researcher asks to:
+
+* write a manuscript;
+* write a specific section;
+* continue an incomplete section;
+* improve scientific writing;
+* rewrite supplied text;
+* compress or expand a section;
+* improve coherence;
+* translate scientific prose;
+* adapt wording to a journal without changing the science.
+
+Set:
+
+`research_entry_mode: MANUSCRIPT_WRITING`
+
+Route to:
+
+`manuscript-writer`
+
+If the requested writing reveals that the manuscript architecture is unstable, return first to:
+
+`manuscript-architect`
+
+---
+
+### G3. Scientific Audit
+
+Use when the manuscript already exists and the researcher asks whether it is scientifically coherent, internally consistent, sufficiently supported, reporting-compliant, or ready for submission.
+
+Set:
+
+`research_entry_mode: MANUSCRIPT_AUDIT`
+
+Route to:
+
+`manuscript-auditor`
+
+Do not use manuscript audit as a substitute for manuscript architecture or manuscript writing.
+
+---
+
+### G4. Journal Selection
+
+Use when the researcher wants to identify, compare, or prioritize appropriate journals for an existing manuscript.
+
+Set:
+
+`research_entry_mode: JOURNAL_SELECTION`
+
+Route to:
+
+`journal-matcher`
+
+Journal selection must not redefine the scientific question, results, novelty, or conclusion.
+
+---
+
+### G5. Submission Preparation
+
+Use when the manuscript is already scientifically stable and the researcher needs journal-specific preparation.
+
+Set:
+
+`research_entry_mode: SUBMISSION_PREPARATION`
+
+Preferred routing is:
+
+`manuscript-auditor`
+
+→ `journal-matcher`
+
+→ journal-specific manuscript adaptation when required.
+
+Do not describe a manuscript as submission-ready while unresolved scientific, reference-integrity, reporting, or internal-consistency problems remain.
+
+---
+
+### G6. Reviewer Simulation
+
+Use when the manuscript is sufficiently mature and the researcher wants an adversarial pre-submission review.
+
+Set:
+
+`research_entry_mode: REVIEWER_SIMULATION`
+
+Route to:
+
+`reviewer-simulator`
+
+Reviewer simulation is downstream of manuscript development and should not replace scientific audit.
+
+---
+
+### Existing Manuscript Routing Summary
+
+Use conceptually:
+
+```text
+Existing Manuscript
+        │
+        ├── structure unclear
+        │        ↓
+        │ manuscript-architect
+        │        ↓
+        │ manuscript-writer
+        │
+        ├── structure stable, writing needed
+        │        ↓
+        │ manuscript-writer
+        │
+        ├── scientific audit needed
+        │        ↓
+        │ manuscript-auditor
+        │
+        ├── journal selection needed
+        │        ↓
+        │ journal-matcher
+        │
+        ├── submission preparation
+        │        ↓
+        │ manuscript-auditor
+        │        ↓
+        │ journal-matcher
+        │
+        └── reviewer simulation
+                 ↓
+          reviewer-simulator
+
+```
 ---
 
 # Minimum Intake Dimensions
@@ -738,7 +894,23 @@ If results already exist:
 
 If a manuscript already exists:
 
+use the goal-specific routing defined in `## G. Existing Manuscript`.
+
+Do not default every existing manuscript to `manuscript-auditor`.
+
+Route according to the actual need:
+
+* structure or restructuring → `manuscript-architect`;
+* writing, continuation, rewriting, compression, expansion, or scientific translation → `manuscript-writer`;
+* scientific audit → `manuscript-auditor`;
+* journal selection → `journal-matcher`;
+* reviewer simulation → `reviewer-simulator`.
+
+For submission preparation, use:
+
 `manuscript-auditor`
+
+→ `journal-matcher`
 
 ---
 
