@@ -2,6 +2,64 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.8.0] - Analysis Planning & Method Selection Layer
+
+### Added
+
+- `analysis-planner` skill for translating a design-ready study into a complete analysis architecture before any specific statistical, qualitative, mixed-method, meta-analytic, or software choice is made.
+- `statistical-method-selector` skill for selecting scientifically appropriate quantitative statistical methods from the estimand, study design, outcome type, dependency structure, measurement architecture, and intended inference rather than from software menus, normality tests, p-value chasing, or sample-size folklore.
+- `qualitative-analysis` skill for planning and conducting context-sensitive qualitative analysis across thematic, framework, content, grounded-theory, phenomenological, narrative, discourse, case-based, and other design-consistent approaches while preserving reflexivity, negative cases, audit trails, and trustworthiness.
+- `mixed-method-analysis` skill for explicitly integrating quantitative and qualitative evidence through connecting, building, merging, embedding, case linkage, data transformation, joint displays, discordance analysis, and meta-inference rather than treating mixed methods as two parallel analyses.
+- `meta-analysis` skill for determining whether quantitative evidence pooling is scientifically justified and, when appropriate, specifying effect measures, dependency handling, heterogeneity models, prediction intervals, subgroup and meta-regression analyses, sensitivity analyses, risk-of-bias integration, and small-study-effect diagnostics.
+- Explicit separation between analysis architecture, statistical-method selection, qualitative interpretation, mixed-method integration, and quantitative evidence pooling.
+- Estimand-before-estimator, design-before-model, and method-before-software safeguards across the analysis workflow.
+- Safeguards against automatic parametric/nonparametric selection from normality tests, significance-driven analysis, inappropriate independence assumptions, software-driven SEM or PLS-SEM selection, forced qualitative quantification, and unjustified meta-analytic pooling.
+- Conditional analysis routing supporting quantitative, qualitative, mixed-method, and evidence-synthesis pathways without requiring every study to use every analytical skill.
+
+### Updated
+
+- `research-router` Stage 8 — Data Analysis Planning now explicitly routes through `analysis-planner`, `statistical-method-selector`, `qualitative-analysis`, `mixed-method-analysis`, and `meta-analysis`.
+- Quantitative analysis routing now separates analysis planning from specific statistical-method selection and downstream method-specific adapters.
+- Qualitative studies now route directly from `analysis-planner` to `qualitative-analysis` rather than through generic analysis labels.
+- Mixed-method studies now route through strand-specific quantitative and qualitative analysis before `mixed-method-analysis`, while allowing direct integration when strand analyses already exist.
+- Evidence-synthesis workflows now route to `meta-analysis` for an explicit poolability decision, including `NARRATIVE_SYNTHESIS_PREFERRED` when statistical pooling would be scientifically misleading.
+- `research-intake` compatibility with the v0.8.0 architecture verified: existing data enter `DATA_ANALYSIS` and route first to `analysis-planner`.
+
+### Analysis Architecture
+
+```text
+                         analysis-planner
+                               │
+             ┌─────────────────┼──────────────────┐
+             │                 │                  │
+             ▼                 ▼                  ▼
+        quantitative       qualitative       mixed-method
+             │                 │                  │
+             ▼                 ▼          ┌───────┴────────┐
+statistical-method-selector  qualitative-  ▼                ▼
+             │              analysis   statistical-   qualitative-
+             │                         method-selector  analysis
+             │                              │                │
+             │                              └───────┬────────┘
+             │                                      ▼
+             │                              mixed-method-analysis
+             │
+             └──────────────→ method-specific adapter
+                              when required
+
+Evidence synthesis requiring a pooling decision:
+
+analysis-planner
+      ↓
+meta-analysis
+      ↓
+pool when scientifically justified
+or
+narrative synthesis when pooling is not justified
+```
+
+---
+
 ## [0.7.0] - Methodology & Study Design Layer
 
 ### Added

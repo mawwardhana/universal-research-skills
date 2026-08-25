@@ -408,61 +408,299 @@ Typical signals:
 
 * user asks which analysis to use;
 
-* user asks which statistical test is appropriate.
+* user asks which statistical test is appropriate;
 
-Recommended route:
+* user asks how qualitative data should be analyzed;
+
+* user asks how quantitative and qualitative findings should be integrated;
+
+* user asks whether evidence from multiple studies should be pooled.
+
+First route to:
 
 `analysis-planner`
 
-→ `statistical-method-selector`
+`analysis-planner` must determine the analytical problem before any specific statistical, qualitative, mixed-method, meta-analytic, or software choice is made.
 
-Then route to the appropriate method adapter, for example:
+Use conceptually:
 
-* quantitative
+```text
+Research Question
+      ↓
+Intended Inference
+      ↓
+Study Design
+      ↓
+Analysis Target / Estimand
+      ↓
+Data Structure
+      ↓
+Measurement Structure
+      ↓
+Assumptions & Design Features
+      ↓
+Analysis Family
+      ↓
+Specific Method
+      ↓
+Software
+```
 
-* qualitative
+Do not reverse this sequence.
 
-* mixed-method
+### Quantitative Analysis Routing
 
-* systematic-review
+When the primary analysis is quantitative:
 
-* meta-analysis
+```text
+analysis-planner
+      ↓
+statistical-method-selector
+      ↓
+appropriate method adapter
+when required
+```
 
-* sem
+`statistical-method-selector` should select the statistical method only after considering:
 
-* pls-sem
+* estimand or analysis target;
 
-* bibliometric
+* outcome type;
 
-* experimental
+* predictor, exposure, or intervention structure;
 
-* longitudinal
-
-* multilevel
-
-* survival-analysis
-
-* machine-learning
-
-Select analysis based on:
-
-* research question;
-
-* research design;
-
-* outcome;
-
-* predictors/exposures/interventions;
-
-* measurement scale;
+* study design;
 
 * sampling structure;
 
 * repeated measurements;
 
-* assumptions;
+* clustering;
 
-* inferential goal.
+* matching;
+
+* time structure;
+
+* missing data;
+
+* multiplicity;
+
+* measurement properties;
+
+* causal, explanatory, predictive, diagnostic, validation, or other inferential goal.
+
+Possible downstream method adapters may include:
+
+* sem;
+
+* pls-sem;
+
+* experimental;
+
+* longitudinal;
+
+* multilevel;
+
+* survival-analysis;
+
+* machine-learning;
+
+* diagnostic;
+
+* prediction;
+
+* pharmacokinetic;
+
+* pharmacogenetic;
+
+* other quantitative method-specific adapters.
+
+Do not route directly to SEM, PLS-SEM, regression, machine learning, or statistical software before the analysis architecture is clear.
+
+### Qualitative Analysis Routing
+
+When the primary evidence is qualitative, route to:
+
+```text
+analysis-planner
+      ↓
+qualitative-analysis
+```
+
+Typical triggers include:
+
+* interviews;
+
+* focus groups;
+
+* observations;
+
+* field notes;
+
+* documents;
+
+* narratives;
+
+* open-ended responses;
+
+* qualitative process data;
+
+* interpretive or theory-generating questions.
+
+`qualitative-analysis` should determine an analysis orientation appropriate to the research question and qualitative design.
+
+Do not force qualitative evidence through `statistical-method-selector` merely because codes or frequencies can be counted.
+
+### Mixed-Method Analysis Routing
+
+When the study requires integration of quantitative and qualitative evidence, route conceptually as:
+
+```text
+                    analysis-planner
+                           │
+              ┌────────────┴────────────┐
+              ▼                         ▼
+statistical-method-selector      qualitative-analysis
+              │                         │
+              └────────────┬────────────┘
+                           ▼
+                 mixed-method-analysis
+```
+
+If strand-specific analyses have already been completed, the router may enter directly at:
+
+`mixed-method-analysis`
+
+Typical mixed-method integration needs include:
+
+* connecting;
+
+* building;
+
+* merging;
+
+* embedding;
+
+* data transformation;
+
+* case linkage;
+
+* joint displays;
+
+* explanatory sequential integration;
+
+* exploratory sequential integration;
+
+* convergent integration;
+
+* discordance analysis;
+
+* meta-inference.
+
+Do not describe a study as analytically integrated mixed methods merely because quantitative and qualitative results appear in the same manuscript.
+
+### Meta-Analysis Routing
+
+When the user has a systematic review, evidence synthesis, or comparable multi-study evidence corpus and asks whether quantitative pooling should be performed, route to:
+
+```text
+analysis-planner
+      ↓
+meta-analysis
+```
+
+`meta-analysis` must first determine whether pooling is scientifically justified.
+
+Possible outcomes include:
+
+* `META_ANALYSIS_JUSTIFIED`
+
+* `META_ANALYSIS_POSSIBLE_WITH_LIMITATIONS`
+
+* `NARRATIVE_SYNTHESIS_PREFERRED`
+
+* `META_ANALYSIS_NOT_JUSTIFIED`
+
+Do not force a pooled estimate merely because multiple studies are available.
+
+### Analysis Routing Matrix
+
+| Analysis Need | Preferred Skill |
+|---|---|
+| What exactly must be analyzed and for what inference? | `analysis-planner` |
+| Which quantitative statistical method fits the estimand and design? | `statistical-method-selector` |
+| How should qualitative material be interpreted and analyzed? | `qualitative-analysis` |
+| How should quantitative and qualitative strands be integrated? | `mixed-method-analysis` |
+| Should study-level quantitative evidence be pooled, and how? | `meta-analysis` |
+
+### Conditional Analysis Architecture
+
+Use conceptually:
+
+```text
+                         analysis-planner
+                               │
+             ┌─────────────────┼──────────────────┐
+             │                 │                  │
+             ▼                 ▼                  ▼
+        quantitative       qualitative       mixed-method
+             │                 │                  │
+             ▼                 ▼          ┌───────┴────────┐
+statistical-method-selector  qualitative-  ▼                ▼
+             │              analysis   statistical-   qualitative-
+             │                         method-selector  analysis
+             │                              │                │
+             │                              └───────┬────────┘
+             │                                      ▼
+             │                              mixed-method-analysis
+             │
+             └───────────────→ method-specific adapter
+                               when required
+
+Evidence synthesis requiring a pooling decision:
+
+analysis-planner
+      ↓
+meta-analysis
+      ↓
+pool when justified
+or
+narrative synthesis when pooling is not justified
+```
+
+Not every study uses every branch.
+
+### Analysis Planning Safeguards
+
+Do not:
+
+* select a statistical test from a normality test alone;
+
+* treat `p < 0.05` as scientific importance;
+
+* treat non-significance as proof of no effect;
+
+* treat association as causation;
+
+* ignore repeated measurements or clustering;
+
+* treat technical replicates as independent observations;
+
+* select PLS-SEM merely because sample size is small;
+
+* select SEM merely because many variables are available;
+
+* select machine learning merely because the dataset is large;
+
+* force qualitative data into quantitative analysis because coding frequencies exist;
+
+* call parallel quantitative and qualitative analyses mixed methods without integration;
+
+* force meta-analysis when studies are not meaningfully combinable;
+
+* allow SmartPLS, AMOS, SPSS, Jamovi, R, Python, Stata, SAS, NVivo, MAXQDA, RevMan, or other software to determine the scientific analysis.
+
+Analysis must follow the research question, estimand, design, data-generating structure, measurement system, and intended inference.
 
 ---
 
