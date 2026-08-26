@@ -2,6 +2,890 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.12.0] - Journal Matching & Publication Strategy Layer
+
+### Added
+
+- `journal-matcher` skill for identifying, verifying, comparing, ranking, and justifying scientifically appropriate publication targets for scientifically stable manuscripts.
+- Scientific-fit-first journal matching based on research problem, study design, methods, contribution, article type, audience, novelty, evidence strength, and translational level.
+- Current-status verification for journal scope, indexing, Scopus coverage, quartile context, publication model, APC requirements, other fees, article types, and editorial requirements.
+- Explicit safeguards against prestige-driven matching, quartile-only selection, APC-first filtering, citation padding, unsupported indexing claims, historical-indexing confusion, and publication-pressure-driven scientific distortion.
+- Version-aware scientific-audit gate ensuring that journal matching normally follows `manuscript-auditor` without unnecessarily repeating audit for an unchanged manuscript version.
+- Submission sequencing with ambitious, balanced, conservative, and backup journal targets.
+- Risk screening for discontinued, hijacked, predatory, unverifiable, misleading, or scientifically incompatible journals.
+- Rejection-recovery routing so genuine scientific criticism returns to the appropriate upstream research skill rather than being treated merely as a journal-selection problem.
+
+### Journal Matching Architecture
+
+```text
+manuscript-writer
+      ↓
+manuscript-auditor
+      ↓
+journal-matcher
+      ↓
+reviewer-simulator
+      ↓
+reviewer-response
+```
+
+The new layer establishes `journal-matcher` as the bridge between a scientifically defensible manuscript and publication strategy.
+
+### Core Principle
+
+The governing principle is:
+
+> **Scientific fit first. Publication strategy second.**
+
+Preferred logic:
+
+```text
+Scientifically Stable Manuscript
+      ↓
+Scientific Identity Extraction
+      ↓
+Journal Discovery
+      ↓
+Current Status Verification
+      ↓
+Scope & Article-Type Matching
+      ↓
+Audience & Method Compatibility
+      ↓
+Indexing & Publication Model Verification
+      ↓
+Risk Screening
+      ↓
+Constraint-Aware Ranking
+      ↓
+Target Journal Shortlist
+      ↓
+Submission Strategy
+```
+
+Journal prestige, quartile, APC status, or publication speed must not override scientific compatibility.
+
+### Scientific Identity Extraction
+
+Before matching journals, the manuscript is characterized using elements such as:
+
+- research problem;
+- research question;
+- discipline and subdiscipline;
+- study design;
+- population or material;
+- intervention or exposure;
+- comparator;
+- primary and secondary outcomes;
+- analytical approach;
+- evidence strength;
+- causal status;
+- novelty type;
+- contribution type;
+- article type;
+- reporting guideline;
+- geographic context;
+- intended audience;
+- translational level.
+
+This prevents journal selection from being based only on title keywords.
+
+### Journal-Matching Entry Modes
+
+Supported entry modes include:
+
+- `JOURNAL_DISCOVERY`
+- `JOURNAL_SHORTLIST`
+- `JOURNAL_COMPARISON`
+- `JOURNAL_VERIFICATION`
+- `SCOPUS_VERIFICATION`
+- `INDEXING_VERIFICATION`
+- `APC_SCREENING`
+- `NO_MANDATORY_APC_SEARCH`
+- `OPEN_ACCESS_MODEL_CHECK`
+- `ARTICLE_TYPE_MATCHING`
+- `SCOPE_MATCHING`
+- `PUBLISHER_VERIFICATION`
+- `DISCONTINUATION_CHECK`
+- `PREDATORY_RISK_SCREENING`
+- `SUBMISSION_SEQUENCE_PLANNING`
+- `JOURNAL_REPLACEMENT`
+- `REJECTION_RECOVERY`
+- `TARGET_JOURNAL_REASSESSMENT`
+
+### Scientific Readiness Gate
+
+Before confident journal ranking, the manuscript may be classified as:
+
+- `MATCHING_READY`
+- `MATCHING_READY_WITH_MINOR_UNRESOLVED_ISSUES`
+- `SCIENTIFIC_AUDIT_REQUIRED`
+- `METHOD_REASSESSMENT_REQUIRED`
+- `RESULT_REINTERPRETATION_REQUIRED`
+- `NOVELTY_REASSESSMENT_REQUIRED`
+- `REFERENCE_VERIFICATION_REQUIRED`
+- `MANUSCRIPT_ARCHITECTURE_UNSTABLE`
+- `ARTICLE_TYPE_UNCLEAR`
+- `MATCHING_SCOPE_REQUIRES_CLARIFICATION`
+
+Journal matching must not be used to bypass unresolved scientific weaknesses.
+
+### Version-Aware Audit Gate
+
+Journal matching normally follows scientific audit.
+
+If the current manuscript version has not yet passed scientific audit, or if material scientific revisions have occurred since the previous audit:
+
+```text
+manuscript-auditor
+      ↓
+journal-matcher
+```
+
+If the same manuscript version has already passed scientific audit with no unresolved submission-blocking issues and no material scientific changes:
+
+```text
+journal-matcher
+```
+
+can run directly.
+
+This prevents both unsafe audit bypass and unnecessary repeated auditing.
+
+### Journal Discovery Strategy
+
+Preferred discovery sequence:
+
+```text
+Scientific Identity
+      ↓
+Field / Subfield Journals
+      ↓
+Closest-Comparator Journals
+      ↓
+Method-Compatible Journals
+      ↓
+Audience-Compatible Journals
+      ↓
+Cross-Disciplinary Candidates
+      ↓
+Current Status Verification
+```
+
+Recent journal content may be used as evidence of current editorial interest, but publication of a competitor study in a journal does not automatically make that journal the best target.
+
+### Scientific Contribution Matching
+
+Journal ambition and fit may be calibrated using contribution types including:
+
+- theoretical;
+- mechanistic;
+- empirical;
+- clinical;
+- pharmaceutical;
+- pharmacogenetic;
+- pharmacokinetic;
+- formulation;
+- analytical-method;
+- diagnostic;
+- prognostic;
+- prediction-model;
+- validation;
+- implementation;
+- educational;
+- social-science;
+- engineering;
+- materials;
+- public-health;
+- systematic-review;
+- meta-analysis;
+- qualitative;
+- mixed-method;
+- methodological;
+- replication;
+- context extension.
+
+### Novelty Calibration
+
+`journal-matcher` uses the output of `novelty-auditor`.
+
+Possible novelty profiles include:
+
+- high conceptual novelty;
+- mechanistic novelty;
+- methodological novelty;
+- validation novelty;
+- context-specific extension;
+- replication with value;
+- incremental advancement;
+- negative or null contribution;
+- contradictory evidence;
+- emerging-topic contribution.
+
+Novelty must not be exaggerated simply to target a higher-tier journal.
+
+### Article-Type Compatibility
+
+Journal matching verifies whether a candidate accepts the actual manuscript type, such as:
+
+- Original Article
+- Research Article
+- Full-Length Article
+- Short Communication
+- Brief Report
+- Technical Note
+- Methods Article
+- Validation Study
+- Clinical Study
+- Pharmacogenomics Study
+- Formulation Study
+- Experimental Study
+- Systematic Review
+- Meta-Analysis
+- Narrative Review
+- Scoping Review
+- Qualitative Research
+- Mixed-Methods Research
+- Case Report
+- Protocol
+- Data Note
+- Registered Report
+
+The study must not be reshaped scientifically merely to fit a preferred article category.
+
+### Scope Fit
+
+Scope fit may be classified as:
+
+- `EXCELLENT`
+- `STRONG`
+- `MODERATE`
+- `WEAK`
+- `OUT_OF_SCOPE`
+
+Assessment considers:
+
+- scientific problem;
+- design;
+- method;
+- population or material;
+- contribution;
+- translational level;
+- audience;
+- article type.
+
+Journal-title similarity alone is insufficient evidence of fit.
+
+### Audience Fit
+
+Audience fit may be classified as:
+
+- `DIRECT_CORE_AUDIENCE`
+- `STRONG_ADJACENT_AUDIENCE`
+- `INTERDISCIPLINARY_AUDIENCE`
+- `LIMITED_AUDIENCE_FIT`
+- `AUDIENCE_MISMATCH`
+
+This helps distinguish a scientifically appropriate specialized journal from a superficially broader but poorly aligned journal.
+
+### Method Compatibility
+
+The layer checks whether journals routinely publish studies using the relevant methods, for example:
+
+- randomized trials;
+- observational designs;
+- pharmacogenetics;
+- pharmacokinetic modeling;
+- formulation experiments;
+- diagnostic validation;
+- prediction models;
+- qualitative analysis;
+- mixed methods;
+- SEM;
+- PLS-SEM;
+- meta-analysis;
+- educational interventions.
+
+Topical scope alone does not guarantee methodological fit.
+
+### Scopus-First Journal Verification
+
+When Scopus indexing is required:
+
+> **Scopus-first applies to journal discovery and indexing verification.**
+
+However:
+
+- publisher reputation does not prove Scopus status;
+- an old Scopus badge does not prove current active coverage;
+- publication of older indexed articles does not prove current coverage;
+- Scopus inclusion does not automatically imply scientific fit or quality.
+
+### Scopus Status Architecture
+
+Possible classifications include:
+
+- `ACTIVE_SCOPUS`
+- `SCOPUS_DISCONTINUED`
+- `SCOPUS_COVERAGE_ENDED`
+- `SCOPUS_STATUS_UNCLEAR`
+- `NOT_SCOPUS_VERIFIED`
+- `OTHER_INDEXING_ONLY`
+
+The framework explicitly distinguishes:
+
+```text
+historically indexed
+≠
+currently indexed
+```
+
+### Quartile Safeguard
+
+Quartile claims must be interpreted with:
+
+- year;
+- database or metric source;
+- subject category.
+
+The system must not simply state that a journal is Q1, Q2, Q3, or Q4 without appropriate context when current verification is possible.
+
+### Metric Safeguards
+
+The layer distinguishes:
+
+- CiteScore;
+- SJR;
+- SNIP;
+- Journal Impact Factor.
+
+Metrics must not be conflated.
+
+They are secondary journal descriptors rather than primary scientific-fit criteria.
+
+### Publication Model Classification
+
+Journals may be classified as:
+
+- `SUBSCRIPTION`
+- `HYBRID`
+- `FULL_OPEN_ACCESS`
+- `DIAMOND_OPEN_ACCESS`
+- `UNKNOWN`
+
+### APC Principle
+
+APC is treated as a publication constraint rather than scientific evidence.
+
+Correct sequence:
+
+```text
+Scientific Fit
+      ↓
+Journal Legitimacy
+      ↓
+Indexing / Scope Verification
+      ↓
+Publication Model / APC Constraint
+```
+
+Incorrect sequence:
+
+```text
+No APC
+      ↓
+therefore scientifically suitable
+```
+
+### No-Mandatory-APC Strategy
+
+When publication without mandatory APC is preferred, the layer can prioritize:
+
+1. subscription journals with no mandatory publication charge;
+2. hybrid journals where standard subscription publication does not require OA payment;
+3. diamond open-access journals;
+4. journals with verified waiver mechanisms;
+5. full-OA journals when acceptable.
+
+Hybrid journals should not simply be described as “free.”
+
+Preferred wording is:
+
+> No mandatory APC for the standard subscription route, subject to current publisher policy.
+
+### APC Verification Status
+
+Possible statuses include:
+
+- `NO_MANDATORY_APC_VERIFIED`
+- `OPTIONAL_OA_APC`
+- `MANDATORY_APC`
+- `WAIVER_AVAILABLE`
+- `APC_STATUS_UNCLEAR`
+- `OTHER_FEES_PRESENT`
+
+### Hidden Publication Costs
+
+Journal verification may also check:
+
+- submission fees;
+- page charges;
+- color charges;
+- excess-length charges;
+- mandatory language-editing fees;
+- society-membership requirements.
+
+### Predatory-Risk Screening
+
+A journal must not be labeled predatory merely because it:
+
+- charges APC;
+- is new;
+- has a low metric;
+- is published outside North America or Europe.
+
+Risk assessment instead considers evidence such as:
+
+- false indexing claims;
+- unverifiable editorial board;
+- misleading metrics;
+- fake impact factors;
+- copied journal names;
+- unclear publisher identity;
+- hidden fees;
+- implausible peer-review promises;
+- suspicious website inconsistencies;
+- aggressive solicitation;
+- fake archiving claims.
+
+Possible classifications:
+
+- `LOW_RISK`
+- `SOME_CONCERNS`
+- `HIGH_RISK`
+- `UNVERIFIED`
+
+### Hijacked Journal Safeguard
+
+The layer verifies journal identity using:
+
+- title;
+- ISSN;
+- eISSN;
+- publisher;
+- authentic journal homepage.
+
+Similar or copied journal names must be disambiguated before recommendation.
+
+### Current Metadata Principle
+
+Journal metadata are treated as time-sensitive.
+
+Current verification may be required for:
+
+- indexing;
+- quartile;
+- CiteScore;
+- SJR;
+- Impact Factor;
+- publisher;
+- APC;
+- open-access model;
+- author instructions;
+- word limits;
+- article types;
+- editorial policies;
+- discontinued status.
+
+Old journal lists, spreadsheets, blog posts, screenshots, or cached rankings must not automatically be treated as current.
+
+### Verification Source Preference
+
+Preferred journal-verification sources include:
+
+1. official journal website;
+2. official publisher website;
+3. official Scopus source information;
+4. Clarivate when relevant;
+5. DOAJ when relevant;
+6. official scholarly-society pages;
+7. recognized indexing databases.
+
+Secondary aggregators should be used cautiously.
+
+### Journal Ranking Dimensions
+
+Candidate journals may be evaluated across:
+
+1. scientific scope fit;
+2. audience fit;
+3. article-type fit;
+4. method fit;
+5. novelty fit;
+6. evidence-strength fit;
+7. indexing status;
+8. journal legitimacy;
+9. publication model;
+10. APC and fee compatibility;
+11. reporting compatibility;
+12. practical constraints;
+13. strategic sequencing.
+
+### Default Priority Architecture
+
+Unless the researcher specifies otherwise:
+
+```text
+Scientific Scope Fit
+      >
+Audience Fit
+      >
+Article-Type Fit
+      >
+Method Fit
+      >
+Indexing / Legitimacy
+      >
+Evidence-Strength Fit
+      >
+Practical Constraints
+      >
+APC Preference
+      >
+Prestige Metrics
+```
+
+### Prestige Safeguard
+
+Journal ranking must not be driven primarily by:
+
+- Impact Factor;
+- CiteScore;
+- SJR;
+- quartile;
+- publisher prestige.
+
+A highly specialized journal may be a better scientific target than a broader journal with a higher metric.
+
+### Journal Recommendation Classes
+
+Possible recommendations include:
+
+- `EXCELLENT_MATCH`
+- `STRONG_MATCH`
+- `CONDITIONAL_MATCH`
+- `BACKUP_MATCH`
+- `WEAK_MATCH`
+- `DO_NOT_RECOMMEND`
+
+### Evidence Confidence
+
+Recommendation confidence may be recorded as:
+
+- `HIGH_CONFIDENCE`
+- `MODERATE_CONFIDENCE`
+- `LOW_CONFIDENCE`
+- `REQUIRES_CURRENT_VERIFICATION`
+
+### Submission Sequencing
+
+A shortlist may be organized as:
+
+- `TARGET_A` — ambitious but scientifically defensible;
+- `TARGET_B` — strong balanced fit;
+- `TARGET_C` — conservative strong fit;
+- `BACKUP_1`;
+- `BACKUP_2`.
+
+`TARGET_A` must not simply mean the highest-metric journal.
+
+### Journal Fit Matrix
+
+The layer supports structured comparison such as:
+
+```text
+Journal
+→ Scope
+→ Audience
+→ Article Type
+→ Method
+→ Indexing
+→ APC Model
+→ Risk
+→ Overall Fit
+```
+
+### Desk-Rejection Risk
+
+Desk-rejection risk may be qualitatively classified as:
+
+- `LOW`
+- `MODERATE`
+- `HIGH`
+- `UNCERTAIN`
+
+based on:
+
+- scope mismatch;
+- audience mismatch;
+- unsupported article type;
+- narrow contribution;
+- format incompatibility;
+- novelty mismatch.
+
+Numerical rejection probabilities must not be invented.
+
+### Publication-Speed Safeguard
+
+Publication speed may be considered, but:
+
+```text
+faster
+≠
+scientifically better
+```
+
+Acceptance rates and editorial timelines must not be invented when reliable data are unavailable.
+
+### Target-Journal Citation Safeguard
+
+Articles published in target journals may be examined to understand:
+
+- scientific conversation;
+- recent topics;
+- common methods;
+- audience;
+- editorial positioning.
+
+However:
+
+> Target-journal references must never be added merely to increase perceived acceptance probability.
+
+Citation padding remains prohibited.
+
+### Scientific Record Preservation
+
+Journal matching may adapt:
+
+- title wording;
+- abstract format;
+- section organization;
+- word count;
+- figure and table allocation;
+- supplementary strategy;
+- cover-letter emphasis;
+- submission metadata.
+
+Journal matching must not alter:
+
+- research question;
+- study design;
+- methods actually performed;
+- primary outcome;
+- numerical results;
+- interpretation;
+- validated gap;
+- audited novelty;
+- causal status;
+- scientific conclusion.
+
+### Simultaneous Submission Safeguard
+
+The framework does not recommend simultaneous submission to multiple journals when prohibited.
+
+Default principle:
+
+> One active submission at a time unless explicitly permitted by the journal.
+
+### Rejection Recovery
+
+Journal rejection can be classified as:
+
+- `SCOPE_REJECTION`
+- `NOVELTY_REJECTION`
+- `METHOD_REJECTION`
+- `REPORTING_REJECTION`
+- `PRIORITY_REJECTION`
+- `FORMAT_REJECTION`
+- `EDITORIAL_CAPACITY_REJECTION`
+- `REVIEWER_SCIENTIFIC_REJECTION`
+- `UNKNOWN`
+
+### Rejection Routing
+
+A rejection should not automatically trigger immediate submission to another journal.
+
+Examples:
+
+```text
+Scope rejection
+      ↓
+journal-matcher
+```
+
+```text
+Novelty challenge
+      ↓
+novelty-auditor
+```
+
+```text
+Methodological challenge
+      ↓
+methodology-architect
+or
+manuscript-auditor
+```
+
+```text
+Interpretation challenge
+      ↓
+result-interpreter
+```
+
+```text
+Writing / architecture problem
+      ↓
+manuscript-architect
+or
+manuscript-writer
+```
+
+This prevents journal hopping from concealing genuine scientific weaknesses.
+
+### `research-router` Integration
+
+`Stage 11 — Journal Selection` was expanded.
+
+The router now checks scientific-audit status before journal matching.
+
+If the manuscript is not yet audited or has undergone material scientific revision:
+
+```text
+manuscript-auditor
+      ↓
+journal-matcher
+```
+
+If the same manuscript version has already passed audit:
+
+```text
+journal-matcher
+```
+
+The previous routing dependence on separate `no-apc-journal-finder` and `target-journal-intelligence` stages is removed from the core Stage 11 pathway because these functions are now integrated into `journal-matcher`.
+
+Stage 11 now explicitly covers:
+
+- scientific scope;
+- audience;
+- article type;
+- method fit;
+- indexing;
+- Scopus status;
+- discontinued coverage;
+- quartile context;
+- publication model;
+- APC;
+- waiver and fee verification;
+- recent journal content;
+- legitimacy;
+- submission sequencing.
+
+### `research-intake` Integration
+
+`G4. Journal Selection` is now version-aware.
+
+If the manuscript has not passed scientific audit or has undergone material scientific revision:
+
+```text
+manuscript-auditor
+      ↓
+journal-matcher
+```
+
+If the same manuscript version has already passed scientific audit:
+
+```text
+journal-matcher
+```
+
+The Existing Manuscript Routing Summary was also updated to use an audit-status gate before journal selection.
+
+### Journal Matching vs Manuscript Audit
+
+`manuscript-auditor` asks:
+
+> Is the manuscript scientifically defensible and sufficiently complete?
+
+`journal-matcher` asks:
+
+> Where does this scientifically stable manuscript fit best?
+
+Journal matching cannot substitute for scientific audit.
+
+### Journal Matching vs Reviewer Simulation
+
+After a target journal has been selected:
+
+```text
+journal-matcher
+      ↓
+reviewer-simulator
+```
+
+`reviewer-simulator` may then use the selected journal's audience, scope, and expectations to stress-test the manuscript.
+
+### Journal Matching vs Manuscript Writing
+
+`journal-matcher` determines publication fit and required presentation-level adaptation.
+
+`manuscript-writer` performs controlled writing or adaptation.
+
+Journal selection must not rewrite the scientific record.
+
+### Journal Matching vs Novelty Audit
+
+`novelty-auditor` determines what is genuinely novel.
+
+`journal-matcher` uses that audited novelty to calibrate journal ambition.
+
+### Framework Progression
+
+```text
+Evidence Discovery & Verification
+      ↓
+Scientific Positioning
+      ↓
+Research Logic & Framework
+      ↓
+Methodology & Study Design
+      ↓
+Analysis Planning & Method Selection
+      ↓
+Results Interpretation
+      ↓
+Scientific Discussion
+      ↓
+Implication Building
+      ↓
+Manuscript Architecture
+      ↓
+Manuscript Writing
+      ↓
+Manuscript Audit & Publication Readiness
+      ↓
+Journal Matching & Publication Strategy
+      ↓
+Reviewer Simulation
+      ↓
+Reviewer Response
+```
+
+This release establishes an evidence-based, verification-aware publication-targeting layer that separates **scientific journal fit** from **prestige, metrics, APC pressure, and publication convenience**, while ensuring that journal selection remains downstream of scientific audit and upstream of adversarial reviewer simulation.
+
+---
+
 ## [0.11.0] - Manuscript Audit & Publication Readiness Layer
 
 ### Added

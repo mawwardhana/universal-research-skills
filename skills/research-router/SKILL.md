@@ -766,41 +766,73 @@ Typical signals:
 
 * user asks where to publish;
 
-* user requests Scopus journals;
+* user requests Scopus-indexed journals;
 
-* user prefers no-APC publication;
+* user prefers publication without mandatory APC;
 
-* user wants Q1/Q2/Q3/Q4 options.
+* user wants Q1/Q2/Q3/Q4 options;
 
-Recommended route:
+* user wants journals compared or ranked;
+
+* user asks whether a journal is currently indexed, discontinued, legitimate, or scientifically suitable.
+
+Before journal matching, determine whether the current manuscript version is scientifically stable.
+
+If the manuscript has not yet passed scientific audit, or if material scientific revisions have occurred since the last audit, route to:
+
+`manuscript-auditor`
+
+→ `journal-matcher`
+
+If the same manuscript version has already passed `manuscript-auditor` with no unresolved submission-blocking issues and no material scientific changes, route directly to:
 
 `journal-matcher`
 
-→ `no-apc-journal-finder`
+`journal-matcher` is responsible for:
 
-→ `target-journal-intelligence`
+* scientific scope fit;
 
-Selection should consider:
+* audience fit;
 
-* scope fit;
-
-* Scopus status;
-
-* journal quality;
-
-* publication model;
-
-* mandatory vs optional APC;
-
-* recent relevant articles;
+* article-type compatibility;
 
 * methodological fit;
 
-* readership;
+* novelty and evidence-strength fit;
 
-* manuscript positioning.
+* current Scopus or other indexing verification;
 
-Do not select journals based only on quartile.
+* active versus historical or discontinued coverage;
+
+* quartile and metric context;
+
+* publication model;
+
+* mandatory versus optional APC;
+
+* subscription and hybrid publication routes;
+
+* waiver and other publication-fee verification;
+
+* recent relevant journal content;
+
+* legitimacy and predatory-risk screening;
+
+* manuscript positioning;
+
+* submission sequencing and backup-journal strategy.
+
+Scientific fit must be evaluated before prestige, quartile, APC preference, or publication speed.
+
+Do not select journals based only on quartile, metrics, publisher prestige, keyword similarity, or APC status.
+
+Do not recommend target-journal citation padding.
+
+Do not allow journal selection to redefine the research question, methods, results, novelty, causal status, or scientific conclusion.
+
+After a target journal has been selected and the researcher requests adversarial pre-submission review, route to:
+
+`reviewer-simulator`
 
 ---
 

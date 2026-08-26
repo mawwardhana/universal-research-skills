@@ -270,17 +270,29 @@ Do not use manuscript audit as a substitute for manuscript architecture or manus
 
 ### G4. Journal Selection
 
-Use when the researcher wants to identify, compare, or prioritize appropriate journals for an existing manuscript.
+Use when the researcher wants to identify, compare, verify, rank, or prioritize appropriate journals for an existing manuscript.
 
 Set:
 
 `research_entry_mode: JOURNAL_SELECTION`
 
-Route to:
+Before journal matching, determine whether the current manuscript version has already passed scientific audit.
+
+If the manuscript has not yet passed `manuscript-auditor`, or if material scientific revisions have occurred since the last audit, route to:
+
+`manuscript-auditor`
+
+→ `journal-matcher`
+
+If the same manuscript version has already passed `manuscript-auditor` with no unresolved submission-blocking issues and no material scientific changes since that audit, route directly to:
 
 `journal-matcher`
 
-Journal selection must not redefine the scientific question, results, novelty, or conclusion.
+Journal selection may evaluate scientific scope fit, audience, article type, methodological fit, current indexing, quartile context, publication model, mandatory versus optional APC, legitimacy, and submission strategy.
+
+Journal selection must not redefine the scientific question, methods, results, novelty, causal status, or conclusion.
+
+Do not repeat a completed scientific audit unnecessarily when the audited manuscript version has not materially changed.
 
 ---
 
@@ -353,7 +365,17 @@ Existing Manuscript
         │
         ├── journal selection needed
         │        ↓
-        │ journal-matcher
+        │   audit status check
+        │        │
+        │        ├── not yet audited / materially revised
+        │        │        ↓
+        │        │   manuscript-auditor
+        │        │        ↓
+        │        │   journal-matcher
+        │        │
+        │        └── same version already passed audit
+        │                 ↓
+        │            journal-matcher
         │
         ├── submission preparation
         │        ↓
