@@ -2,6 +2,866 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.13.0] - Reviewer Simulation Layer
+
+### Added
+
+- `reviewer-simulator` skill for rigorous, evidence-grounded, manuscript-specific adversarial pre-submission peer-review simulation.
+- Independent reviewer-perspective architecture supporting domain, methodological, statistical, clinical/applied, theoretical, reporting, and editorial review lenses.
+- Multi-reviewer simulation with independent reports followed by editorial synthesis rather than forced reviewer consensus.
+- Explicit distinction between simulated review and actual journal peer review.
+- Version-aware scientific-audit gate preventing reviewer simulation from bypassing unresolved manuscript-integrity problems.
+- Journal-aware reviewer simulation using verified journal context when a target journal has already been selected.
+- Severity classification separating `CRITICAL`, `MAJOR`, `MODERATE`, `MINOR`, and `EDITORIAL` concerns.
+- Revision-priority and upstream-routing logic so genuine scientific problems return to the appropriate research skill rather than being disguised as writing edits.
+- Re-review mode for assessing whether simulated reviewer concerns have been resolved after manuscript revision.
+- Safeguards against fabricated reviewer identities, acceptance probabilities, citations, journal policies, scientific defects, unnecessary experiments, significance chasing, citation padding, and artificial reviewer hostility.
+
+### Reviewer Simulation Architecture
+
+```text
+manuscript-writer
+      ↓
+manuscript-auditor
+      ↓
+journal-matcher
+      ↓
+reviewer-simulator
+      ↓
+reviewer-response
+```
+
+The new layer establishes `reviewer-simulator` as the adversarial scientific stress-test between publication targeting and formal reviewer-response preparation.
+
+### Core Principle
+
+The governing principle is:
+
+> **Simulate criticism to strengthen the manuscript, not to manufacture rejection.**
+
+Reviewer simulation must remain:
+
+- evidence-grounded;
+- manuscript-specific;
+- method-aware;
+- journal-aware when verified journal context exists;
+- transparent about uncertainty;
+- explicitly simulated;
+- scientifically proportionate.
+
+### Simulated vs Actual Review
+
+The framework now explicitly preserves:
+
+```text
+SIMULATED REVIEW
+≠
+ACTUAL JOURNAL PEER REVIEW
+```
+
+Simulated comments must never be represented as comments from an actual editor, reviewer, journal, or publisher.
+
+### Entry Modes
+
+Supported reviewer-simulation modes include:
+
+- `FULL_MANUSCRIPT_SIMULATION`
+- `JOURNAL_AWARE_SIMULATION`
+- `GENERAL_PEER_REVIEW_SIMULATION`
+- `METHODS_REVIEW`
+- `STATISTICAL_REVIEW`
+- `RESULTS_REVIEW`
+- `DISCUSSION_REVIEW`
+- `NOVELTY_REVIEW`
+- `REPORTING_GUIDELINE_REVIEW`
+- `REFERENCE_REVIEW`
+- `ETHICS_TRANSPARENCY_REVIEW`
+- `EDITORIAL_SCREENING_SIMULATION`
+- `DESK_REJECTION_RISK_SIMULATION`
+- `SECTION_SPECIFIC_SIMULATION`
+- `MULTI_REVIEWER_SIMULATION`
+- `EDITOR_DECISION_SIMULATION`
+- `REVISION_READINESS_REVIEW`
+- `POST_REVISION_RE_REVIEW`
+
+### Version-Aware Audit Gate
+
+Before reviewer simulation, the framework determines whether the current manuscript version has already passed scientific audit.
+
+If the manuscript has not yet passed scientific audit, or material scientific revisions have occurred since the previous audit:
+
+```text
+manuscript-auditor
+      ↓
+reviewer-simulator
+```
+
+If the same manuscript version has already passed `manuscript-auditor` with no unresolved submission-blocking issues:
+
+```text
+reviewer-simulator
+```
+
+may run directly.
+
+This prevents both unsafe audit bypass and unnecessary repeated scientific auditing.
+
+### Journal-Aware Simulation
+
+When a target journal has already been scientifically matched and verified:
+
+```text
+journal-matcher
+      ↓
+reviewer-simulator
+```
+
+Reviewer simulation may use verified information such as:
+
+- aims and scope;
+- audience;
+- article type;
+- reporting requirements;
+- author instructions;
+- manuscript-length constraints;
+- recent scientifically relevant journal content.
+
+Undocumented editorial preferences must not be invented.
+
+### Reviewer Persona Architecture
+
+Possible analytical reviewer perspectives include:
+
+- `REVIEWER_1_DOMAIN_EXPERT`
+- `REVIEWER_2_METHODS_EXPERT`
+- `REVIEWER_3_STATISTICAL_EXPERT`
+- `REVIEWER_4_CLINICAL_OR_APPLIED_EXPERT`
+- `REVIEWER_5_THEORY_OR_CONCEPTUAL_EXPERT`
+- `REVIEWER_6_REPORTING_REPRODUCIBILITY_EXPERT`
+- `EDITORIAL_REVIEWER`
+
+Reviewer personas represent scientific expertise, not fabricated people.
+
+No reviewer names, affiliations, email addresses, conflicts, or identities may be invented.
+
+### Independent Multi-Reviewer Review
+
+Preferred logic:
+
+```text
+Reviewer 1
+      ↓
+Independent Report
+
+Reviewer 2
+      ↓
+Independent Report
+
+Reviewer 3
+      ↓
+Independent Report
+
+        ↓
+Editorial Synthesis
+```
+
+Reviewers may disagree.
+
+The framework preserves disagreement rather than forcing false consensus.
+
+### Review Dimensions
+
+Reviewer simulation may assess, when relevant:
+
+1. title;
+2. abstract;
+3. introduction;
+4. research question;
+5. hypotheses;
+6. theory;
+7. conceptual framework;
+8. study design;
+9. sampling;
+10. measurement;
+11. methodology;
+12. statistical analysis;
+13. qualitative analysis;
+14. mixed-method integration;
+15. results;
+16. numerical consistency;
+17. interpretation;
+18. discussion;
+19. limitations;
+20. implications;
+21. conclusion;
+22. novelty;
+23. contribution;
+24. references;
+25. tables;
+26. figures;
+27. supplementary materials;
+28. ethics;
+29. transparency;
+30. reproducibility;
+31. reporting guidelines;
+32. journal fit.
+
+### Scientific Question Safeguard
+
+Reviewer simulation checks alignment across:
+
+```text
+Research Question
+      ↓
+Study Design
+      ↓
+Methods
+      ↓
+Analysis
+      ↓
+Results
+      ↓
+Discussion
+      ↓
+Conclusion
+```
+
+Question drift is explicitly flagged.
+
+### Causal-Inference Safeguard
+
+The simulator challenges causal claims unsupported by design.
+
+For example:
+
+```text
+cross-sectional association
+≠
+causal effect
+```
+
+and:
+
+```text
+prediction
+≠
+causal explanation
+```
+
+### Statistical Interpretation Safeguards
+
+The reviewer simulation explicitly challenges:
+
+```text
+p < 0.05
+      ↓
+scientifically important
+```
+
+and:
+
+```text
+p ≥ 0.05
+      ↓
+no effect
+```
+
+when magnitude, uncertainty, precision, and context have not been considered.
+
+### Method-Specific Review
+
+The simulator adapts its critique to the study design and analytical method.
+
+Supported review orientations include, among others:
+
+- regression;
+- logistic regression;
+- survival analysis;
+- longitudinal analysis;
+- multilevel analysis;
+- mediation;
+- moderation;
+- SEM;
+- PLS-SEM;
+- machine learning;
+- diagnostic studies;
+- prediction models;
+- pharmacokinetics;
+- pharmacogenetics;
+- formulation studies;
+- antimicrobial studies;
+- experimental studies;
+- qualitative research;
+- mixed methods;
+- systematic reviews;
+- meta-analysis.
+
+### Biomedical and Clinical Review
+
+Relevant manuscripts may be challenged on:
+
+- bias;
+- confounding;
+- outcome definition;
+- clinical relevance;
+- causal interpretation;
+- ethics;
+- reporting.
+
+### Pharmacogenetic Review
+
+Relevant review dimensions include:
+
+- SNP-selection rationale;
+- genotyping quality;
+- allele and genotype coding;
+- Hardy-Weinberg equilibrium;
+- inheritance models;
+- population structure;
+- multiple testing;
+- haplotypes;
+- clinical covariates;
+- outcome definition;
+- replication and validation.
+
+### Pharmaceutical and Formulation Review
+
+Relevant review dimensions include:
+
+- formulation rationale;
+- excipient concentrations;
+- process parameters;
+- physicochemical characterization;
+- controls;
+- biological testing;
+- analytical methods;
+- replicates;
+- stability;
+- statistical comparison.
+
+### Qualitative Review
+
+Relevant review dimensions include:
+
+- paradigm;
+- sampling logic;
+- reflexivity;
+- coding;
+- analysis;
+- negative cases;
+- trustworthiness;
+- audit trail;
+- reporting transparency.
+
+### Mixed-Methods Review
+
+Relevant review dimensions include:
+
+- rationale for integration;
+- design;
+- timing;
+- priority;
+- connecting;
+- building;
+- merging;
+- embedding;
+- joint displays;
+- meta-inferences;
+- discordance.
+
+### Systematic Review and Meta-Analysis Review
+
+Relevant dimensions include:
+
+- protocol;
+- eligibility criteria;
+- search completeness;
+- screening;
+- risk of bias;
+- synthesis;
+- heterogeneity;
+- pooling justification;
+- sensitivity analyses;
+- certainty assessment;
+- reporting-guideline alignment.
+
+### Results Integrity Review
+
+Reviewer simulation checks consistency across:
+
+- abstract;
+- main text;
+- tables;
+- figures;
+- supplementary materials.
+
+It may challenge inconsistencies in:
+
+- sample size;
+- denominators;
+- percentages;
+- effect estimates;
+- p-values;
+- confidence intervals;
+- units;
+- rounding.
+
+### Selective Reporting Safeguard
+
+The simulator checks whether:
+
+- null findings;
+- contradictory findings;
+- adverse outcomes;
+- secondary outcomes;
+- exploratory results
+
+have been hidden, minimized, or inconsistently reported.
+
+### Discussion Review
+
+The simulator checks whether the discussion:
+
+- answers the research question;
+- interprets rather than merely repeats results;
+- compares findings with current evidence;
+- distinguishes agreement and contradiction;
+- considers alternative explanations;
+- respects design limitations;
+- calibrates mechanistic claims;
+- states contribution proportionately.
+
+### Mechanistic Claim Classification
+
+Mechanistic interpretations may be classified as:
+
+- `SUPPORTED`
+- `PLAUSIBLE`
+- `SPECULATIVE`
+- `UNSUPPORTED`
+
+### Novelty Review
+
+Reviewer simulation uses the output of `novelty-auditor`.
+
+Claims such as:
+
+- first;
+- novel;
+- unique;
+- unprecedented;
+- groundbreaking
+
+must remain evidence-supported.
+
+### Reference Integrity
+
+Reviewer simulation may identify reference problems involving:
+
+- unsupported claims;
+- incorrect attribution;
+- weak primary-source support;
+- obsolete evidence;
+- retractions;
+- citation padding;
+- unnecessary self-citation.
+
+Reference-integrity problems route to:
+
+`reference-integrity-guard`
+
+### Target-Journal Citation Safeguard
+
+Reviewer simulation must not request citations merely because they originate from the target journal.
+
+Target-journal citation padding remains prohibited.
+
+### Reporting-Guideline Review
+
+The simulator may check applicable standards including:
+
+- CONSORT;
+- STROBE;
+- PRISMA;
+- STARD;
+- TRIPOD;
+- CARE;
+- COREQ;
+- SRQR;
+- ARRIVE;
+- CHEERS;
+- SPIRIT;
+- RECORD;
+- SAGER.
+
+Reporting completeness does not substitute for scientific validity.
+
+### Ethics and Transparency Review
+
+The simulator may evaluate:
+
+- ethics approval;
+- informed consent;
+- waiver;
+- registration;
+- privacy;
+- vulnerable populations;
+- animal ethics;
+- data governance;
+- funding;
+- conflicts of interest;
+- author contributions;
+- data availability;
+- code availability;
+- AI-use disclosure.
+
+Journal-specific disclosure requirements must be verified rather than invented.
+
+### Reviewer Severity Architecture
+
+Comments are classified as:
+
+- `CRITICAL`
+- `MAJOR`
+- `MODERATE`
+- `MINOR`
+- `EDITORIAL`
+
+A large number of comments does not automatically imply a poor manuscript.
+
+Severity depends on scientific consequence.
+
+### Comment Structure
+
+Substantive reviewer comments may record:
+
+```yaml
+review_comment:
+  reviewer:
+  section:
+  severity:
+  issue:
+  evidence_from_manuscript:
+  why_it_matters:
+  requested_action:
+  acceptable_resolution:
+  upstream_skill_if_needed:
+  confidence:
+```
+
+Critical and major concerns must be traceable to manuscript evidence or an explicit missing element.
+
+### Reviewer Request Safeguard
+
+Simulated reviewer requests should be:
+
+- scientifically justified;
+- proportionate;
+- manuscript-specific;
+- feasible when possible.
+
+The simulator must not request additional experiments merely to make the review appear rigorous.
+
+### Scope-Creep Safeguard
+
+A simulated reviewer must not silently transform the manuscript into a different study.
+
+### Reviewer Disagreement
+
+Different reviewers may legitimately disagree about:
+
+- novelty;
+- interpretation;
+- methodological preference;
+- importance;
+- journal suitability.
+
+Such disagreement should be preserved and synthesized transparently.
+
+### Editorial Synthesis
+
+After independent reviews, the framework may summarize:
+
+- shared strengths;
+- shared concerns;
+- reviewer-specific concerns;
+- disagreements;
+- revision burden;
+- journal-fit risk;
+- revision priorities.
+
+### Simulated Editorial Outcomes
+
+Possible labels include:
+
+- `SIMULATED_ACCEPTABLE_WITH_MINOR_REVISION`
+- `SIMULATED_MAJOR_REVISION`
+- `SIMULATED_RECONSIDER_AFTER_MAJOR_REVISION`
+- `SIMULATED_REJECT_AND_RESUBMIT`
+- `SIMULATED_DESK_REJECTION_RISK`
+- `SIMULATED_OUT_OF_SCOPE`
+- `SIMULATED_NOT_READY_FOR_DECISION`
+
+These are simulation outputs, not predictions of actual editorial decisions.
+
+### No Acceptance Probability
+
+The framework must not invent numerical acceptance probabilities.
+
+For example:
+
+```text
+“80% chance of acceptance”
+```
+
+is prohibited unless supported by an actual validated predictive model.
+
+### Desk-Rejection Risk
+
+Desk-rejection risk may be classified as:
+
+- `LOW`
+- `MODERATE`
+- `HIGH`
+- `UNCERTAIN`
+
+based on scientifically defensible factors such as:
+
+- scope;
+- article type;
+- methodological credibility;
+- novelty;
+- reporting completeness;
+- manuscript evaluability.
+
+### Revision Priority
+
+Revision requests may be classified as:
+
+- `REQUIRED_FOR_VALIDITY`
+- `REQUIRED_FOR_CLARITY`
+- `STRONGLY_RECOMMENDED`
+- `OPTIONAL_SUGGESTION`
+- `FUTURE_WORK_ONLY`
+
+### Revision Feasibility
+
+Possible classifications include:
+
+- `EASY`
+- `MODERATE`
+- `SUBSTANTIAL`
+- `REQUIRES_REANALYSIS`
+- `REQUIRES_NEW_DATA`
+- `NOT_FEASIBLE_POST_HOC`
+
+### Upstream Scientific Routing
+
+When reviewer simulation discovers a genuine scientific problem, the framework routes it back appropriately.
+
+Examples:
+
+```text
+Research-question problem
+      ↓
+research-question-builder
+```
+
+```text
+Theory problem
+      ↓
+theoretical-framework
+```
+
+```text
+Conceptual-model problem
+      ↓
+conceptual-framework
+```
+
+```text
+Methodology problem
+      ↓
+methodology-architect
+```
+
+```text
+Sampling problem
+      ↓
+sampling-strategy
+```
+
+```text
+Instrument problem
+      ↓
+instrument-design
+```
+
+```text
+Analysis problem
+      ↓
+analysis-planner
+or
+statistical-method-selector
+```
+
+```text
+Interpretation problem
+      ↓
+result-interpreter
+```
+
+```text
+Discussion problem
+      ↓
+scientific-discussion
+```
+
+```text
+Implication problem
+      ↓
+implication-builder
+```
+
+```text
+Novelty problem
+      ↓
+novelty-auditor
+```
+
+```text
+Reference-integrity problem
+      ↓
+reference-integrity-guard
+```
+
+```text
+Journal-fit problem
+      ↓
+journal-matcher
+```
+
+Scientific problems must not be hidden through copyediting.
+
+### Re-Review Mode
+
+After revision:
+
+```text
+Previous Simulated Comment
+      ↓
+Author Revision
+      ↓
+Resolved?
+```
+
+Possible statuses include:
+
+- `RESOLVED`
+- `SUBSTANTIALLY_RESOLVED`
+- `PARTIALLY_RESOLVED`
+- `UNRESOLVED`
+- `NEW_PROBLEM_INTRODUCED`
+- `NOT_APPLICABLE`
+
+### Reviewer-Response Handoff
+
+After simulated reviewer comments are finalized:
+
+```text
+reviewer-simulator
+      ↓
+reviewer-response
+```
+
+Actual reviewer comments supplied by a journal should be identified as actual rather than simulated.
+
+### `research-router` Integration
+
+The publication workflow is now explicitly separated into:
+
+```text
+Stage 12 — Manuscript Audit
+        ↓
+Stage 13 — Reviewer Simulation
+        ↓
+Stage 14 — Reviewer Response
+```
+
+`Stage 12 — Manuscript Audit` remains responsible for scientific readiness.
+
+`Stage 13 — Reviewer Simulation` performs adversarial pre-submission stress-testing.
+
+`Stage 14 — Reviewer Response` handles response preparation after actual or simulated reviewer comments exist.
+
+The router now prevents reviewer simulation from substituting for manuscript audit.
+
+### `research-intake` Compatibility
+
+Existing `research-intake` reviewer-simulation routing was verified as compatible with the v0.13.0 architecture.
+
+It already supports:
+
+```text
+research_entry_mode: REVIEWER_SIMULATION
+```
+
+with version-aware routing:
+
+```text
+not yet audited / materially revised
+      ↓
+manuscript-auditor
+      ↓
+reviewer-simulator
+```
+
+and:
+
+```text
+same manuscript version already passed audit
+      ↓
+reviewer-simulator
+```
+
+No unnecessary intake rewrite is required.
+
+### Framework Progression
+
+```text
+Evidence Discovery & Verification
+      ↓
+Scientific Positioning
+      ↓
+Research Logic & Framework
+      ↓
+Methodology & Study Design
+      ↓
+Analysis Planning & Method Selection
+      ↓
+Results Interpretation
+      ↓
+Scientific Discussion
+      ↓
+Implication Building
+      ↓
+Manuscript Architecture
+      ↓
+Manuscript Writing
+      ↓
+Manuscript Audit & Publication Readiness
+      ↓
+Journal Matching & Publication Strategy
+      ↓
+Reviewer Simulation
+      ↓
+Reviewer Response
+```
+
+This release establishes an explicit adversarial scientific-review layer that can challenge a manuscript before submission without fabricating criticism, reviewer identity, journal policy, acceptance probability, or scientific evidence, while ensuring that genuine problems are routed back to the correct scientific stage rather than being concealed through publication-oriented rewriting.
+
+---
+
 ## [0.12.0] - Journal Matching & Publication Strategy Layer
 
 ### Added

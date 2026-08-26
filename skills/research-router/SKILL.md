@@ -2,7 +2,7 @@
 
 name: research-router
 
-description: Route researchers to the correct research workflow based on their current stage, available materials, goals, and methodological needs. Use when a user wants to start research, continue previous research, develop an idea, validate a gap or novelty, design a study, analyze data, interpret results, prepare a manuscript, select a journal, or respond to reviewers.
+description: Route researchers to the correct research workflow based on their current stage, available materials, goals, and methodological needs. Use when a user wants to start research, continue previous research, develop an idea, validate a gap or novelty, design a study, analyze data, interpret results, prepare a manuscript, select a journal, simulate peer review, or respond to reviewers.
 
 ---
 
@@ -840,27 +840,31 @@ After a target journal has been selected and the researcher requests adversarial
 
 Typical signals:
 
-* user uploads a completed manuscript;
+* user uploads a completed or near-complete manuscript;
+
+* user asks whether the manuscript is scientifically coherent;
 
 * user asks whether it is ready for submission;
 
-* user wants reviewer-style criticism.
+* user requests a scientific-integrity, consistency, reporting, reference, methodological, or publication-readiness audit.
 
 Recommended route:
 
 `manuscript-auditor`
 
-→ `reviewer-simulator`
-
 Audit dimensions may include:
 
-* methodological rigor;
+* scientific integrity;
+
+* methodological fidelity;
 
 * evidence strength;
 
-* novelty strength;
+* claim-evidence alignment;
 
-* journal fit;
+* result-discussion-conclusion coherence;
+
+* novelty calibration;
 
 * reporting compliance;
 
@@ -868,15 +872,193 @@ Audit dimensions may include:
 
 * statistical reporting;
 
-* internal consistency;
+* ethics and declarations;
 
-* reviewer vulnerability;
+* tables, figures, and supplementary materials;
+
+* internal consistency;
 
 * submission readiness.
 
+If the manuscript requires correction before publication-oriented work continues, route back to the appropriate upstream skill.
+
+If the same manuscript version passes `manuscript-auditor` with no unresolved submission-blocking issues, continue according to the researcher's goal:
+
+* journal selection → `journal-matcher`;
+
+* adversarial pre-submission peer-review simulation → `reviewer-simulator`;
+
+* submission preparation → `journal-matcher` and journal-specific adaptation when required.
+
+Do not use reviewer simulation as a substitute for scientific audit.
+
 ---
 
-## Stage 13 — Reviewer Response
+## Stage 13 — Reviewer Simulation
+
+Typical signals:
+
+* user asks for simulated peer review;
+
+* user asks for reviewer-style criticism after scientific audit;
+
+* user asks to simulate Reviewer 1, Reviewer 2, a statistical reviewer, methodological reviewer, or editor;
+
+* user wants adversarial pre-submission review;
+
+* user wants likely major and minor reviewer concerns;
+
+* user wants desk-rejection risk or simulated editorial screening;
+
+* user wants a post-revision re-review.
+
+Before reviewer simulation, determine the status of the current manuscript version.
+
+If the manuscript has not yet passed scientific audit, or if material scientific revisions have occurred since the last audit, route to:
+
+`manuscript-auditor`
+
+→ `reviewer-simulator`
+
+If the same manuscript version has already passed `manuscript-auditor` with no unresolved submission-blocking issues and no material scientific changes since that audit, route directly to:
+
+`reviewer-simulator`
+
+If a target journal has been selected and verified, reviewer simulation may use the journal context produced by:
+
+`journal-matcher`
+
+→ `reviewer-simulator`
+
+Reviewer simulation may assess:
+
+* scientific question and hypothesis alignment;
+
+* theoretical and conceptual coherence;
+
+* study design;
+
+* sampling;
+
+* measurement;
+
+* methodology;
+
+* statistical or qualitative analysis;
+
+* results reporting;
+
+* numerical consistency;
+
+* causal and mechanistic claims;
+
+* discussion and alternative explanations;
+
+* limitations;
+
+* implications;
+
+* novelty and contribution;
+
+* reference integrity;
+
+* reporting-guideline compliance;
+
+* ethics and transparency;
+
+* reproducibility;
+
+* tables, figures, and supplementary materials;
+
+* journal fit when verified journal context is available.
+
+Reviewer comments should be classified as appropriate into:
+
+* `CRITICAL`;
+
+* `MAJOR`;
+
+* `MODERATE`;
+
+* `MINOR`;
+
+* `EDITORIAL`.
+
+Reviewer simulation must clearly distinguish:
+
+```text
+SIMULATED REVIEW
+≠
+ACTUAL JOURNAL PEER REVIEW
+```
+
+Do not:
+
+* invent reviewer identities;
+
+* invent reviewer affiliations;
+
+* invent journal policies;
+
+* invent citations or evidence;
+
+* invent acceptance probabilities;
+
+* fabricate scientific defects merely to make the review appear rigorous;
+
+* demand unnecessary experiments;
+
+* force all reviewers to agree;
+
+* equate Q1 journals with harsher scientific standards;
+
+* use target-journal citation padding;
+
+* allow simulated reviewer requests to redefine the study.
+
+When reviewer simulation reveals a genuine scientific problem, route the issue back to the appropriate upstream skill rather than treating it only as a writing problem.
+
+Examples include:
+
+* research-question problem → `research-question-builder`;
+
+* theory problem → `theoretical-framework`;
+
+* conceptual-model problem → `conceptual-framework`;
+
+* methodology problem → `methodology-architect`;
+
+* sampling problem → `sampling-strategy`;
+
+* instrument problem → `instrument-design`;
+
+* analysis problem → `analysis-planner` or `statistical-method-selector`;
+
+* interpretation problem → `result-interpreter`;
+
+* discussion problem → `scientific-discussion`;
+
+* implication problem → `implication-builder`;
+
+* novelty problem → `novelty-auditor`;
+
+* reference-integrity problem → `reference-integrity-guard`;
+
+* manuscript-structure problem → `manuscript-architect`;
+
+* writing problem → `manuscript-writer`;
+
+* journal-fit problem → `journal-matcher`.
+
+Do not route a genuine scientific problem to copyediting or stylistic rewriting.
+
+After simulated reviewer comments are complete and the researcher wants to prepare responses, revisions, or a point-by-point rebuttal, route to:
+
+`reviewer-response`
+
+---
+
+## Stage 14 — Reviewer Response
 
 Typical signals:
 
@@ -1157,6 +1339,8 @@ Possible entry modes include:
 * `JOURNAL\_SELECTION`
 
 * `MANUSCRIPT\_REVIEW`
+
+* `REVIEWER\_SIMULATION`
 
 * `REVIEWER\_RESPONSE`
 
@@ -1713,4 +1897,4 @@ Do not:
 
 # Success Criterion
 
-`research-router` succeeds when the researcher can enter the framework from any reasonable research stage and receive the shortest scientifically defensible path toward the next research objective, while correctly distinguishing phenomenon evidence from scholarly evidence, conditionally routing research questions, theory, hypotheses, conceptual frameworks, and methodology, and avoiding unnecessary repetition or premature method selection.
+`research-router` succeeds when the researcher can enter the framework from any reasonable research stage and receive the shortest scientifically defensible path toward the next research objective, while correctly distinguishing phenomenon evidence from scholarly evidence, conditionally routing research questions, theory, hypotheses, conceptual frameworks, methodology, analysis, manuscript audit, journal matching, reviewer simulation, and reviewer response; while preserving version-aware audit gates and upstream backtracking when genuine scientific problems are discovered; and while avoiding unnecessary repetition, premature method selection, publication-driven distortion, or simulated-review claims that exceed the available evidence.
