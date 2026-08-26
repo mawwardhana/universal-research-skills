@@ -1062,27 +1062,276 @@ After simulated reviewer comments are complete and the researcher wants to prepa
 
 Typical signals:
 
-* reviewer comments are provided;
+* actual editor or reviewer comments are provided;
 
-* manuscript has received major or minor revision;
+* simulated reviewer comments have been completed and the researcher wants to prepare responses or revisions;
 
-* user asks for a response-to-reviewers document.
+* the manuscript has received major revision, minor revision, revise-and-resubmit, reject-and-resubmit, or another revision-oriented editorial decision;
+
+* the user asks for a point-by-point response, rebuttal letter, response matrix, revision letter, second-round response, or resubmission preparation;
+
+* the user wants to determine whether a reviewer request is scientifically valid, partially valid, debatable, unsupported, or requires clarification;
+
+* the user needs to identify whether reviewer criticism requires textual revision, reanalysis, additional analysis, upstream scientific correction, new evidence, or justified disagreement.
 
 Route to:
 
 `reviewer-response`
 
-The reviewer response must distinguish:
+Before drafting final response language, determine:
 
-* changes accepted;
+* whether the feedback is `ACTUAL_EDITOR_COMMENT`, `ACTUAL_REVIEWER_COMMENT`, `SIMULATED_REVIEWER_COMMENT`, or internal author feedback;
 
-* changes partially accepted;
+* which manuscript version was reviewed;
 
-* changes respectfully disputed;
+* whether the requested revision has actually been completed;
 
-* manuscript locations where revisions were made;
+* whether reanalysis or other scientific correction is still required;
 
-* evidence supporting any disagreement.
+* whether journal policy or reporting requirements must be verified;
+
+* whether the response can be finalized without fabricating actions, evidence, or compliance.
+
+Reviewer response must preserve:
+
+```text
+ACTUAL JOURNAL REVIEW
+≠
+SIMULATED REVIEW
+```
+
+For each substantive comment, assess as appropriate:
+
+* comment source and stable comment ID;
+
+* scientific type;
+
+* severity;
+
+* scientific validity;
+
+* actionability;
+
+* required manuscript revision;
+
+* evidence needed;
+
+* exact manuscript location of any completed revision;
+
+* response status;
+
+* upstream route when the issue cannot be solved safely within reviewer response.
+
+Possible scientific-validity classifications may include:
+
+* `VALID`;
+
+* `PARTIALLY_VALID`;
+
+* `VALID_BUT_ALREADY_ADDRESSED`;
+
+* `VALID_REQUIRES_REANALYSIS`;
+
+* `VALID_REQUIRES_NEW_DATA`;
+
+* `QUESTION_FOR_CLARIFICATION`;
+
+* `PREFERENCE_NOT_REQUIREMENT`;
+
+* `SCIENTIFICALLY_DEBATABLE`;
+
+* `NOT_SUPPORTED`;
+
+* `REQUIRES_VERIFICATION`.
+
+Possible response statuses may include:
+
+* `NOT_STARTED`;
+
+* `ASSESSING`;
+
+* `UPSTREAM_CORRECTION_REQUIRED`;
+
+* `REVISION_IN_PROGRESS`;
+
+* `REVISION_COMPLETED`;
+
+* `RESPONSE_DRAFTED`;
+
+* `VERIFIED`;
+
+* `READY_FOR_RESUBMISSION`.
+
+Do not finalize statements such as:
+
+* "we reanalyzed the data";
+
+* "we added the requested analysis";
+
+* "we corrected the manuscript";
+
+* "we verified the reference";
+
+* "we complied with the journal requirement";
+
+unless the corresponding action has actually been completed and verified.
+
+When a reviewer reveals a genuine scientific problem, route back to the appropriate upstream skill.
+
+Examples include:
+
+* research-question problem → `research-question-builder`;
+
+* theory problem → `theoretical-framework`;
+
+* conceptual-framework problem → `conceptual-framework`;
+
+* methodology problem → `methodology-architect`;
+
+* protocol problem → `protocol-builder`;
+
+* sampling problem → `sampling-strategy`;
+
+* instrument problem → `instrument-design`;
+
+* quantitative-analysis problem → `analysis-planner` or `statistical-method-selector`;
+
+* qualitative-analysis problem → `qualitative-analysis`;
+
+* mixed-method integration problem → `mixed-method-analysis`;
+
+* meta-analysis problem → `meta-analysis`;
+
+* interpretation problem → `result-interpreter`;
+
+* discussion problem → `scientific-discussion`;
+
+* implication problem → `implication-builder`;
+
+* novelty problem → `novelty-auditor`;
+
+* reference-integrity problem → `reference-integrity-guard`;
+
+* manuscript-structure problem → `manuscript-architect`;
+
+* writing or clarity problem → `manuscript-writer`;
+
+* journal-fit or post-rejection rematching problem → `journal-matcher`.
+
+Do not route a genuine scientific problem only to stylistic rewriting.
+
+When reviewers request conflicting changes:
+
+```text
+Reviewer 1 asks A
+Reviewer 2 asks not-A
+      ↓
+Assess Scientific Validity
+      ↓
+Use Explicit Editorial Guidance When Available
+      ↓
+Choose the Defensible Resolution
+      ↓
+Explain It Respectfully to Both Reviewers
+```
+
+Do not satisfy conflicting comments mechanically.
+
+If a requested analysis or data element cannot be produced because it was not collected or is not reconstructable:
+
+* do not fabricate it;
+
+* determine whether the current claim can be narrowed;
+
+* state the limitation transparently;
+
+* classify genuinely unavailable new data as `NOT_FEASIBLE_POST_HOC` or equivalent when appropriate.
+
+After material reanalysis or scientific revision, verify cascading consistency across:
+
+```text
+Abstract
+      ↓
+Methods
+      ↓
+Results
+      ↓
+Tables / Figures / Supplements
+      ↓
+Discussion
+      ↓
+Conclusion
+      ↓
+Response Letter
+```
+
+Do not update the response letter while leaving contradictory values or claims elsewhere in the manuscript.
+
+Before resubmission, use the readiness gate:
+
+```text
+All Editor / Reviewer Comments Addressed
+      ↓
+Critical Scientific Issues Resolved or Transparently Justified
+      ↓
+Required Revisions Verified
+      ↓
+References / Tables / Figures / Supplements Synchronized
+      ↓
+Response Letter Matches Revised Manuscript
+      ↓
+Relevant Journal Requirements Checked
+      ↓
+READY_FOR_RESUBMISSION
+```
+
+Possible readiness statuses include:
+
+* `NOT_READY`;
+
+* `SCIENTIFIC_CORRECTION_REQUIRED`;
+
+* `REVISION_IN_PROGRESS`;
+
+* `RESPONSE_REVIEW_REQUIRED`;
+
+* `READY_WITH_MINOR_ADMIN_TASKS`;
+
+* `READY_FOR_RESUBMISSION`.
+
+Do not mark the manuscript `READY_FOR_RESUBMISSION` while required reanalysis, revision verification, critical scientific correction, evidence verification, ethics resolution, or essential journal-policy verification remains incomplete.
+
+Reviewer response should be respectful and point-by-point, but scientific accuracy has priority over appeasement.
+
+Do not:
+
+* fabricate reviewer or editor comments;
+
+* fabricate completed revisions;
+
+* fabricate reanalysis or new data;
+
+* fabricate ethics approval;
+
+* fabricate journal policy;
+
+* fabricate citations;
+
+* falsely agree with a reviewer;
+
+* add irrelevant citations to appease reviewers;
+
+* significance-shop or outcome-switch in response to reviewer pressure;
+
+* conceal scientific problems through prose;
+
+* automatically move to another journal when reviewer criticism exposes a genuine scientific flaw.
+
+If rejection is primarily due to scope or journal fit after scientific issues are adequately addressed, route to:
+
+`journal-matcher`
+
+for a new target-journal strategy.
 
 ---
 
@@ -1897,4 +2146,4 @@ Do not:
 
 # Success Criterion
 
-`research-router` succeeds when the researcher can enter the framework from any reasonable research stage and receive the shortest scientifically defensible path toward the next research objective, while correctly distinguishing phenomenon evidence from scholarly evidence, conditionally routing research questions, theory, hypotheses, conceptual frameworks, methodology, analysis, manuscript audit, journal matching, reviewer simulation, and reviewer response; while preserving version-aware audit gates and upstream backtracking when genuine scientific problems are discovered; and while avoiding unnecessary repetition, premature method selection, publication-driven distortion, or simulated-review claims that exceed the available evidence.
+`research-router` succeeds when the researcher can enter the framework from any reasonable research stage and receive the shortest scientifically defensible path toward the next research objective, while correctly distinguishing phenomenon evidence from scholarly evidence, conditionally routing research questions, theory, hypotheses, conceptual frameworks, methodology, analysis, manuscript audit, journal matching, reviewer simulation, and reviewer response; while preserving version-aware audit gates and upstream backtracking when genuine scientific problems are discovered; while distinguishing actual journal review from simulated review; while ensuring that reviewer-response claims about revisions, reanalysis, evidence, compliance, or manuscript changes are made only after those actions are actually completed and verified; while routing unresolved scientific criticism back to the appropriate upstream skill; while preserving consistency across revised manuscript versions and response letters; and while avoiding unnecessary repetition, premature method selection, publication-driven distortion, simulated-review claims that exceed the available evidence, reviewer appeasement that weakens scientific integrity, or premature `READY_FOR_RESUBMISSION` status.

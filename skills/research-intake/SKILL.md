@@ -1,7 +1,7 @@
 ---
 
 name: research-intake
-description: Establish a researcher's starting point, goals, available materials, constraints, expertise, and publication ambitions before research discovery or design begins. Use when the user wants to start research, has only a broad interest or practical problem, is unsure what to study, or when the current research stage cannot yet be determined reliably.
+description: Establish a researcher's starting point, goals, available materials, constraints, expertise, publication ambitions, and current manuscript or peer-review status before routing begins. Use when the user wants to start research, has only a broad interest or practical problem, is unsure what to study, when the current research stage cannot yet be determined reliably, or when existing manuscript, reviewer, or editor materials must be classified before selecting the next workflow.
 ---
 
 # Research Intake
@@ -202,7 +202,10 @@ Possible goals include:
 * scientific audit;
 * journal selection;
 * submission preparation;
-* reviewer simulation.
+* reviewer simulation;
+* reviewer or editor response;
+* revision after major or minor review;
+* point-by-point rebuttal or resubmission preparation.
 
 Do not assume that every existing manuscript should go directly to scientific audit.
 
@@ -342,6 +345,76 @@ Do not repeat a completed scientific audit unnecessarily when the audited manusc
 
 ---
 
+### G7. Reviewer or Editor Response
+
+Use when actual or simulated reviewer or editor feedback already exists and the researcher needs to assess, revise, rebut, or prepare a point-by-point response.
+
+Typical signals include:
+
+* an editor decision letter is provided;
+* reviewer comments are provided;
+* simulated reviewer comments are available;
+* the manuscript has received major revision, minor revision, revise-and-resubmit, or reject-and-resubmit;
+* the researcher asks for a response-to-reviewers document;
+* the researcher wants to determine whether a reviewer request is scientifically valid;
+* reanalysis, additional analysis, new evidence, or upstream scientific correction may be required;
+* the researcher needs a second-round response or resubmission package.
+
+Set:
+
+`research_entry_mode: REVIEWER_RESPONSE`
+
+Route to:
+
+`reviewer-response`
+
+Before final response drafting, identify:
+
+* whether feedback is actual or simulated;
+* whether comments come from an editor, reviewer, or internal simulation;
+* which manuscript version was reviewed;
+* whether the requested scientific revision has actually been completed;
+* whether reanalysis or upstream correction is still required;
+* whether journal policy or reporting requirements need verification.
+
+Preserve:
+
+```text
+ACTUAL JOURNAL REVIEW
+≠
+SIMULATED REVIEW
+```
+
+Do not claim that a revision, reanalysis, reference check, policy check, ethics correction, or manuscript change has been completed unless it has actually been completed and verified.
+
+If reviewer feedback reveals a genuine scientific problem, route back to the appropriate upstream skill before finalizing response language.
+
+Examples include:
+
+* research-question problem → `research-question-builder`;
+* theory problem → `theoretical-framework`;
+* conceptual-framework problem → `conceptual-framework`;
+* methodology problem → `methodology-architect`;
+* sampling problem → `sampling-strategy`;
+* instrument problem → `instrument-design`;
+* analysis problem → `analysis-planner` or `statistical-method-selector`;
+* interpretation problem → `result-interpreter`;
+* discussion problem → `scientific-discussion`;
+* implication problem → `implication-builder`;
+* novelty problem → `novelty-auditor`;
+* reference-integrity problem → `reference-integrity-guard`;
+* manuscript-structure problem → `manuscript-architect`;
+* writing or clarity problem → `manuscript-writer`;
+* journal-fit or post-rejection rematching problem → `journal-matcher`.
+
+Do not use reviewer response as a cosmetic substitute for unresolved scientific correction.
+
+Do not repeat manuscript audit automatically merely because reviewer comments exist.
+
+If material scientific revisions are made, a new audit may become appropriate after those revisions are completed.
+
+---
+
 ### Existing Manuscript Routing Summary
 
 Use conceptually:
@@ -383,21 +456,49 @@ Existing Manuscript
         │        ↓
         │ journal-matcher
         │
-        └── reviewer simulation
+        ├── reviewer simulation
+        │        ↓
+        │   audit status check
+        │        │
+        │        ├── not yet audited / materially revised
+        │        │        ↓
+        │        │   manuscript-auditor
+        │        │        ↓
+        │        │   reviewer-simulator
+        │        │
+        │        └── same version already passed audit
+        │                 ↓
+        │           reviewer-simulator
+        │
+        └── reviewer / editor response
                  ↓
-    audit status check
-         │
-         ├── not yet audited / materially revised
-         │        ↓
-         │ manuscript-auditor
-         │        ↓
-         │ reviewer-simulator
-         │
-         └── same version already passed audit
-                  ↓
-           reviewer-simulator
-
+          feedback source check
+                 │
+                 ├── actual journal review
+                 │        ↓
+                 │ reviewer-response
+                 │
+                 └── simulated review
+                          ↓
+                   reviewer-response
+                          ↓
+                 scientific correction?
+                          │
+                    ┌─────┴─────┐
+                    │           │
+                   YES          NO
+                    │           │
+                    ↓           ↓
+             upstream skill   response /
+                    │         revision
+                    └─────┬─────┘
+                          ↓
+                 revision verification
+                          ↓
+                 READY_FOR_RESUBMISSION
+                 when all gates are met
 ```
+
 ---
 
 # Minimum Intake Dimensions
@@ -511,7 +612,13 @@ Identify available materials such as:
 * literature collection;
 * systematic review;
 * analysis results;
-* research roadmap.
+* research roadmap;
+* editor decision letter;
+* reviewer reports;
+* simulated reviewer comments;
+* prior response-to-reviewers letter;
+* tracked-changes manuscript;
+* clean revised manuscript.
 
 Existing materials may substantially shorten the workflow.
 
@@ -810,7 +917,7 @@ Recommended fields:
 ## Research Intake Brief
 
 **Research entry mode:**
-[START_NEW_RESEARCH / CONTINUE_PREVIOUS_RESEARCH / DEVELOP_EXISTING_IDEA / RESEARCH_DESIGN / DATA_ANALYSIS / RESULT_INTERPRETATION / MANUSCRIPT_STAGE]
+[START_NEW_RESEARCH / CONTINUE_PREVIOUS_RESEARCH / DEVELOP_EXISTING_IDEA / RESEARCH_DESIGN / DATA_ANALYSIS / RESULT_INTERPRETATION / MANUSCRIPT_STAGE / REVIEWER_SIMULATION / REVIEWER_RESPONSE]
 
 **Discipline:**
 [...]
@@ -946,7 +1053,12 @@ Route according to the actual need:
 * writing, continuation, rewriting, compression, expansion, or scientific translation → `manuscript-writer`;
 * scientific audit → `manuscript-auditor`;
 * journal selection → `journal-matcher`;
-* reviewer simulation → `reviewer-simulator`.
+* reviewer simulation → `reviewer-simulator`;
+* reviewer or editor response → `reviewer-response`.
+
+When reviewer or editor comments already exist, do not route automatically to reviewer simulation.
+
+Use `reviewer-response` to determine whether the comment can be answered directly or whether genuine scientific correction must first be routed upstream.
 
 For submission preparation, use:
 
@@ -971,6 +1083,11 @@ Do not:
 * equate hybrid publishing with mandatory APC;
 * optimize research solely for journal acceptance;
 * recommend citation padding;
+* treat actual reviewer comments as simulated comments;
+* treat simulated reviewer comments as actual journal review;
+* claim that reviewer-requested revisions or reanalyses have been completed when they have not;
+* route every reviewer comment to manuscript writing when the issue is scientific;
+* mark a manuscript ready for resubmission while critical revision or verification tasks remain incomplete;
 * overwhelm beginners with research jargon.
 
 ---
@@ -992,6 +1109,56 @@ For experienced researchers:
 * focus on evidence, methodological choices, and strategy.
 
 Do not patronize either group.
+
+---
+
+# Reviewer Response Intake
+
+When reviewer or editor feedback exists, intake should capture only the minimum information needed to route the revision safely.
+
+Relevant fields may include:
+
+```yaml
+review_context:
+  source:
+  actual_or_simulated:
+  journal:
+  manuscript_id:
+  decision:
+  review_round:
+  manuscript_version_reviewed:
+  revised_manuscript_version:
+  editor_comments_present:
+  reviewer_count:
+  response_deadline:
+  reanalysis_required:
+  upstream_correction_required:
+  revision_verification_required:
+  readiness_status:
+```
+
+Unknown values remain unknown.
+
+Do not fabricate:
+
+* manuscript IDs;
+* decision categories;
+* reviewer identities;
+* response deadlines;
+* completed analyses;
+* completed revisions;
+* journal policies.
+
+Possible readiness statuses include:
+
+* `NOT_READY`;
+* `SCIENTIFIC_CORRECTION_REQUIRED`;
+* `REVISION_IN_PROGRESS`;
+* `RESPONSE_REVIEW_REQUIRED`;
+* `READY_WITH_MINOR_ADMIN_TASKS`;
+* `READY_FOR_RESUBMISSION`.
+
+`READY_FOR_RESUBMISSION` should be used only after required scientific corrections, revisions, evidence verification, manuscript-response consistency, and relevant journal requirements have been adequately resolved.
 
 ---
 
@@ -1254,4 +1421,4 @@ Use:
 
 # Success Criterion
 
-`research-intake` succeeds when enough context has been established to identify the shortest scientifically defensible next research workflow without requiring unnecessary information from the researcher.
+`research-intake` succeeds when enough context has been established to identify the shortest scientifically defensible next research workflow without requiring unnecessary information from the researcher; when existing manuscript, editor, reviewer, and simulated-review materials are recognized as evidence of the current stage rather than forcing a restart; when reviewer simulation is distinguished from actual reviewer or editor feedback; when existing reviewer comments can route directly to `reviewer-response`; when reviewer-response cases identify whether scientific correction, reanalysis, verification, or manuscript revision is still required before response language is finalized; when completed audit or review stages are not repeated unnecessarily; and when `READY_FOR_RESUBMISSION` is never assigned before required scientific, evidentiary, revision, consistency, and journal-requirement gates have been satisfied.

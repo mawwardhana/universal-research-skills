@@ -2,6 +2,696 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.14.0] - Reviewer Response Layer
+
+### Added
+
+- `reviewer-response` skill for converting actual or simulated reviewer and editor feedback into a transparent, traceable, scientifically defensible revision-and-response workflow.
+- Explicit separation of:
+  - `ACTUAL_EDITOR_COMMENT`
+  - `ACTUAL_REVIEWER_COMMENT`
+  - `SIMULATED_REVIEWER_COMMENT`
+  - `AUTHOR_INTERNAL_COMMENT`
+- Point-by-point reviewer-response architecture preserving original reviewer comments, stable comment IDs, scientific validity assessment, required action, manuscript location, and verification status.
+- Comment classification covering scientific validity, methods, sampling, measurement, statistics, qualitative analysis, mixed methods, results, interpretation, discussion, novelty, references, reporting, ethics, tables, figures, supplementary materials, language, and journal fit.
+- Scientific-validity classifications including:
+  - `VALID`
+  - `PARTIALLY_VALID`
+  - `VALID_BUT_ALREADY_ADDRESSED`
+  - `VALID_REQUIRES_REANALYSIS`
+  - `VALID_REQUIRES_NEW_DATA`
+  - `QUESTION_FOR_CLARIFICATION`
+  - `PREFERENCE_NOT_REQUIREMENT`
+  - `SCIENTIFICALLY_DEBATABLE`
+  - `NOT_SUPPORTED`
+  - `REQUIRES_VERIFICATION`
+- Response-status tracking from initial assessment through revision completion and resubmission readiness.
+- Revision-action architecture distinguishing textual clarification, methodological correction, reanalysis, additional analysis, table or figure revision, reference update, limitation expansion, conclusion narrowing, novelty recalibration, and justified no-change responses.
+- Upstream scientific routing when reviewer criticism exposes genuine research-question, theory, conceptual, methodology, sampling, instrument, analysis, interpretation, discussion, implication, novelty, reference-integrity, manuscript-structure, writing, or journal-fit problems.
+- Safeguards against fabricated revisions, reanalysis, new data, citations, ethics approvals, journal policies, compliance claims, or manuscript changes.
+- Version-aware manuscript and response-letter synchronization across multiple review rounds.
+- Cascading consistency checks ensuring material reanalysis or scientific revision propagates through abstract, methods, results, tables, figures, supplements, discussion, conclusion, references, and response letter.
+- Conflict-resolution logic for contradictory reviewer requests.
+- Rejection and resubmission routing distinguishing genuine scientific correction from journal-fit rematching.
+- Explicit `READY_FOR_RESUBMISSION` quality gate.
+
+### Reviewer Response Architecture
+
+```text
+Reviewer / Editor Feedback
+        ↓
+Comment Extraction
+        ↓
+Scientific Validity Assessment
+        ↓
+Required Revision?
+        │
+        ├── YES
+        │    ↓
+        │ Scientific / Manuscript Correction
+        │    ↓
+        │ Revision Verification
+        │
+        └── NO
+             ↓
+        Evidence-Based Justification
+        ↓
+Point-by-Point Response
+        ↓
+Manuscript / Response Consistency Check
+        ↓
+READY_FOR_RESUBMISSION
+when all gates are satisfied
+```
+
+### Core Principle
+
+The governing principle is:
+
+> **Respond to the science first. Write the rebuttal second.**
+
+A polished response letter cannot substitute for unresolved scientific correction.
+
+### Actual vs Simulated Review
+
+The framework explicitly preserves:
+
+```text
+ACTUAL JOURNAL REVIEW
+≠
+SIMULATED REVIEW
+```
+
+Simulated comments must never be represented as comments from an actual editor, reviewer, journal, or publisher.
+
+### Entry Modes
+
+Supported reviewer-response modes include:
+
+- `ACTUAL_REVIEW_RESPONSE`
+- `SIMULATED_REVIEW_RESPONSE`
+- `EDITOR_COMMENT_RESPONSE`
+- `POINT_BY_POINT_RESPONSE`
+- `MAJOR_REVISION_RESPONSE`
+- `MINOR_REVISION_RESPONSE`
+- `REJECT_AND_RESUBMIT_RESPONSE`
+- `REVISION_LETTER`
+- `RESPONSE_MATRIX`
+- `COMMENT_CLASSIFICATION`
+- `COMMENT_VALIDITY_ASSESSMENT`
+- `SCIENTIFIC_DISAGREEMENT_RESPONSE`
+- `METHODS_RESPONSE`
+- `STATISTICAL_RESPONSE`
+- `NOVELTY_RESPONSE`
+- `REFERENCE_RESPONSE`
+- `REPORTING_GUIDELINE_RESPONSE`
+- `ETHICS_TRANSPARENCY_RESPONSE`
+- `LANGUAGE_STYLE_RESPONSE`
+- `POST_REVISION_REVIEW`
+- `SECOND_ROUND_RESPONSE`
+- `EDITORIAL_APPEAL_ASSESSMENT`
+- `RESUBMISSION_PREPARATION`
+
+### Comment Traceability
+
+Each substantive comment may be recorded as:
+
+```yaml
+review_comment:
+  comment_id:
+  source:
+  reviewer:
+  original_comment:
+  comment_type:
+  section:
+  severity:
+  scientific_validity:
+  actionability:
+  revision_required:
+  upstream_route:
+  evidence_needed:
+  response_status:
+```
+
+Original reviewer meaning must be preserved rather than silently rewritten into an easier request.
+
+### Stable Comment IDs
+
+Recommended IDs include:
+
+```text
+E1, E2
+R1.1, R1.2
+R2.1, R2.2
+S1.1, S1.2
+```
+
+This improves traceability across manuscript revisions and review rounds.
+
+### Scientific Validity Assessment
+
+A reviewer request is not automatically scientifically correct merely because it was made by a reviewer.
+
+Requests should be evaluated against:
+
+- study design;
+- actual data;
+- methods;
+- intended inference;
+- current evidence;
+- reporting standards;
+- verified journal policy;
+- scientific logic.
+
+### Reviewer Authority Safeguard
+
+The framework permits respectful scientific disagreement.
+
+Preferred logic:
+
+```text
+Reviewer Request
+      ↓
+Scientific Assessment
+      ↓
+Valid?
+  ┌───┴────┐
+ YES      PARTIAL / NO
+  ↓           ↓
+Revise     Explain Scientifically
+  ↓           ↓
+Verify     Clarify Manuscript if Useful
+```
+
+### No False Agreement
+
+The framework prohibits statements such as:
+
+```text
+“We agree and have revised accordingly.”
+```
+
+unless the corresponding revision was actually completed.
+
+### Revision Before Response
+
+Preferred sequence:
+
+```text
+Reviewer Comment
+      ↓
+Scientific Assessment
+      ↓
+Required Revision
+      ↓
+Revision Completed
+      ↓
+Revision Verified
+      ↓
+Response Drafted
+```
+
+### Response Status Architecture
+
+Possible statuses include:
+
+- `NOT_STARTED`
+- `ASSESSING`
+- `UPSTREAM_CORRECTION_REQUIRED`
+- `REVISION_IN_PROGRESS`
+- `REVISION_COMPLETED`
+- `RESPONSE_DRAFTED`
+- `VERIFIED`
+- `READY_FOR_RESUBMISSION`
+
+### Scientific Upstream Routing
+
+When reviewer criticism reveals a genuine upstream scientific problem, the issue is routed back appropriately.
+
+Examples:
+
+```text
+Research-question problem
+      ↓
+research-question-builder
+```
+
+```text
+Theory problem
+      ↓
+theoretical-framework
+```
+
+```text
+Conceptual-framework problem
+      ↓
+conceptual-framework
+```
+
+```text
+Methodology problem
+      ↓
+methodology-architect
+```
+
+```text
+Sampling problem
+      ↓
+sampling-strategy
+```
+
+```text
+Instrument problem
+      ↓
+instrument-design
+```
+
+```text
+Analysis problem
+      ↓
+analysis-planner
+or
+statistical-method-selector
+```
+
+```text
+Interpretation problem
+      ↓
+result-interpreter
+```
+
+```text
+Discussion problem
+      ↓
+scientific-discussion
+```
+
+```text
+Implication problem
+      ↓
+implication-builder
+```
+
+```text
+Novelty problem
+      ↓
+novelty-auditor
+```
+
+```text
+Reference-integrity problem
+      ↓
+reference-integrity-guard
+```
+
+```text
+Manuscript-structure problem
+      ↓
+manuscript-architect
+```
+
+```text
+Writing / clarity problem
+      ↓
+manuscript-writer
+```
+
+```text
+Journal-fit problem
+      ↓
+journal-matcher
+```
+
+Scientific problems must not be concealed through stylistic rewriting.
+
+### Reanalysis Safeguard
+
+The framework must never state:
+
+```text
+“We reanalyzed the data.”
+```
+
+unless reanalysis was actually performed.
+
+If reanalysis changes scientific results, affected manuscript components must be updated consistently.
+
+### Cascading Revision Architecture
+
+```text
+Reanalysis / Scientific Revision
+        ↓
+Abstract
+        ↓
+Methods
+        ↓
+Results
+        ↓
+Tables / Figures
+        ↓
+Supplementary Materials
+        ↓
+Discussion
+        ↓
+Conclusion
+        ↓
+Response Letter
+```
+
+### Reviewer Conflict Resolution
+
+When reviewers request incompatible changes:
+
+```text
+Reviewer 1 asks A
+Reviewer 2 asks not-A
+      ↓
+Assess Scientific Basis
+      ↓
+Use Explicit Editorial Guidance When Available
+      ↓
+Choose Defensible Resolution
+      ↓
+Explain Respectfully to Both
+```
+
+The framework must not satisfy mutually incompatible comments mechanically.
+
+### Impossible Reviewer Requests
+
+If requested data were never collected or cannot be reconstructed:
+
+- do not fabricate data;
+- determine whether the claim must be narrowed;
+- state the limitation transparently;
+- identify whether the request is `NOT_FEASIBLE_POST_HOC`.
+
+Future work cannot be used to conceal a current validity problem.
+
+### Statistical Response Safeguards
+
+Reviewer pressure must not trigger:
+
+- significance chasing;
+- arbitrary subgroup analysis;
+- unsupported exclusions;
+- outcome switching;
+- repeated model searching;
+- unjustified post-hoc power analysis.
+
+### Method-Specific Reviewer Response
+
+Reviewer response can route scientifically justified corrections for:
+
+- regression;
+- logistic regression;
+- survival analysis;
+- longitudinal analysis;
+- multilevel analysis;
+- mediation;
+- moderation;
+- SEM;
+- PLS-SEM;
+- qualitative analysis;
+- mixed methods;
+- systematic reviews;
+- meta-analysis;
+- pharmacokinetics;
+- pharmacogenetics;
+- pharmaceutical formulation;
+- experimental studies.
+
+### Novelty Challenge Response
+
+When novelty is challenged:
+
+```text
+Reviewer Novelty Challenge
+      ↓
+novelty-auditor
+      ↓
+Recalibrated Novelty Claim
+      ↓
+Reviewer Response
+```
+
+Unsupported claims such as `first`, `novel`, `unique`, or `unprecedented` must be narrowed when necessary.
+
+### Reference Integrity
+
+Any new or defended citation must remain scientifically relevant and verified.
+
+Relevant routing includes:
+
+- `source-verification`
+- `reference-integrity-guard`
+
+Target-journal citation padding remains prohibited.
+
+### Reporting-Guideline Response
+
+Relevant guidelines may include:
+
+- CONSORT;
+- STROBE;
+- PRISMA;
+- STARD;
+- TRIPOD;
+- CARE;
+- COREQ;
+- SRQR;
+- ARRIVE;
+- CHEERS;
+- SPIRIT;
+- RECORD;
+- SAGER.
+
+The framework must not claim complete reporting-guideline compliance unless it has actually been checked.
+
+### Ethics and Transparency
+
+Reviewer response must never fabricate:
+
+- ethics approval;
+- informed consent;
+- waiver;
+- registration;
+- animal ethics approval;
+- data availability;
+- code availability;
+- funding declarations;
+- conflicts of interest;
+- AI-use disclosure.
+
+### Point-by-Point Response Architecture
+
+Preferred structure:
+
+```markdown
+### Reviewer 1 — Comment 1
+
+**Comment**
+
+[Original reviewer comment]
+
+**Response**
+
+[Scientifically defensible response]
+
+**Change in manuscript**
+
+[Verified revision and location]
+```
+
+### Response Without Manuscript Change
+
+A reviewer may be respectfully challenged when no manuscript change is scientifically justified.
+
+The response should still explain the scientific basis clearly and, when useful, clarify the manuscript to prevent misunderstanding.
+
+### Reviewer Misunderstanding as Information
+
+If a reviewer misunderstands a technically present point, the framework treats this as possible evidence that the manuscript wording or placement should be clarified.
+
+### Version-Aware Review Response
+
+The framework tracks:
+
+```text
+Review Round
+      ↓
+Reviewed Manuscript Version
+      ↓
+Revised Manuscript Version
+      ↓
+Response-Letter Version
+```
+
+The response letter must correspond to the exact revised manuscript being resubmitted.
+
+### Second-Round Review
+
+When a second review round occurs:
+
+```text
+Round 1 Comment
+      ↓
+Round 1 Response
+      ↓
+Revised Manuscript
+      ↓
+Round 2 Comment
+      ↓
+Current Resolution Assessment
+```
+
+Previous responses must not be contradicted silently.
+
+### Rejection Routing
+
+When a manuscript is rejected:
+
+```text
+Rejection
+      ↓
+Scientific Problem?
+      │
+      ├── YES
+      │    ↓
+      │ Upstream Scientific Correction
+      │
+      └── NO
+           ↓
+      journal-matcher
+```
+
+The framework therefore prevents automatic journal hopping when genuine scientific criticism remains unresolved.
+
+### Appeal Safeguard
+
+Appeal should be considered only when there is a defensible basis such as:
+
+- factual error;
+- reviewer misunderstanding;
+- procedural issue;
+- conflict with verified journal policy;
+- substantial scientific justification.
+
+Rejection alone is not sufficient reason for appeal.
+
+### Readiness Gate
+
+Before resubmission:
+
+```text
+All Editor Comments Addressed
+      ↓
+All Reviewer Comments Addressed
+      ↓
+Critical / Major Scientific Issues Resolved
+      ↓
+Required Revisions Verified
+      ↓
+References Verified
+      ↓
+Tables / Figures / Supplements Synchronized
+      ↓
+Response Letter Matches Revised Manuscript
+      ↓
+Relevant Journal Requirements Checked
+      ↓
+READY_FOR_RESUBMISSION
+```
+
+Possible readiness states include:
+
+- `NOT_READY`
+- `SCIENTIFIC_CORRECTION_REQUIRED`
+- `REVISION_IN_PROGRESS`
+- `RESPONSE_REVIEW_REQUIRED`
+- `READY_WITH_MINOR_ADMIN_TASKS`
+- `READY_FOR_RESUBMISSION`
+
+### `research-router` Integration
+
+The publication workflow now explicitly supports:
+
+```text
+Stage 12 — Manuscript Audit
+        ↓
+Stage 13 — Reviewer Simulation
+        ↓
+Stage 14 — Reviewer Response
+        ↓
+Scientific Correction / Revision Verification
+        ↓
+READY_FOR_RESUBMISSION
+```
+
+The router now recognizes both actual and simulated review and routes unresolved scientific criticism upstream before final response language is completed.
+
+### `research-intake` Integration
+
+`research-intake` now supports:
+
+```text
+research_entry_mode: REVIEWER_RESPONSE
+```
+
+with explicit handling of:
+
+- actual editor comments;
+- actual reviewer comments;
+- simulated reviewer comments;
+- major/minor revision;
+- point-by-point responses;
+- reanalysis requirements;
+- upstream scientific correction;
+- revision verification;
+- resubmission readiness.
+
+The intake layer now prevents reviewer comments from being automatically routed back to reviewer simulation.
+
+### Framework Progression
+
+```text
+Evidence Discovery & Verification
+      ↓
+Scientific Positioning
+      ↓
+Research Logic & Framework
+      ↓
+Methodology & Study Design
+      ↓
+Analysis Planning & Method Selection
+      ↓
+Results Interpretation
+      ↓
+Scientific Discussion
+      ↓
+Implication Building
+      ↓
+Manuscript Architecture
+      ↓
+Manuscript Writing
+      ↓
+Manuscript Audit & Publication Readiness
+      ↓
+Journal Matching & Publication Strategy
+      ↓
+Reviewer Simulation
+      ↓
+Reviewer Response
+      ↓
+Revision Verification
+      ↓
+Resubmission Readiness
+```
+
+This release establishes a formal reviewer-response layer that treats reviewer correspondence as part of the scientific revision process rather than merely an editorial writing task, ensuring that genuine criticism is corrected scientifically, disagreement is evidence-based and respectful, manuscript and response versions remain synchronized, and resubmission readiness is declared only after the relevant scientific and verification gates have been satisfied.
+
+---
+
 ## [0.13.0] - Reviewer Simulation Layer
 
 ### Added
