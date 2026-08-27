@@ -2,7 +2,7 @@
 
 name: research-router
 
-description: Route researchers to the correct research workflow based on their current stage, available materials, scientific goals, governance needs, and methodological requirements. Use when a user wants to start research, continue previous research, develop an idea, validate a gap or novelty, build research questions or frameworks, design a study, determine ethics or regulatory requirements, register or preregister a study, govern and audit research data, plan or conduct analysis, assess reproducibility, interpret results, prepare or audit a manuscript, select a journal, simulate peer review, or respond to reviewers.
+description: Route researchers to the correct research workflow based on their current stage, available materials, scientific goals, governance needs, methodological requirements, and implementation status. Use when a user wants to start research, continue previous research, develop an idea, validate a gap or novelty, build research questions or frameworks, design a study, determine ethics or regulatory requirements, register or preregister a study, govern and audit research data, execute or monitor an active study, assess protocol adherence, monitor data collection, identify prospective deviation risk, audit scientific progress, plan or conduct analysis, assess reproducibility, interpret results, prepare or audit a manuscript, select a journal, simulate peer review, or respond to reviewers.
 
 ---
 
@@ -512,6 +512,192 @@ Use conceptually:
 ```
 
 Not every study requires every branch.
+
+---
+
+## Stage 7B — Research Execution and Monitoring
+
+Typical signals:
+
+* the scientific design is sufficiently stable and implementation is beginning or already active;
+
+* the user asks how to operationalize an approved research plan;
+
+* the user asks whether protocol implementation remains faithful;
+
+* the user asks whether active data collection is complete, timely, traceable, or scientifically usable;
+
+* the user asks what execution problems are likely to occur next;
+
+* the user asks whether current activity represents meaningful scientific progress;
+
+* the study is delayed, paused, recovering, amended, or approaching an execution decision gate.
+
+Primary route:
+
+`research-execution-manager`
+
+Use `research-execution-manager` when the researcher needs to translate an approved and governable research plan into a traceable implementation architecture with scientific dependencies, workstreams, readiness conditions, milestones, decision gates, evidence-of-completion requirements, responsible roles, deviation routes, and downstream handoffs.
+
+Then activate the monitoring branches conditionally.
+
+### Protocol Adherence
+
+Use:
+
+`protocol-adherence-monitor`
+
+when the question is whether actual implementation matches the protocol version that governed the event, whether a departure is allowed variation, deviation, material violation, emergency departure, or drift, and what correction, amendment, escalation, pause, or stop action is required.
+
+An actual observed departure belongs here.
+
+Do not route an already observed protocol departure only to prospective risk monitoring.
+
+### Active Data Collection
+
+Use:
+
+`data-collection-monitor`
+
+when the study is actively generating or receiving evidence and the question concerns:
+
+* participant, sample, site, specimen, interview, record, or source flow;
+
+* collection completeness;
+
+* collection timeliness;
+
+* missingness emergence;
+
+* source continuity;
+
+* identifier or linkage continuity;
+
+* instrument or measurement continuity;
+
+* collection-site variation;
+
+* recovery of delayed or missing data;
+
+* collection closure or reconciliation.
+
+This skill monitors whether the intended evidence stream is actually being generated.
+
+It does not replace `data-quality-auditor`.
+
+### Prospective Deviation Risk
+
+Use:
+
+`deviation-risk-monitor`
+
+when the concern is prospective rather than retrospective.
+
+Typical signals include:
+
+* repeated near-misses;
+
+* recruitment shortfall;
+
+* staff turnover;
+
+* training gaps;
+
+* supply disruption;
+
+* instrument instability;
+
+* rising missingness;
+
+* data-access uncertainty;
+
+* increasing site variation;
+
+* protocol infeasibility;
+
+* participant burden;
+
+* approaching deadlines that may pressure the team into scientifically unjustified shortcuts.
+
+A risk is not yet an actual deviation.
+
+If the feared event materializes, route the observed event to:
+
+`protocol-adherence-monitor`
+
+### Scientific Progress Audit
+
+Use:
+
+`research-progress-auditor`
+
+when the researcher needs to determine whether the active study or stage is making scientifically meaningful, evidence-supported progress against:
+
+* approved objectives;
+
+* verified scientific milestones;
+
+* hard and soft dependencies;
+
+* governance conditions;
+
+* protocol status;
+
+* data-collection status;
+
+* active risks;
+
+* evidence-of-completion criteria.
+
+Do not define progress by elapsed time, expenditure, meetings, manuscript drafting, or publication counting.
+
+### Execution-Layer Architecture
+
+Use conceptually:
+
+```text
+                 APPROVED / GOVERNABLE RESEARCH PLAN
+                               │
+                               ▼
+                  research-execution-manager
+                               │
+             ┌─────────────────┼─────────────────┐
+             │                 │                 │
+             ▼                 ▼                 ▼
+ protocol-adherence-   data-collection-   deviation-risk-
+      monitor               monitor            monitor
+             │                 │                 │
+             └─────────────────┼─────────────────┘
+                               ▼
+                  research-progress-auditor
+                               │
+                               ▼
+                    NEXT DECISION GATE
+            PROCEED / REPLAN / AMEND / PAUSE /
+                    STOP / ESCALATE
+```
+
+These skills are coordinated but not a rigid linear sequence.
+
+Activate only the branch required by the current scientific problem.
+
+### Execution Governance Re-entry
+
+During implementation, reactivate cross-cutting governance skills whenever material changes or problems require them:
+
+* participant protection, consent, privacy, authorization, specimen, safety, or regulatory uncertainty → `ethics-regulatory-gate`;
+
+* prospective commitment, outcome, protocol, or analysis-plan change → `registration-preregistration-builder`;
+
+* source, identifier, linkage, access, transformation, retention, sharing, or provenance problem → `research-data-governance`;
+
+* actual governed data validity or analysis-readiness problem → `data-quality-auditor`;
+
+* reconstruction, rerun, environment, output, or result-traceability problem → `reproducibility-auditor`.
+
+When execution becomes scientifically infeasible, do not bypass the problem merely to preserve schedule.
+
+Route back to the appropriate upstream design, governance, sampling, instrument, protocol, or analysis skill.
 
 ---
 
@@ -1897,6 +2083,50 @@ Do not treat these skills as interchangeable.
 
 ---
 
+## Rule 9 — Route Active Execution by Scientific State
+
+When a study is already being implemented, do not send every execution problem to the same skill.
+
+Use:
+
+```text
+Need to coordinate the approved implementation?
+        ↓
+research-execution-manager
+
+Did a protocol departure already occur?
+        ↓
+protocol-adherence-monitor
+
+Is the active evidence stream incomplete, delayed, lost, or inconsistent at collection?
+        ↓
+data-collection-monitor
+
+Is a future deviation becoming more likely but has not yet occurred?
+        ↓
+deviation-risk-monitor
+
+Does the researcher need to know whether the study is genuinely advancing?
+        ↓
+research-progress-auditor
+```
+
+Preserve actual-versus-planned distinctions.
+
+Do not:
+
+* treat risk as if it were an observed deviation;
+
+* treat collection incompleteness as automatic data invalidity;
+
+* treat schedule completion as scientific progress;
+
+* treat a later amendment as if it retroactively erased an earlier deviation;
+
+* allow execution convenience to overwrite protocol, governance, or scientific meaning.
+
+---
+
 # Research Passport Awareness
 
 When available, use:
@@ -1924,6 +2154,16 @@ The router should identify:
 * data-quality status when actual data exist;
 
 * reproducibility status when an analytical record exists;
+
+* execution-readiness status when implementation is active or approaching;
+
+* protocol-adherence status when implementation has begun;
+
+* data-collection status when evidence generation or receipt is active;
+
+* deviation-risk status when prospective execution threats are material;
+
+* research-progress status when milestones or stage-gate decisions are being audited;
 
 * next recommended stage.
 
@@ -1989,6 +2229,16 @@ When routing a request, internally establish:
 
 * `reproducibility\_status`
 
+* `research\_execution\_status`
+
+* `protocol\_adherence\_status`
+
+* `data\_collection\_status`
+
+* `deviation\_risk\_status`
+
+* `research\_progress\_status`
+
 Possible entry modes include:
 
 * `START\_NEW\_RESEARCH`
@@ -2023,6 +2273,16 @@ Possible entry modes include:
 
 * `REPRODUCIBILITY\_AUDIT`
 
+* `RESEARCH\_EXECUTION`
+
+* `PROTOCOL\_ADHERENCE\_MONITORING`
+
+* `DATA\_COLLECTION\_MONITORING`
+
+* `DEVIATION\_RISK\_MONITORING`
+
+* `RESEARCH\_PROGRESS\_AUDIT`
+
 ---
 
 # Stop Conditions
@@ -2051,7 +2311,17 @@ Do not proceed to a downstream stage if:
 
 * a strong reproducibility or rerun claim is requested but the analysis dataset, workflow, environment, outputs, or result mapping cannot be reconstructed;
 
-* reviewer-requested changes would exceed approved ethical, consent, regulatory, contractual, or data-use scope.
+* reviewer-requested changes would exceed approved ethical, consent, regulatory, contractual, or data-use scope;
+
+* active implementation is proceeding without a sufficiently defined or governable execution architecture where one is required;
+
+* a material protocol departure has occurred but has not been classified, documented, or routed for appropriate action;
+
+* active data collection is failing in a way that threatens the primary scientific objective, participant or sample traceability, source provenance, or defensible analysis;
+
+* a foreseeable execution risk is critical and continuation would likely convert it into an irreparable scientific or governance failure;
+
+* a claimed milestone or study-stage completion lacks the evidence required for verification.
 
 Explain the issue and route the user to the stage needed to resolve it.
 
@@ -2070,6 +2340,16 @@ It may mean:
 `REQUIRE_DATA_QUALITY_REVIEW`
 
 `REQUIRE_REPRODUCIBILITY_REPAIR`
+
+`REQUIRE_EXECUTION_REPLAN`
+
+`REQUIRE_PROTOCOL_ADHERENCE_REVIEW`
+
+`REQUIRE_COLLECTION_REVIEW`
+
+`REQUIRE_RISK_MITIGATION`
+
+`REQUIRE_PROGRESS_REASSESSMENT`
 
 or another appropriate upstream action.
 
@@ -2745,6 +3025,139 @@ Do not:
 
 ---
 
+# Research Execution and Monitoring Routing
+
+The following v0.17.0 skills form the implementation and monitoring layer:
+
+```text
+research-execution-manager
+protocol-adherence-monitor
+data-collection-monitor
+deviation-risk-monitor
+research-progress-auditor
+```
+
+They connect approved research design to actual implementation and stage-gate decisions.
+
+They are not interchangeable.
+
+Use conceptually:
+
+```text
+research-execution-manager
+= What must happen, in what defensible order, under which dependencies and gates?
+
+protocol-adherence-monitor
+= Did actual implementation remain within the protocol that governed the event?
+
+data-collection-monitor
+= Is the planned evidence stream actually being collected or received with sufficient completeness, timing, provenance, and continuity?
+
+deviation-risk-monitor
+= What foreseeable future failure is becoming more likely, and what should be prevented before it materializes?
+
+research-progress-auditor
+= Has the scientific evidence state genuinely advanced enough to justify the next milestone or stage?
+```
+
+---
+
+# Execution Routing Matrix
+
+| User Need | Preferred Skill |
+|---|---|
+| How should an approved study be operationalized and coordinated? | `research-execution-manager` |
+| Did implementation depart from protocol, and what does that departure mean? | `protocol-adherence-monitor` |
+| Is active data collection complete, timely, traceable, and scientifically on track? | `data-collection-monitor` |
+| What future execution failures are becoming more likely? | `deviation-risk-monitor` |
+| Is the study making verified scientific progress, and can it advance? | `research-progress-auditor` |
+
+---
+
+# Execution Decision Cues
+
+Use `research-execution-manager` when the study is implementation-ready and needs a controlled execution architecture.
+
+Use `protocol-adherence-monitor` when something has **already happened** and the question is whether the event conformed to the applicable protocol.
+
+Use `data-collection-monitor` when the central problem is the active generation or receipt of planned evidence.
+
+Use `deviation-risk-monitor` when the central problem is a **future threat** that has not yet fully materialized.
+
+Use `research-progress-auditor` when the central question is whether current activity constitutes verified scientific advancement.
+
+---
+
+# Execution Re-entry and Backtracking
+
+A downstream execution problem may require upstream scientific correction.
+
+Examples:
+
+* protocol infeasibility → `protocol-builder` or `methodology-architect`;
+
+* recruitment failure → `sampling-strategy`;
+
+* measurement-system failure → `instrument-design`;
+
+* permission or participant-protection problem → `ethics-regulatory-gate`;
+
+* prospective-plan change → `registration-preregistration-builder`;
+
+* data provenance, access, linkage, retention, or sharing problem → `research-data-governance`;
+
+* actual dataset integrity problem → `data-quality-auditor`;
+
+* analysis feasibility problem → `analysis-planner`;
+
+* reconstruction or rerun problem → `reproducibility-auditor`.
+
+Do not preserve a downstream schedule by bypassing an unresolved upstream scientific problem.
+
+---
+
+# Execution Evidence Separation
+
+The router must preserve:
+
+```text
+EXECUTION PLAN
+= what should happen operationally
+
+PROTOCOL ADHERENCE
+= whether what actually happened conformed to the governing protocol
+
+DATA COLLECTION STATUS
+= whether the intended evidence stream is being generated or received
+
+DEVIATION RISK
+= whether future divergence is becoming more likely
+
+SCIENTIFIC PROGRESS
+= whether the evidence state has advanced sufficiently to justify the next gate
+```
+
+One does not substitute for another.
+
+---
+
+# Execution Safeguards
+
+Do not:
+
+- call a study on track merely because activities are occurring;
+- call a protocol adherent merely because deviations were not recorded;
+- call a future risk an actual deviation;
+- call data collection complete merely because forms or files exist;
+- close collection early to satisfy a deadline;
+- hide failed runs, missed visits, lost samples, source changes, or recovery attempts;
+- downgrade risks because results are favorable;
+- redefine milestones after failure merely to preserve a favorable progress report;
+- treat amendment approval as retroactive erasure of earlier deviations;
+- let software, funders, journals, reviewers, or publication targets redefine scientific execution.
+
+---
+
 # Research Logic and Framework Routing
 
 When scientific positioning has produced a sufficiently validated gap and defensible novelty, route the researcher toward research logic before methodology.
@@ -2986,4 +3399,4 @@ Do not:
 
 # Success Criterion
 
-`research-router` succeeds when the researcher can enter the framework from any reasonable research stage and receive the shortest scientifically defensible path toward the next research objective; while correctly distinguishing phenomenon evidence from scholarly evidence; while conditionally routing research questions, theory, hypotheses, conceptual frameworks, methodology, protocol, sampling, measurement, analysis, interpretation, manuscript development, manuscript audit, journal matching, reviewer simulation, and reviewer response; while activating `ethics-regulatory-gate`, `registration-preregistration-builder`, `research-data-governance`, `data-quality-auditor`, and `reproducibility-auditor` whenever their distinct governance functions are scientifically or institutionally relevant without forcing them as a rigid universal sequence; while separating ethical permission from scientific validity, preregistration from ethics approval, data governance from data quality, and reproducibility from mere code or data availability; while preserving version-aware audit gates, amendment and deviation history, data provenance, actual-versus-planned distinctions, and upstream backtracking when genuine scientific problems are discovered; while distinguishing actual journal review from simulated review; while ensuring that reviewer-response claims about revisions, reanalysis, evidence, compliance, ethics, registration, data changes, reproducibility, or manuscript changes are made only after those actions are actually completed and verified; while routing unresolved scientific criticism, ethics or regulatory uncertainty, data-integrity problems, preregistration discrepancies, and reproducibility failures back to the appropriate upstream skill; while preserving consistency across revised datasets, analyses, manuscripts, supplements, archives, and response letters; and while avoiding unnecessary repetition, premature method selection, publication-driven distortion, retroactive preregistration, permission-by-assumption, software-driven data cleaning, simulated-review claims that exceed the available evidence, reviewer appeasement that weakens scientific integrity, fabricated governance status, or premature `READY_FOR_RESUBMISSION` status.
+`research-router` succeeds when the researcher can enter the framework from any reasonable research stage and receive the shortest scientifically defensible path toward the next research objective; while correctly distinguishing phenomenon evidence from scholarly evidence; while conditionally routing research questions, theory, hypotheses, conceptual frameworks, methodology, protocol, sampling, measurement, research execution, protocol adherence, active data collection, prospective deviation risk, scientific progress auditing, analysis, interpretation, manuscript development, manuscript audit, journal matching, reviewer simulation, and reviewer response; while activating `research-execution-manager`, `protocol-adherence-monitor`, `data-collection-monitor`, `deviation-risk-monitor`, and `research-progress-auditor` according to the actual implementation problem rather than as a rigid universal sequence; while activating `ethics-regulatory-gate`, `registration-preregistration-builder`, `research-data-governance`, `data-quality-auditor`, and `reproducibility-auditor` whenever their distinct governance functions are scientifically or institutionally relevant; while separating ethical permission from scientific validity, preregistration from ethics approval, data governance from data quality, protocol adherence from prospective deviation risk, data-collection status from dataset validity, scientific progress from calendar activity, and reproducibility from mere code or data availability; while preserving version-aware audit gates, protocol-version history, amendment and deviation history, collection provenance, risk history, verified milestone evidence, actual-versus-planned distinctions, and upstream backtracking when genuine scientific problems are discovered; while distinguishing actual journal review from simulated review; while ensuring that reviewer-response claims about revisions, reanalysis, evidence, compliance, ethics, registration, data changes, reproducibility, execution changes, or manuscript changes are made only after those actions are actually completed and verified; while routing unresolved scientific criticism, ethics or regulatory uncertainty, data-integrity problems, preregistration discrepancies, execution failures, protocol departures, collection problems, prospective deviation threats, progress blockers, and reproducibility failures back to the appropriate upstream skill; while preserving consistency across protocol versions, governed datasets, collection records, analyses, manuscripts, supplements, archives, progress records, and response letters; and while avoiding unnecessary repetition, premature method selection, publication-driven distortion, retroactive preregistration, permission-by-assumption, silent protocol rewriting, deadline-driven execution shortcuts, software-driven data cleaning, fabricated milestone completion, simulated-review claims that exceed the available evidence, reviewer appeasement that weakens scientific integrity, fabricated governance status, or premature `READY_FOR_RESUBMISSION` status.

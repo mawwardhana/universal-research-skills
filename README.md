@@ -1,10 +1,10 @@
 # Universal Research Skills
 
-A universal, evidence-driven research workflow for moving from a broad research idea or previous study to a defensible research question, methodology, governance, analysis, manuscript, journal strategy, peer-review simulation, reviewer response, and long-term research roadmap.
+A universal, evidence-driven research workflow for moving from a broad research idea or previous study to a defensible research question, methodology, governance, research execution, monitoring, analysis, manuscript, journal strategy, peer-review simulation, reviewer response, and long-term research roadmap.
 
 Universal Research Skills is designed to support researchers across disciplines without forcing one method, software package, publication model, or disciplinary tradition onto every study.
 
-The framework currently contains **51 modular research skills** that can be entered from different research stages and connected through explicit scientific routing.
+The framework currently contains **56 modular research skills** that can be entered from different research stages and connected through explicit scientific routing.
 
 ---
 
@@ -26,6 +26,10 @@ The framework is built around several non-negotiable principles:
 12. **Reproducibility claims require an actually reconstructable research record.**
 13. **Uncertainty must remain visible when evidence is incomplete.**
 14. **A scientifically valid outcome may be that a gap, novelty claim, hypothesis, roadmap stage, proposed interpretation, dataset, analysis plan, or research activity should be rejected, revised, blocked, or reframed.**
+15. **Approved scientific plans must not be silently rewritten during execution.**
+16. **Prospective deviation risk must be distinguished from an actual protocol deviation.**
+17. **Data-collection activity must not be confused with data validity or analysis readiness.**
+18. **Scientific progress must be demonstrated by evidence-state advancement, not by calendar activity, expenditure, meetings, or publication counting.**
 
 ---
 
@@ -175,6 +179,73 @@ Reviewer or editor requests may reactivate these gates when a revision changes p
 
 ---
 
+## Research Execution and Monitoring Architecture
+
+Once a study is sufficiently designed, governed, and ready to move from planning into implementation, Universal Research Skills uses a dedicated execution layer.
+
+The five execution and monitoring skills are:
+
+```text
+research-execution-manager
+protocol-adherence-monitor
+data-collection-monitor
+deviation-risk-monitor
+research-progress-auditor
+```
+
+Their core relationship is:
+
+```text
+APPROVED / GOVERNABLE RESEARCH PLAN
+              │
+              ▼
+   research-execution-manager
+              │
+      ┌───────┼────────┐
+      │       │        │
+      ▼       ▼        ▼
+protocol-   data-    deviation-
+adherence- collection risk-
+monitor     monitor   monitor
+      │       │        │
+      └───────┼────────┘
+              ▼
+   research-progress-auditor
+              │
+              ▼
+      NEXT DECISION GATE
+ PROCEED / REPLAN / AMEND
+    PAUSE / STOP / ESCALATE
+```
+
+This layer preserves several critical distinctions:
+
+```text
+PLANNED EXECUTION ≠ ACTUAL EXECUTION
+ACTIVITY ≠ SCIENTIFIC PROGRESS
+PROSPECTIVE RISK ≠ ACTUAL DEVIATION
+COLLECTED DATA ≠ VALID DATA
+DELAYED DATA ≠ MISSING DATA
+PROTOCOL VARIATION ≠ MATERIAL VIOLATION
+PAUSE ≠ FAILURE
+REPLAN ≠ CONCEALMENT
+MILESTONE REPORTED COMPLETE ≠ MILESTONE VERIFIED COMPLETE
+```
+
+`research-execution-manager` translates an approved and governable study into a traceable implementation architecture.
+
+`protocol-adherence-monitor` evaluates whether actual implementation remains consistent with the current applicable protocol and distinguishes permitted variation, deviation, material violation, amendment, emergency action, and execution drift.
+
+`data-collection-monitor` monitors whether the intended evidence stream is actually being generated or received with sufficient completeness, timing, provenance, continuity, and traceability.
+
+`deviation-risk-monitor` identifies prospective threats before they become actual deviations and supports preventive action, contingency planning, escalation, replanning, pause, or stop decisions.
+
+`research-progress-auditor` evaluates whether the study has genuinely advanced its scientific evidence state rather than merely remaining administratively active.
+
+These skills do not replace the cross-cutting governance layer. Execution problems may reactivate `ethics-regulatory-gate`, `registration-preregistration-builder`, `research-data-governance`, `data-quality-auditor`, `analysis-planner`, or `reproducibility-auditor` whenever scientifically or institutionally required.
+
+---
+
 ## End-to-End Research Architecture
 
 A typical full workflow may look like this:
@@ -224,11 +295,20 @@ Registration / Preregistration when appropriate
         ↓
 Protocol / Sampling / Instrument
         ↓
+Analysis Planning when prospectively required
+        ↓
 Research Data Governance
+        ↓
+Research Execution Manager
+        ↓
+Protocol Adherence / Data Collection /
+Prospective Deviation-Risk Monitoring
+        ↓
+Research Progress Audit
         ↓
 Data Quality Audit
         ↓
-Analysis Planner
+Analysis Planning recheck when needed
         ↓
 Statistical / Qualitative / Mixed-Method / Meta-Analysis
         ↓
@@ -796,6 +876,14 @@ unless that action actually occurred and was verified.
 - `data-quality-auditor`
 - `reproducibility-auditor`
 
+### Research Execution and Monitoring
+
+- `research-execution-manager`
+- `protocol-adherence-monitor`
+- `data-collection-monitor`
+- `deviation-risk-monitor`
+- `research-progress-auditor`
+
 ### Analysis
 
 - `analysis-planner`
@@ -819,7 +907,7 @@ unless that action actually occurred and was verified.
 - `reviewer-simulator`
 - `reviewer-response`
 
-**Total: 51 skills.**
+**Total: 56 skills.**
 
 ---
 
@@ -874,6 +962,36 @@ registration-preregistration-builder
       when appropriate
       ↓
 research-data-governance
+```
+
+### Starting with an approved study ready for implementation
+
+```text
+research-execution-manager
+      ↓
+protocol-adherence-monitor /
+data-collection-monitor /
+deviation-risk-monitor
+      as required
+      ↓
+research-progress-auditor
+      ↓
+next defensible decision gate
+```
+
+### Starting with an active study that is drifting, delayed, or at risk
+
+```text
+research-progress-auditor
+      ↓
+identify whether the issue is:
+actual deviation / collection problem /
+prospective risk / governance constraint
+      ↓
+appropriate execution or governance skill
+      ↓
+verified corrective, preventive,
+replan, amendment, pause, or stop decision
 ```
 
 ### Starting with an existing dataset
@@ -955,6 +1073,13 @@ Universal Research Skills is designed to prevent:
 - permission-by-assumption;
 - retrospective preregistration presented as prospective;
 - silent protocol deviation;
+- silent protocol rewriting during execution;
+- normalization of repeated near-misses;
+- fabricated milestone completion;
+- fabricated collection completeness;
+- deadline-driven scientific shortcuts;
+- publication-driven risk downgrading;
+- reviewer-driven execution claims that did not actually occur;
 - undocumented data transformation;
 - and premature claims of readiness.
 
@@ -993,7 +1118,7 @@ universal-research-skills/
 ├── .codex-plugin/
 │   └── plugin.json
 ├── skills/
-│   ├── <51 modular research skills>/
+│   ├── <56 modular research skills>/
 │   │   └── SKILL.md
 ├── providers/
 ├── methods/
@@ -1030,6 +1155,11 @@ A user can begin with any of the following:
 - an ethics or regulatory question;
 - a registration or preregistration need;
 - a data-governance problem;
+- an approved study ready for execution;
+- an active data-collection process;
+- a protocol-adherence question;
+- a prospective deviation risk;
+- a research-progress or milestone question;
 - a data-quality problem;
 - analytical outputs;
 - a reproducibility question;
@@ -1063,6 +1193,18 @@ Depending on the research stage, users may provide:
 - raw data;
 - codebooks;
 - transformation logs;
+- execution plans;
+- milestone registers;
+- protocol-adherence records;
+- deviation registers;
+- near-miss records;
+- risk registers;
+- preventive-action or CAPA records;
+- collection dashboards;
+- participant or sample-flow records;
+- site-monitoring records;
+- collection-closure and reconciliation records;
+- progress-audit records;
 - analysis scripts;
 - spreadsheets;
 - statistical outputs;
@@ -1112,6 +1254,12 @@ Ethical / Regulatory Feasibility
 ↓
 Transparent Data Governance
 ↓
+Traceable Research Execution
+↓
+Protocol / Collection / Risk Monitoring
+↓
+Evidence-Based Progress Audit
+↓
 Audited Data Quality
 ↓
 Transparent Analysis
@@ -1138,6 +1286,9 @@ Before adding or modifying a skill, contributors should preserve:
 - uncertainty handling;
 - cross-skill compatibility;
 - governance compatibility;
+- execution traceability;
+- protocol-version integrity;
+- explicit planned-versus-actual distinctions;
 - data provenance;
 - version traceability;
 - and the separation between scientific reasoning and publication strategy.
@@ -1162,4 +1313,4 @@ See `LICENSE` for licensing terms.
 
 Universal Research Skills aims to make advanced research reasoning reusable, transparent, modular, and accessible without reducing research to templates, software menus, journal tactics, compliance rituals, or automatic claims of novelty.
 
-The framework succeeds when it helps a researcher identify the **next scientifically defensible action** while preserving the integrity of the evidence, the research question, the methods, the participants and permissions, the data, the analysis, the interpretation, and the scientific record.
+The framework succeeds when it helps a researcher identify the **next scientifically defensible action** while preserving the integrity of the evidence, the research question, the methods, the participants and permissions, the approved plan, the actual implementation, the protocol and deviation history, the data, the analysis, the interpretation, and the scientific record.

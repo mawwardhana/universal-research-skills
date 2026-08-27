@@ -2,6 +2,289 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.17.0] - Research Execution, Monitoring & Scientific Progress Layer
+
+### Added
+
+- `research-execution-manager` for translating an approved and governable research plan into a traceable implementation architecture covering scientific workstreams, dependencies, readiness conditions, responsibilities, protocol versions, permissions, resources, milestones, decision gates, evidence of completion, deviation routes, pauses, amendments, and downstream handoffs.
+- `protocol-adherence-monitor` for monitoring whether active research implementation remains consistent with the current approved protocol while distinguishing expected operational variation, minor divergence, protocol deviation, material violation, approved amendment, emergency action, and systemic execution drift.
+- `data-collection-monitor` for monitoring active research data collection or receipt for completeness, timeliness, source continuity, participant or sample flow, instrument use, missingness emergence, linkage integrity, collection-site variation, collection failure, recovery attempts, and readiness for downstream data-quality auditing and analysis.
+- `deviation-risk-monitor` for identifying, assessing, documenting, prioritizing, and escalating prospective risks that may cause future divergence from the approved protocol, execution plan, registration commitment, data-governance requirement, collection plan, or scientific milestone before the deviation materializes.
+- `research-progress-auditor` for determining whether an active study or research stage is making scientifically meaningful, evidence-supported progress against approved objectives, verified milestones, dependencies, governance conditions, protocol status, data-collection expectations, risk profile, and evidence-of-completion requirements.
+
+### Updated
+
+- Expanded `research-router` with a formal implementation-stage routing layer for approved or active studies.
+- Added execution routing that distinguishes:
+  - implementation coordination → `research-execution-manager`;
+  - observed protocol departure → `protocol-adherence-monitor`;
+  - active collection problem → `data-collection-monitor`;
+  - prospective implementation threat → `deviation-risk-monitor`;
+  - evidence-based study-stage progress assessment → `research-progress-auditor`.
+- Added explicit routing back to `ethics-regulatory-gate`, `registration-preregistration-builder`, `research-data-governance`, `data-quality-auditor`, `analysis-planner`, and `reproducibility-auditor` when execution problems cross governance, registration, provenance, data-validity, analytical, or reconstruction boundaries.
+- Expanded version-aware and actual-versus-planned routing so implementation changes, protocol departures, collection shortfalls, prospective risk, and verified milestone evidence remain distinct and traceable.
+- Strengthened upstream backtracking so scientific or governance problems discovered during implementation are returned to the correct earlier skill rather than being hidden inside project-management language.
+- Updated `README.md` from **51 skills** to **56 modular research skills**.
+- Added README documentation for the Research Execution and Monitoring Architecture and its relationship with the v0.16.0 Research Governance, Data Integrity & Reproducibility Layer.
+- Expanded the end-to-end framework so it now supports transition from approved study design into implementation, monitoring, progress auditing, and the next defensible decision gate.
+
+### Research Execution and Monitoring Architecture
+
+```text
+APPROVED / GOVERNABLE RESEARCH PLAN
+              │
+              ▼
+   research-execution-manager
+              │
+      ┌───────┼────────┐
+      │       │        │
+      ▼       ▼        ▼
+protocol-   data-    deviation-
+adherence- collection risk-
+monitor     monitor   monitor
+      │       │        │
+      └───────┼────────┘
+              ▼
+   research-progress-auditor
+              │
+              ▼
+      NEXT DECISION GATE
+ PROCEED / REPLAN / AMEND
+    PAUSE / STOP / ESCALATE
+```
+
+The execution layer is deliberately non-linear.
+
+Governance, protocol, registration, data, risk, collection, quality, analysis, and reproducibility gates may be reactivated whenever the evidence state requires them.
+
+### Functional Responsibilities
+
+`research-execution-manager`
+
+- Converts approved methodology and governance conditions into a transparent execution architecture.
+- Distinguishes scientific milestones from administrative milestones.
+- Requires evidence of completion rather than status-by-assertion.
+- Preserves protocol versions, permissions, dependencies, responsibilities, amendments, pauses, and implementation history.
+
+`protocol-adherence-monitor`
+
+- Determines what actually departed from the current approved protocol.
+- Separates legitimate operational flexibility from scientifically or regulatorily material nonadherence.
+- Preserves protocol-version history and routes unresolved problems to the correct governance, execution, data, analysis, or reproducibility skill.
+
+`data-collection-monitor`
+
+- Audits whether the intended evidence stream is actually being collected or received as planned.
+- Distinguishes collected data from valid data, delayed data from missing data, and operational completion from scientific completeness.
+- Preserves collection provenance, source continuity, participant or sample flow, missingness, site variation, failure, and recovery history.
+
+`deviation-risk-monitor`
+
+- Operates prospectively before a deviation occurs.
+- Separates warning signals from actual failure, likelihood from certainty, prevention from correction, and risk priority from arbitrary risk scoring.
+- Tracks preventive actions, contingencies, residual risk, near-misses, and escalation routes.
+
+`research-progress-auditor`
+
+- Determines whether the evidence state has actually advanced.
+- Separates scientific progress from activity, time elapsed, expenditure, meeting frequency, manuscript drafting, and publication counting.
+- Verifies milestones and supports defensible `PROCEED`, `PROCEED_WITH_CONDITIONS`, `REPLAN`, `AMEND`, `PAUSE`, `STOP`, or `AWAIT_EVIDENCE` decisions.
+
+### Execution-State Distinctions
+
+The framework now explicitly preserves:
+
+```text
+RISK
+≠
+ACTUAL DEVIATION
+```
+
+```text
+DATA COLLECTION
+≠
+DATA QUALITY
+```
+
+```text
+ACTIVITY
+≠
+SCIENTIFIC PROGRESS
+```
+
+```text
+MILESTONE REPORTED COMPLETE
+≠
+MILESTONE VERIFIED COMPLETE
+```
+
+```text
+DELAY
+≠
+FAILURE
+```
+
+```text
+PAUSE
+≠
+FAILURE
+```
+
+```text
+REPLAN
+≠
+SCIENTIFIC WEAKNESS
+```
+
+```text
+ON SCHEDULE
+≠
+SCIENTIFICALLY ON TRACK
+```
+
+### Scientific Safeguards
+
+- Prevents project-management convenience from silently redefining the approved scientific plan.
+- Prevents deadlines, publication targets, funding narratives, or reviewer requests from justifying scientifically invalid shortcuts.
+- Prevents silent protocol rewrites, hidden deviations, fabricated milestone completion, fabricated mitigation, and unverified execution claims.
+- Prevents collection volume from being treated automatically as evidence quality or scientific completion.
+- Prevents arbitrary missingness thresholds, result-driven recollection, selective source substitution, and premature data-collection closure.
+- Prevents prospective risk from being mislabeled as an observed deviation and prevents observed deviations from being downgraded to “risk” to avoid documentation.
+- Prevents automated dashboards, software completion messages, and numerical risk scores from replacing scientific judgment.
+- Preserves participant protection, consent, privacy, regulatory limits, registration commitments, data provenance, and controlled-access requirements during implementation.
+- Requires changes in protocol, outcomes, analysis intentions, data use, participant scope, or permissions to be routed to the relevant upstream governance or registration skill rather than silently normalized.
+- Preserves near-misses, failed mitigation, pauses, amendments, deviations, blocked dependencies, and terminated branches as part of the scientific record.
+- Allows null findings, rejected hypotheses, feasibility failure, and scientifically justified stopping to count as legitimate research outcomes rather than project failure.
+- Prevents positive results from being used as evidence that execution quality was acceptable.
+- Prevents negative results from being used as evidence that execution failed.
+
+### Governance Integration
+
+The v0.17.0 layer extends, rather than replaces, the v0.16.0 governance architecture.
+
+```text
+                     ACTIVE RESEARCH
+                           │
+        ┌──────────────────┼──────────────────┐
+        │                  │                  │
+        ▼                  ▼                  ▼
+ethics-regulatory-  registration-       research-data-
+      gate          preregistration-      governance
+                         builder
+        │                  │                  │
+        └──────────────┬───┴──────────────────┘
+                       ▼
+             research-execution-manager
+                       │
+          ┌────────────┼────────────┐
+          ▼            ▼            ▼
+   protocol-      data-       deviation-
+   adherence-    collection-      risk-
+   monitor       monitor        monitor
+          └────────────┼────────────┘
+                       ▼
+             research-progress-auditor
+                       │
+             ┌─────────┴─────────┐
+             ▼                   ▼
+      data-quality-auditor   analysis-planner
+             │                   │
+             └─────────┬─────────┘
+                       ▼
+             reproducibility-auditor
+                when warranted
+```
+
+These are conditional scientific routes, not a rigid mandatory sequence.
+
+### Progress and Decision-Gate Architecture
+
+The execution layer now supports evidence-based stage decisions:
+
+- `PROCEED`
+- `PROCEED_WITH_CONDITIONS`
+- `REVISE`
+- `REPEAT`
+- `REPLAN`
+- `AMEND`
+- `PAUSE`
+- `STOP`
+- `TERMINATE_STAGE`
+- `AWAIT_EVIDENCE`
+- `RETURN_TO_UPSTREAM_SKILL`
+
+A stage must not advance merely because the planned calendar date has arrived.
+
+### Repository Integration
+
+The v0.17.0 implementation layer was integrated after structural and cross-skill verification.
+
+Current framework state:
+
+- **56 skill folders**
+- **56 `SKILL.md` files**
+- **0 missing `SKILL.md` files**
+- `research-router` integrated with all five v0.17.0 skills.
+- Governance-layer routing from v0.16.0 preserved.
+- Legacy router references to `research-program-builder`, `no-apc-journal-finder`, and `target-journal-intelligence` remain absent from active routing.
+- Router code fences remain balanced.
+- Router has exactly one `# Success Criterion`.
+- README catalog updated to all **56 modular research skills**.
+
+### Framework Progression
+
+```text
+Research Problem / Previous Research
+        ↓
+Evidence Discovery & Verification
+        ↓
+Scientific Positioning
+        ↓
+Research Logic & Framework
+        ↓
+Methodology & Study Design
+        ↓
+Governance / Registration / Data Planning
+        ↓
+Approved / Governable Research Plan
+        ↓
+Research Execution
+        ↓
+Protocol Adherence + Data Collection + Deviation Risk
+        ↓
+Research Progress Audit
+        ↓
+Decision Gate
+        │
+        ├── PROCEED
+        ├── PROCEED WITH CONDITIONS
+        ├── REPLAN
+        ├── AMEND
+        ├── PAUSE
+        ├── STOP
+        └── AWAIT EVIDENCE
+        ↓
+Data Quality / Analysis
+        ↓
+Result Interpretation
+        ↓
+Scientific Discussion
+        ↓
+Implications
+        ↓
+Manuscript Development
+        ↓
+Publication & Review
+        ↓
+Long-Term Research Roadmap
+```
+
+The central principle of this release is:
+
+> **Research execution is scientifically successful when the evidence state advances defensibly—not merely when activities occur, deadlines are met, money is spent, or outputs are produced.**
+
+---
+
 ## [0.16.0] - Research Governance, Data Integrity & Reproducibility Layer
 
 ### Added

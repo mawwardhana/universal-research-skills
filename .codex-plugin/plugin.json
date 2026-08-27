@@ -1,7 +1,7 @@
 {
   "name": "universal-research-skills",
-  "version": "0.16.0",
-  "description": "A universal, Scopus-first, evidence-driven research framework that guides researchers from idea discovery and continuation of previous studies through state-of-the-art mapping, research gap validation, novelty development, methodology, analysis, research roadmaps, manuscript preparation, and publication readiness.",
+  "version": "0.17.0",
+  "description": "A universal, Scopus-first, evidence-driven research framework that guides researchers from idea discovery and continuation of previous studies through state-of-the-art mapping, research gap validation, novelty development, methodology, governance, research execution and monitoring, data quality, reproducibility, analysis, research roadmaps, manuscript preparation, peer review, and publication readiness.",
   "author": {
     "name": "Universal Research Skills Contributors"
   },
@@ -21,13 +21,18 @@
     "no-apc",
     "journal-selection",
     "publication-strategy",
-    "target-journal-intelligence"
+    "target-journal-intelligence",
+    "research-governance",
+    "research-execution",
+    "protocol-adherence",
+    "data-governance",
+    "reproducibility"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Universal Research Skills",
-    "shortDescription": "End-to-end research guidance from ideas to publication",
-    "longDescription": "Supports researchers at any stage, including discovering new research ideas, continuing previous studies, mapping the state of the art, validating research gaps and novelty, designing research methods, planning analysis, building research roadmaps, interpreting findings, and preparing competitive international manuscripts.",
+    "shortDescription": "End-to-end research guidance from ideas through execution to publication",
+    "longDescription": "Supports researchers at any stage, including discovering new research ideas, continuing previous studies, mapping the state of the art, validating research gaps and novelty, designing research methods, managing ethics and data governance, executing and monitoring active studies, auditing protocol adherence and scientific progress, assessing data quality and reproducibility, planning analysis, building research roadmaps, interpreting findings, preparing manuscripts, and navigating peer review and publication.",
     "developerName": "Universal Research Skills Contributors",
     "category": "Research",
     "capabilities": [
@@ -38,7 +43,7 @@
     "defaultPrompt": [
       "Help me discover a strong new research idea.",
       "Analyze my previous study and recommend what to study next.",
-      "Guide my research from evidence to a publication-ready manuscript."
+      "Guide my research from evidence through execution to a publication-ready manuscript."
     ]
   }
 }
