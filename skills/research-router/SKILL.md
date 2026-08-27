@@ -2,7 +2,7 @@
 
 name: research-router
 
-description: Route researchers to the correct research workflow based on their current stage, available materials, goals, and methodological needs. Use when a user wants to start research, continue previous research, develop an idea, validate a gap or novelty, design a study, analyze data, interpret results, prepare a manuscript, select a journal, simulate peer review, or respond to reviewers.
+description: Route researchers to the correct research workflow based on their current stage, available materials, scientific goals, governance needs, and methodological requirements. Use when a user wants to start research, continue previous research, develop an idea, validate a gap or novelty, build research questions or frameworks, design a study, determine ethics or regulatory requirements, register or preregister a study, govern and audit research data, plan or conduct analysis, assess reproducibility, interpret results, prepare or audit a manuscript, select a journal, simulate peer review, or respond to reviewers.
 
 ---
 
@@ -50,7 +50,19 @@ The router must preserve the following framework-wide principles:
 
 * Publication-oriented
 
+* Governance-aware
+
+* Ethics-aware
+
+* Version-aware
+
+* Traceable
+
+* Reproducibility-aware
+
 The router must not force a researcher to restart the research process if valid work has already been completed.
+
+Cross-cutting governance and integrity requirements should be activated only when scientifically or institutionally relevant, but they must not be skipped merely because the user entered the framework at a later stage.
 
 ---
 
@@ -85,6 +97,22 @@ Apply these rules throughout routing:
    * external literature evidence.
 
 10. Never fabricate missing research information.
+
+11. Do not treat technical access to participants, data, specimens, software, or platforms as ethical or regulatory permission.
+
+12. Do not treat ethics approval, registration, or preregistration as proof of scientific validity.
+
+13. Do not describe a study as prospectively preregistered when the relevant outcome information or primary analysis had already been observed.
+
+14. Do not proceed with analysis of an actual dataset when source identity, version, transformation history, or data-quality status is materially unresolved.
+
+15. Do not call a dataset "clean" merely because software produces no warnings or because undesirable observations were removed.
+
+16. Do not claim reproducibility merely because code, a repository, a project file, or supplementary material exists.
+
+17. Reviewer or editor requests do not override ethics, consent, privacy, data-use, preregistration, or regulatory constraints.
+
+18. When a material scientific change occurs, preserve version history and reassess all affected downstream stages rather than silently overwriting the prior research record.
 
 ---
 
@@ -214,7 +242,9 @@ Typical signals:
 
 * user asks "what should I study next?";
 
-* user wants a research roadmap based on earlier work.
+* user wants a research roadmap based on earlier work;
+
+* user wants to reuse an old dataset or rerun an earlier analysis.
 
 Recommended route:
 
@@ -244,13 +274,25 @@ Recommended route:
 
 → `novelty-auditor`
 
-→ `research-program-builder`
-
 → `research-roadmap`
+
+When continuation depends on old participant permissions, data, specimens, protocols, or analytical files, activate the relevant governance routes conditionally:
+
+* permission, ethics, consent, specimen, regulatory, or sharing uncertainty → `ethics-regulatory-gate`;
+
+* registration, preregistration, amendment, or prior-plan uncertainty → `registration-preregistration-builder`;
+
+* dataset provenance, version, linkage, transformation, access, retention, or sharing uncertainty → `research-data-governance`;
+
+* data-integrity or analysis-readiness uncertainty → `data-quality-auditor`;
+
+* old analytical workflow, result-to-data traceability, rerun, code, environment, or output uncertainty → `reproducibility-auditor`.
 
 Do not assume that limitations or future directions stated in the previous paper remain valid research gaps.
 
 They must be reassessed against current literature.
+
+Do not assume that old ethics approvals, consent scopes, data-use agreements, registrations, or analysis files automatically remain applicable to a new continuation study.
 
 ---
 
@@ -376,9 +418,11 @@ Typical signals:
 
 * user asks for research methods;
 
-* user asks how to solve the research problem scientifically.
+* user asks how to solve the research problem scientifically;
 
-Recommended route:
+* user asks what must be approved, preregistered, documented, or governed before implementation.
+
+Recommended scientific-design route:
 
 `problem-solving-approach`
 
@@ -395,6 +439,79 @@ Then, as required:
 Methodology must follow the research problem and scientific question.
 
 Do not begin by selecting statistical software.
+
+### Stage 7 Governance Gates
+
+Before participant recruitment, intervention, specimen collection, restricted-data access, data linkage, external transfer, or other regulated activity, determine whether:
+
+`ethics-regulatory-gate`
+
+is required.
+
+Use `ethics-regulatory-gate` when the study involves, for example:
+
+* human participants;
+
+* identifiable or sensitive data;
+
+* health or genetic data;
+
+* biological materials;
+
+* animals;
+
+* clinical or experimental interventions;
+
+* AI systems interacting with participants or sensitive data;
+
+* biosafety;
+
+* cross-border transfer;
+
+* restricted datasets;
+
+* consent limitations;
+
+* regulatory or institutional uncertainty.
+
+Do not assume low-risk or retrospective research is automatically exempt.
+
+Formal exemption or approval status must come from the competent authority where required.
+
+When prospective specification is scientifically useful or required, route to:
+
+`registration-preregistration-builder`
+
+after the research question and design are sufficiently stable and before the relevant outcome information is observed whenever possible.
+
+Registration and preregistration are not substitutes for ethics approval.
+
+When the study will create, receive, transform, link, retain, share, or archive research data, establish:
+
+`research-data-governance`
+
+before implementation whenever practicable.
+
+The three routes are not a rigid linear chain.
+
+Use conceptually:
+
+```text
+                     APPROVED SCIENTIFIC DESIGN
+                              │
+              ┌───────────────┼────────────────┐
+              │               │                │
+              ▼               ▼                ▼
+ ethics-regulatory-gate   registration-   research-data-
+                           preregistration- governance
+                           builder
+              │               │                │
+              └───────────────┼────────────────┘
+                              ▼
+                      IMPLEMENTATION READY
+```
+
+Not every study requires every branch.
 
 ---
 
@@ -414,9 +531,60 @@ Typical signals:
 
 * user asks how quantitative and qualitative findings should be integrated;
 
-* user asks whether evidence from multiple studies should be pooled.
+* user asks whether evidence from multiple studies should be pooled;
 
-First route to:
+* user asks whether an existing dataset is ready for analysis.
+
+### Actual-Data Readiness Gate
+
+When actual data already exist, do not assume that analysis should begin immediately.
+
+First determine whether the dataset has a defensible governed identity.
+
+If source, version, variable meaning, transformations, linkage, access, privacy, or dataset lineage is materially unresolved, route to:
+
+`research-data-governance`
+
+Then, when a governed dataset exists but structural integrity, value validity, duplicates, missingness, derived-variable correctness, outlier provenance, linkage integrity, temporal coherence, or analysis readiness has not been established, route to:
+
+`data-quality-auditor`
+
+Only then proceed to the analytical architecture.
+
+Use conceptually:
+
+```text
+ACTUAL DATA AVAILABLE?
+        │
+   ┌────┴────┐
+   │         │
+  No        Yes
+   │         │
+   │   Is governance established?
+   │         │
+   │    ┌────┴────┐
+   │    │         │
+   │   No        Yes
+   │    │         │
+   │    ▼         ▼
+   │ research-  Has data quality been audited?
+   │ data-         │
+   │ governance ┌──┴──┐
+   │            │     │
+   │           No    Yes
+   │            │     │
+   │            ▼     │
+   │      data-quality-
+   │          auditor
+   │            │
+   └────────────┴──────→ analysis-planner
+```
+
+If the user is only planning future analysis and no actual dataset exists, `data-quality-auditor` is not yet required.
+
+A prospective data-governance plan may still be appropriate.
+
+First analytical route:
 
 `analysis-planner`
 
@@ -710,9 +878,13 @@ Typical signals:
 
 * user provides statistical outputs;
 
+* user provides qualitative findings;
+
 * user provides tables or figures;
 
-* user asks what findings mean.
+* user asks what findings mean;
+
+* user asks whether results can be trusted, traced, or rerun.
 
 Recommended route:
 
@@ -727,6 +899,48 @@ Then:
 Interpretation must remain proportional to the design and evidence.
 
 Association must not be described as causation unless the design supports causal inference.
+
+### Result Integrity Backtracking
+
+Before or during interpretation, backtrack when necessary:
+
+* unclear dataset source, version, or transformation lineage → `research-data-governance`;
+
+* unresolved duplicates, missingness, derived variables, implausible values, outliers, linkage, or data-integrity concerns → `data-quality-auditor`;
+
+* analysis differs materially from the registered or preregistered plan → `registration-preregistration-builder` for amendment/deviation transparency;
+
+* analysis or data use may exceed ethics, consent, authorization, privacy, regulatory, or contractual scope → `ethics-regulatory-gate`;
+
+* result cannot be linked to the analysis dataset, procedure, software environment, output, or manuscript claim → `reproducibility-auditor`.
+
+### Reproducibility Routing
+
+Use:
+
+`reproducibility-auditor`
+
+when the user asks whether:
+
+* the analysis can be rerun;
+
+* the workflow can be reconstructed;
+
+* the correct dataset version was used;
+
+* a table or figure can be regenerated;
+
+* a manuscript value can be traced to output;
+
+* an old analysis can be reproduced;
+
+* a code or repository package is sufficient;
+
+* reviewer-requested reanalysis is reproducible.
+
+Do not require a reproducibility audit before every preliminary interpretation.
+
+Activate it when traceability, reconstruction, rerun, archival, manuscript finalization, reviewer response, or reproducibility claims materially matter.
 
 ---
 
@@ -756,7 +970,39 @@ The manuscript should be grounded in:
 
 * actual results;
 
-* evidence-proportional interpretation.
+* evidence-proportional interpretation;
+
+* actual ethics and regulatory status;
+
+* actual registration or preregistration status;
+
+* governed and auditable data provenance where applicable;
+
+* reproducibility claims that match the available record.
+
+Before strong data-availability, code-availability, preregistration, ethics, or reproducibility statements are written, verify the underlying record through the relevant v0.16.0 skill rather than relying on manuscript wording alone.
+
+When the analytical workflow is mature and manuscript finalization or archival release requires traceability, route to:
+
+`reproducibility-auditor`
+
+before or as part of final scientific audit.
+
+Do not fabricate:
+
+* ethics approval numbers;
+
+* consent status;
+
+* registration identifiers;
+
+* preregistration timing;
+
+* data availability;
+
+* code availability;
+
+* rerun success.
 
 ---
 
@@ -874,6 +1120,18 @@ Audit dimensions may include:
 
 * ethics and declarations;
 
+* ethics/regulatory scope consistency;
+
+* consent and privacy claims;
+
+* registration/preregistration timing and deviation transparency;
+
+* data-governance traceability;
+
+* data-quality provenance;
+
+* reproducibility and result-to-output traceability;
+
 * tables, figures, and supplementary materials;
 
 * internal consistency;
@@ -881,6 +1139,18 @@ Audit dimensions may include:
 * submission readiness.
 
 If the manuscript requires correction before publication-oriented work continues, route back to the appropriate upstream skill.
+
+Examples include:
+
+* ethics, consent, regulatory, authorization, or privacy problem → `ethics-regulatory-gate`;
+
+* registration, preregistration, outcome-switching, or undocumented-deviation problem → `registration-preregistration-builder`;
+
+* source-data, version, transformation, linkage, retention, or sharing problem → `research-data-governance`;
+
+* data-integrity or analysis-readiness problem → `data-quality-auditor`;
+
+* result-to-data, result-to-output, environment, rerun, or reproducibility problem → `reproducibility-auditor`.
 
 If the same manuscript version passes `manuscript-auditor` with no unresolved submission-blocking issues, continue according to the researcher's goal:
 
@@ -1048,9 +1318,21 @@ Examples include:
 
 * writing problem → `manuscript-writer`;
 
-* journal-fit problem → `journal-matcher`.
+* journal-fit problem → `journal-matcher`;
+
+* ethics, consent, privacy, approval, or regulatory problem → `ethics-regulatory-gate`;
+
+* preregistration, registration, amendment, or deviation problem → `registration-preregistration-builder`;
+
+* data provenance, versioning, transformation, access, retention, or sharing problem → `research-data-governance`;
+
+* data-integrity or analysis-readiness problem → `data-quality-auditor`;
+
+* rerun, result traceability, code, environment, or reproducibility problem → `reproducibility-auditor`.
 
 Do not route a genuine scientific problem to copyediting or stylistic rewriting.
+
+A simulated reviewer must not recommend actions that bypass participant rights, ethics approval, consent scope, data-use agreements, privacy safeguards, registration history, or regulatory obligations.
 
 After simulated reviewer comments are complete and the researcher wants to prepare responses, revisions, or a point-by-point rebuttal, route to:
 
@@ -1216,7 +1498,17 @@ Examples include:
 
 * writing or clarity problem → `manuscript-writer`;
 
-* journal-fit or post-rejection rematching problem → `journal-matcher`.
+* journal-fit or post-rejection rematching problem → `journal-matcher`;
+
+* ethics, consent, privacy, regulatory, authorization, specimen, or new-participant-scope problem → `ethics-regulatory-gate`;
+
+* registration, preregistration, amendment, deviation, post-hoc, or reviewer-requested-analysis status problem → `registration-preregistration-builder`;
+
+* dataset version, provenance, transformation, linkage, access, sharing, or archival problem → `research-data-governance`;
+
+* data correction, missingness, outlier provenance, duplicate, linkage, derived-variable, or analysis-readiness problem → `data-quality-auditor`;
+
+* rerun, output regeneration, result-to-output linkage, code, software environment, or reproducibility problem → `reproducibility-auditor`.
 
 Do not route a genuine scientific problem only to stylistic rewriting.
 
@@ -1247,7 +1539,44 @@ If a requested analysis or data element cannot be produced because it was not co
 
 * classify genuinely unavailable new data as `NOT_FEASIBLE_POST_HOC` or equivalent when appropriate.
 
-After material reanalysis or scientific revision, verify cascading consistency across:
+After material reanalysis or scientific revision, first assess whether the change triggers governance updates.
+
+Use conceptually:
+
+```text
+REVIEWER / EDITOR REQUEST
+        ↓
+Does it change participants, specimens, data use,
+privacy, authorization, or regulated procedures?
+        │
+       Yes
+        ↓
+ethics-regulatory-gate
+
+Does it change the prespecified plan or add a
+post-hoc / exploratory / reviewer-requested analysis?
+        │
+       Yes
+        ↓
+registration-preregistration-builder
+
+Does it create or modify a dataset, transformation,
+linkage, access condition, or data version?
+        │
+       Yes
+        ↓
+research-data-governance
+        ↓
+data-quality-auditor
+when actual data are changed
+        ↓
+analysis / reanalysis
+        ↓
+reproducibility-auditor
+when traceability or rerun verification is required
+```
+
+Then verify cascading consistency across:
 
 ```text
 Abstract
@@ -1361,9 +1690,7 @@ Previous Research
 
 → novelty development
 
-→ research program development
-
-→ research roadmap
+→ research roadmap development
 
 Expected outputs may include:
 
@@ -1497,6 +1824,79 @@ Do not overwrite established research decisions without identifying:
 
 ---
 
+## Rule 6 — Activate Governance Gates Conditionally
+
+Do not force every study through every governance skill.
+
+However, whenever the user enters with actual participants, specimens, data, analyses, manuscripts, reviewer comments, or archival materials, check whether unresolved issues require:
+
+* `ethics-regulatory-gate`;
+
+* `registration-preregistration-builder`;
+
+* `research-data-governance`;
+
+* `data-quality-auditor`;
+
+* `reproducibility-auditor`.
+
+Governance skills are cross-cutting.
+
+They may activate before implementation, during analysis, during manuscript audit, after reviewer requests, or when prior work is resumed.
+
+---
+
+## Rule 7 — Preserve Versioned Change
+
+When a material change occurs, identify:
+
+* the prior version;
+
+* the new version;
+
+* what changed;
+
+* why it changed;
+
+* whether new ethics or regulatory review is needed;
+
+* whether registration or preregistration must be amended or logged as a deviation;
+
+* whether the governed dataset changed;
+
+* whether data quality must be re-audited;
+
+* whether analysis outputs and reproducibility evidence must be regenerated.
+
+Do not silently overwrite old scientific states.
+
+---
+
+## Rule 8 — Separate Permission, Planning, Data Integrity, and Reproducibility
+
+Use conceptually:
+
+```text
+ethics-regulatory-gate
+= may this activity proceed?
+
+registration-preregistration-builder
+= what was planned, when, and what changed?
+
+research-data-governance
+= what data exist, where did they come from, what do they mean, and how are they controlled?
+
+data-quality-auditor
+= are the actual governed data scientifically coherent and fit for the intended analysis?
+
+reproducibility-auditor
+= can the performed analytical record be reconstructed and, where feasible, rerun?
+```
+
+Do not treat these skills as interchangeable.
+
+---
+
 # Research Passport Awareness
 
 When available, use:
@@ -1514,6 +1914,16 @@ The router should identify:
 * unresolved issues;
 
 * evidence status;
+
+* ethics/regulatory status when applicable;
+
+* registration/preregistration status when applicable;
+
+* research-data-governance status when applicable;
+
+* data-quality status when actual data exist;
+
+* reproducibility status when an analytical record exists;
 
 * next recommended stage.
 
@@ -1569,6 +1979,16 @@ When routing a request, internally establish:
 
 * `evidence\_requirement`
 
+* `ethics\_regulatory\_status`
+
+* `registration\_preregistration\_status`
+
+* `data\_governance\_status`
+
+* `data\_quality\_status`
+
+* `reproducibility\_status`
+
 Possible entry modes include:
 
 * `START\_NEW\_RESEARCH`
@@ -1593,6 +2013,16 @@ Possible entry modes include:
 
 * `REVIEWER\_RESPONSE`
 
+* `ETHICS\_REGULATORY\_REVIEW`
+
+* `REGISTRATION\_PREREGISTRATION`
+
+* `RESEARCH\_DATA\_GOVERNANCE`
+
+* `DATA\_QUALITY\_AUDIT`
+
+* `REPRODUCIBILITY\_AUDIT`
+
 ---
 
 # Stop Conditions
@@ -1609,9 +2039,39 @@ Do not proceed to a downstream stage if:
 
 * the requested statistical method is incompatible with the design;
 
-* a publication claim depends on unverified Scopus or APC status.
+* a publication claim depends on unverified Scopus or APC status;
+
+* a regulated or ethically sensitive activity appears to require approval, authorization, amendment, consent review, privacy review, biosafety review, animal ethics review, or legal/institutional review that remains unresolved;
+
+* a prospective preregistration claim would be false because relevant outcomes or primary analyses had already been observed;
+
+* actual data cannot be defensibly identified, versioned, or traced to their source;
+
+* material data-quality problems remain unresolved for the intended analysis;
+
+* a strong reproducibility or rerun claim is requested but the analysis dataset, workflow, environment, outputs, or result mapping cannot be reconstructed;
+
+* reviewer-requested changes would exceed approved ethical, consent, regulatory, contractual, or data-use scope.
 
 Explain the issue and route the user to the stage needed to resolve it.
+
+A stop condition is not always a permanent rejection.
+
+It may mean:
+
+`REVISE`
+
+`REQUIRE_APPROVAL`
+
+`REQUIRE_AMENDMENT`
+
+`REQUIRE_DATA_GOVERNANCE`
+
+`REQUIRE_DATA_QUALITY_REVIEW`
+
+`REQUIRE_REPRODUCIBILITY_REPAIR`
+
+or another appropriate upstream action.
 
 ---
 
@@ -1905,6 +2365,386 @@ Do not build strong background claims from scholarly literature alone when real-
 
 ---
 
+# Cross-Cutting Research Governance, Data Integrity, and Reproducibility Routing
+
+The following v0.16.0 skills form a cross-cutting integrity layer:
+
+```text
+ethics-regulatory-gate
+registration-preregistration-builder
+research-data-governance
+data-quality-auditor
+reproducibility-auditor
+```
+
+They are not a new mandatory linear stage.
+
+They activate when the scientific workflow creates a corresponding governance need.
+
+Use conceptually:
+
+```text
+                         RESEARCH WORKFLOW
+                                │
+        ┌───────────────────────┼────────────────────────┐
+        │                       │                        │
+        ▼                       ▼                        ▼
+ETHICS / REGULATORY       REGISTRATION /          DATA GOVERNANCE
+      PERMISSION           PREREGISTRATION               │
+        │                  & DEVIATIONS                  ▼
+        │                       │                  DATA QUALITY
+        │                       │                        │
+        └───────────────────────┼────────────────────────┘
+                                ▼
+                         ANALYSIS / RESULTS
+                                │
+                                ▼
+                     REPRODUCIBILITY AUDIT
+                                │
+                                ▼
+               MANUSCRIPT / ARCHIVE / REVIEW / RESUBMISSION
+```
+
+The router should activate only the branches required by the study.
+
+---
+
+# Ethics and Regulatory Routing
+
+Use:
+
+`ethics-regulatory-gate`
+
+when the question is essentially:
+
+> May this research activity proceed under the applicable ethical, participant, consent, privacy, institutional, contractual, safety, or regulatory constraints?
+
+Typical triggers include:
+
+- human participants;
+- clinical data;
+- identifiable data;
+- sensitive data;
+- genetic data;
+- biological specimens;
+- animals;
+- clinical interventions;
+- devices;
+- drugs;
+- biosafety;
+- cross-border transfer;
+- AI use involving sensitive research data or participant interaction;
+- secondary use;
+- data linkage;
+- consent uncertainty;
+- publication of identifiable material;
+- reviewer-requested new data collection or procedures.
+
+Possible outcomes include:
+
+- `PROCEED`;
+- `PROCEED_WITH_CONDITIONS`;
+- `REVISE_BEFORE_PROCEEDING`;
+- `FORMAL_APPROVAL_REQUIRED`;
+- `AMENDMENT_REQUIRED`;
+- `DATA_USE_AUTHORIZATION_REQUIRED`;
+- `PRIVACY_REVIEW_REQUIRED`;
+- `REGULATORY_REVIEW_REQUIRED`;
+- `BLOCKED_PENDING_RESOLUTION`.
+
+Do not let the router itself fabricate or grant formal approval.
+
+---
+
+# Registration and Preregistration Routing
+
+Use:
+
+`registration-preregistration-builder`
+
+when the question is essentially:
+
+> What should be prospectively specified, registered, preregistered, versioned, amended, or transparently labeled before or after relevant evidence is observed?
+
+Typical triggers include:
+
+- prospective study registration;
+- clinical trial registration;
+- protocol registration;
+- systematic-review registration;
+- analysis-plan preregistration;
+- registered reports;
+- confirmatory hypotheses;
+- outcome hierarchy;
+- stopping rules;
+- planned exclusions;
+- analysis flexibility;
+- protocol amendments;
+- outcome changes;
+- reviewer-requested analyses;
+- post-hoc analyses;
+- planned-vs-implemented comparison.
+
+Preserve:
+
+```text
+PREREGISTERED
+AMENDED
+DEVIATED
+EXPLORATORY
+POST_HOC
+REVIEWER_REQUESTED
+```
+
+as distinct scientific statuses.
+
+Do not retroactively relabel a post-hoc decision as prospective preregistration.
+
+---
+
+# Research Data Governance Routing
+
+Use:
+
+`research-data-governance`
+
+when the question is essentially:
+
+> What data exist or will exist, where did they come from, what do the variables mean, what transformations occurred, who may access them, and how are versions, retention, sharing, and provenance controlled?
+
+Typical triggers include:
+
+- source data;
+- raw data;
+- working data;
+- cleaned data;
+- linked data;
+- derived data;
+- analysis-ready data;
+- dataset versioning;
+- codebooks;
+- metadata;
+- identifiers;
+- transformations;
+- access;
+- privacy;
+- retention;
+- archival;
+- sharing;
+- cross-system linkage;
+- old datasets being resumed.
+
+Do not reduce data governance to file naming.
+
+---
+
+# Data Quality Routing
+
+Use:
+
+`data-quality-auditor`
+
+when actual governed data exist and the question is essentially:
+
+> Are these data structurally coherent, semantically consistent, traceable, plausible, and fit for the intended scientific analysis?
+
+Typical triggers include:
+
+- duplicates;
+- inconsistent identifiers;
+- invalid categories;
+- impossible ranges;
+- implausible values;
+- unit inconsistency;
+- temporal inconsistency;
+- missingness;
+- merge/linkage problems;
+- derived-variable problems;
+- scoring problems;
+- unexpected outliers;
+- analysis-readiness uncertainty.
+
+The audit must distinguish:
+
+```text
+CONFIRMED ERROR
+LEGITIMATE UNUSUAL OBSERVATION
+UNRESOLVED ANOMALY
+```
+
+Do not treat data quality as cosmetic cleaning.
+
+Do not correct observations merely because an analytical model prefers different values.
+
+---
+
+# Reproducibility Routing
+
+Use:
+
+`reproducibility-auditor`
+
+when the question is essentially:
+
+> Can the research analytical record be reconstructed from source data through transformations, analysis, software environment, outputs, and reported results?
+
+Typical triggers include:
+
+- rerunning an analysis;
+- reconstructing old work;
+- identifying which dataset produced a result;
+- linking manuscript values to outputs;
+- regenerating tables or figures;
+- checking a GitHub or supplementary reproducibility package;
+- software-version uncertainty;
+- missing scripts;
+- GUI analysis reconstruction;
+- reviewer-requested reanalysis;
+- archival release;
+- reproducibility statements.
+
+Distinguish:
+
+- computational reproducibility;
+- analytical reproducibility;
+- methodological replicability;
+- conceptual replication.
+
+Do not equate availability with reproducibility.
+
+Do not claim a rerun unless it actually occurred.
+
+---
+
+# Governance Routing Matrix
+
+| User Need | Preferred Skill |
+|---|---|
+| May this activity ethically or regulatorily proceed? | `ethics-regulatory-gate` |
+| What was prespecified, amended, exploratory, or post-hoc? | `registration-preregistration-builder` |
+| What data exist, where did they come from, and how are they controlled? | `research-data-governance` |
+| Are the actual governed data fit for the intended analysis? | `data-quality-auditor` |
+| Can the performed analytical workflow and results be reconstructed or rerun? | `reproducibility-auditor` |
+
+---
+
+# Conditional Governance Architecture
+
+Use conceptually:
+
+```text
+SCIENTIFIC DESIGN SUFFICIENTLY CLEAR
+              │
+    ┌─────────┼──────────┐
+    │         │          │
+    ▼         ▼          ▼
+ ethics   registration   data governance
+ required? / prereg      required?
+    │      useful/required?  │
+    │         │          │
+    └─────────┼──────────┘
+              ▼
+          IMPLEMENT
+              │
+              ▼
+        ACTUAL DATA EXIST
+              │
+              ▼
+      research-data-governance
+        if not already established
+              │
+              ▼
+       data-quality-auditor
+              │
+              ▼
+           ANALYSIS
+              │
+              ▼
+     reproducibility-auditor
+      when reconstruction,
+      rerun, finalization,
+      archive, or review
+      requires it
+```
+
+Not every branch is mandatory.
+
+---
+
+# Governance Re-entry After Change
+
+A material change may reactivate earlier gates.
+
+Examples:
+
+```text
+NEW PARTICIPANT / PROCEDURE / SPECIMEN / DATA USE
+                ↓
+       ethics-regulatory-gate
+
+NEW OR CHANGED CONFIRMATORY ANALYSIS
+                ↓
+registration-preregistration-builder
+for amendment / deviation status
+
+NEW DATASET VERSION / LINKAGE / TRANSFORMATION
+                ↓
+       research-data-governance
+                ↓
+         data-quality-auditor
+
+NEW FINAL ANALYSIS / REANALYSIS
+                ↓
+       reproducibility-auditor
+when result traceability or rerun verification is needed
+```
+
+Do not assume a passed gate remains permanently valid after a material change.
+
+---
+
+# Governance Evidence Separation
+
+The router must preserve these distinctions:
+
+```text
+ETHICS APPROVAL
+= permission from competent oversight
+
+REGISTRATION / PREREGISTRATION
+= transparent prospective or versioned research planning
+
+DATA GOVERNANCE
+= provenance, meaning, control, version, access, retention, and sharing
+
+DATA QUALITY
+= integrity and fitness of actual data for intended scientific use
+
+REPRODUCIBILITY
+= reconstructability and rerun traceability of the analytical record
+```
+
+One does not substitute for another.
+
+---
+
+# Governance Safeguards
+
+Do not:
+
+- infer ethics approval from a published article;
+- infer consent scope from data possession;
+- infer unrestricted reuse from public availability;
+- infer anonymity from de-identification alone;
+- infer prospective preregistration from a registry entry created after analysis;
+- infer data quality from absence of software warnings;
+- infer reproducibility from code availability alone;
+- expose restricted data merely to satisfy open-science expectations;
+- fabricate registration identifiers, approval numbers, consent status, data availability, code availability, or rerun status;
+- allow reviewers, journals, funders, or software to override scientific integrity or participant protections.
+
+---
+
 # Research Logic and Framework Routing
 
 When scientific positioning has produced a sufficiently validated gap and defensible novelty, route the researcher toward research logic before methodology.
@@ -2146,4 +2986,4 @@ Do not:
 
 # Success Criterion
 
-`research-router` succeeds when the researcher can enter the framework from any reasonable research stage and receive the shortest scientifically defensible path toward the next research objective, while correctly distinguishing phenomenon evidence from scholarly evidence, conditionally routing research questions, theory, hypotheses, conceptual frameworks, methodology, analysis, manuscript audit, journal matching, reviewer simulation, and reviewer response; while preserving version-aware audit gates and upstream backtracking when genuine scientific problems are discovered; while distinguishing actual journal review from simulated review; while ensuring that reviewer-response claims about revisions, reanalysis, evidence, compliance, or manuscript changes are made only after those actions are actually completed and verified; while routing unresolved scientific criticism back to the appropriate upstream skill; while preserving consistency across revised manuscript versions and response letters; and while avoiding unnecessary repetition, premature method selection, publication-driven distortion, simulated-review claims that exceed the available evidence, reviewer appeasement that weakens scientific integrity, or premature `READY_FOR_RESUBMISSION` status.
+`research-router` succeeds when the researcher can enter the framework from any reasonable research stage and receive the shortest scientifically defensible path toward the next research objective; while correctly distinguishing phenomenon evidence from scholarly evidence; while conditionally routing research questions, theory, hypotheses, conceptual frameworks, methodology, protocol, sampling, measurement, analysis, interpretation, manuscript development, manuscript audit, journal matching, reviewer simulation, and reviewer response; while activating `ethics-regulatory-gate`, `registration-preregistration-builder`, `research-data-governance`, `data-quality-auditor`, and `reproducibility-auditor` whenever their distinct governance functions are scientifically or institutionally relevant without forcing them as a rigid universal sequence; while separating ethical permission from scientific validity, preregistration from ethics approval, data governance from data quality, and reproducibility from mere code or data availability; while preserving version-aware audit gates, amendment and deviation history, data provenance, actual-versus-planned distinctions, and upstream backtracking when genuine scientific problems are discovered; while distinguishing actual journal review from simulated review; while ensuring that reviewer-response claims about revisions, reanalysis, evidence, compliance, ethics, registration, data changes, reproducibility, or manuscript changes are made only after those actions are actually completed and verified; while routing unresolved scientific criticism, ethics or regulatory uncertainty, data-integrity problems, preregistration discrepancies, and reproducibility failures back to the appropriate upstream skill; while preserving consistency across revised datasets, analyses, manuscripts, supplements, archives, and response letters; and while avoiding unnecessary repetition, premature method selection, publication-driven distortion, retroactive preregistration, permission-by-assumption, software-driven data cleaning, simulated-review claims that exceed the available evidence, reviewer appeasement that weakens scientific integrity, fabricated governance status, or premature `READY_FOR_RESUBMISSION` status.

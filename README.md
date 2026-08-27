@@ -1,10 +1,10 @@
 # Universal Research Skills
 
-A universal, evidence-driven research workflow for moving from a broad research idea or previous study to a defensible research question, methodology, analysis, manuscript, journal strategy, peer-review simulation, reviewer response, and long-term research roadmap.
+A universal, evidence-driven research workflow for moving from a broad research idea or previous study to a defensible research question, methodology, governance, analysis, manuscript, journal strategy, peer-review simulation, reviewer response, and long-term research roadmap.
 
 Universal Research Skills is designed to support researchers across disciplines without forcing one method, software package, publication model, or disciplinary tradition onto every study.
 
-The framework currently contains **46 modular research skills** that can be entered from different research stages and connected through explicit scientific routing.
+The framework currently contains **51 modular research skills** that can be entered from different research stages and connected through explicit scientific routing.
 
 ---
 
@@ -20,8 +20,12 @@ The framework is built around several non-negotiable principles:
 6. **Interpretation before discussion.**
 7. **Scientific correction before rebuttal writing.**
 8. **Research progression before publication counting.**
-9. **Uncertainty must remain visible when evidence is incomplete.**
-10. **A scientifically valid outcome may be that a gap, novelty claim, hypothesis, roadmap stage, or proposed interpretation should be rejected or reframed.**
+9. **Governance before convenience.**
+10. **Registration and preregistration must never be confused with ethics approval or scientific validity.**
+11. **Data quality must be audited before analytical conclusions are trusted.**
+12. **Reproducibility claims require an actually reconstructable research record.**
+13. **Uncertainty must remain visible when evidence is incomplete.**
+14. **A scientifically valid outcome may be that a gap, novelty claim, hypothesis, roadmap stage, proposed interpretation, dataset, analysis plan, or research activity should be rejected, revised, blocked, or reframed.**
 
 ---
 
@@ -106,6 +110,71 @@ Phenomenon evidence can establish that a real-world problem is important, but it
 
 ---
 
+## Governance, Data Integrity, and Reproducibility Architecture
+
+Research governance is a **cross-cutting layer**, not a single linear stage.
+
+The five dedicated governance skills are:
+
+```text
+ethics-regulatory-gate
+registration-preregistration-builder
+research-data-governance
+data-quality-auditor
+reproducibility-auditor
+```
+
+A typical governance path may look like this:
+
+```text
+SCIENTIFIC QUESTION / STUDY DESIGN
+        │
+        ├── ethics-regulatory-gate
+        │
+        ├── registration-preregistration-builder
+        │
+        └── research-data-governance
+                      ↓
+                DATA CREATED /
+                RECEIVED / LINKED
+                      ↓
+              data-quality-auditor
+                      ↓
+                  ANALYSIS
+                      ↓
+              INTERPRETATION
+                      ↓
+          reproducibility-auditor
+              when warranted
+                      ↓
+          MANUSCRIPT / REVIEW /
+              ARCHIVAL RECORD
+```
+
+This layer is conditional rather than mandatory.
+
+It preserves the following distinctions:
+
+```text
+ETHICS APPROVAL ≠ SCIENTIFIC VALIDITY
+PREREGISTRATION ≠ ETHICS APPROVAL
+REGISTRATION ≠ SCIENTIFIC VALIDITY
+PUBLIC DATA ≠ UNRESTRICTED USE
+DEIDENTIFIED ≠ AUTOMATICALLY ANONYMOUS
+CONSENT ≠ UNLIMITED FUTURE USE
+DATA GOVERNANCE ≠ DATA QUALITY
+DATA QUALITY ≠ DESIRED RESULT
+REPRODUCIBILITY ≠ PUBLIC DATA RELEASE
+REPRODUCIBILITY ≠ REPLICATION
+REGISTERED ≠ IMMUTABLE
+DEVIATION ≠ AUTOMATIC MISCONDUCT
+EXPLORATORY ≠ CONFIRMATORY
+```
+
+Reviewer or editor requests may reactivate these gates when a revision changes participant scope, data use, specimens, linkage, outcomes, confirmatory analysis, dataset structure, privacy exposure, or analytical provenance.
+
+---
+
 ## End-to-End Research Architecture
 
 A typical full workflow may look like this:
@@ -149,7 +218,15 @@ Problem-Solving Approach
         ↓
 Methodology Architect
         ↓
+Ethics / Regulatory Gate
+        ↓
+Registration / Preregistration when appropriate
+        ↓
 Protocol / Sampling / Instrument
+        ↓
+Research Data Governance
+        ↓
+Data Quality Audit
         ↓
 Analysis Planner
         ↓
@@ -174,11 +251,14 @@ Journal Matcher
 Reviewer Simulator
         ↓
 Reviewer Response
+        ↓
+Reproducibility Audit when reconstruction, rerun,
+archival verification, or major reanalysis requires it
 ```
 
 This is a **routing map**, not a rigid mandatory pipeline.
 
-A study should use only the skills scientifically required for its current stage and research purpose.
+A study should use only the skills scientifically, ethically, institutionally, and methodologically required for its current stage and research purpose.
 
 ---
 
@@ -375,6 +455,82 @@ Software such as SmartPLS, AMOS, SPSS, Jamovi, R, Python, or other tools may imp
 
 ---
 
+## Research Data Governance
+
+`research-data-governance` defines how research data are created, received, named, transformed, protected, versioned, linked, stored, shared, archived, and handed downstream.
+
+It preserves source-data identity, raw-data provenance, transformation history, variable meaning, dataset versions, access permissions, privacy constraints, derived variables, missingness conventions, linkage logic, analysis-ready datasets, retention, archiving, and downstream reconstructability.
+
+A “clean” dataset must never erase the path from source data to inference.
+
+---
+
+## Data Quality Audit
+
+`data-quality-auditor` evaluates governed research data for structural integrity, identifier integrity, coding, numeric ranges, units, temporal coherence, cross-variable consistency, duplicate records, linkage integrity, missingness, derived-variable correctness, scoring, laboratory or instrument plausibility, outlier provenance, and fitness for the intended analysis.
+
+It distinguishes:
+
+```text
+CONFIRMED ERROR
+LEGITIMATE UNUSUAL OBSERVATION
+UNRESOLVED ANOMALY
+```
+
+It must not delete, recode, impute, or transform data merely because software prefers a cleaner result.
+
+---
+
+## Ethics and Regulatory Gate
+
+`ethics-regulatory-gate` evaluates whether a proposed, ongoing, revised, reused, shared, or published research activity may proceed.
+
+Depending on the study, it may consider human participants, consent, privacy, identifiability, sensitive data, biological materials, animals, biosafety, AI-assisted research, cross-border transfer, institutional requirements, contractual restrictions, regulatory requirements, and publication ethics.
+
+Possible outcomes include:
+
+```text
+PROCEED
+PROCEED_WITH_CONDITIONS
+REVISE_BEFORE_PROCEEDING
+FORMAL_APPROVAL_REQUIRED
+AMENDMENT_REQUIRED
+INSTITUTIONAL_REVIEW_REQUIRED
+REGULATORY_REVIEW_REQUIRED
+DATA_USE_AUTHORIZATION_REQUIRED
+BLOCKED_PENDING_RESOLUTION
+```
+
+The skill does not replace an ethics committee, regulator, legal office, data protection officer, animal ethics committee, biosafety committee, or other competent authority.
+
+---
+
+## Registration and Preregistration
+
+`registration-preregistration-builder` creates and maintains a transparent prospective record of what the researcher intended to do, what was actually done, what changed, when it changed, why it changed, and which analyses remain confirmatory, exploratory, amended, or post-hoc.
+
+It supports, where appropriate, study registration, clinical trial registration, protocol registration, systematic review registration, meta-analysis registration, preregistration, analysis-plan preregistration, secondary-data preregistration, replication preregistration, registered reports, amendment tracking, deviation tracking, and planned-vs-implemented comparison.
+
+It protects against retrospective preregistration, hidden outcome switching, HARKing, undisclosed analytic flexibility, hidden subgroup switching, hidden exclusion changes, and fabricated registration identifiers.
+
+> **Exploration is scientifically legitimate. Mislabeling exploration as prespecified confirmation is the problem.**
+
+---
+
+## Reproducibility Audit
+
+`reproducibility-auditor` evaluates whether a research workflow can be reconstructed from the scientific record.
+
+It distinguishes computational reproducibility, analytical reproducibility, methodological replicability, and conceptual replication.
+
+It may inspect source data, governed transformations, analysis-ready data, code or procedures, software environments, versions, parameters, outputs, reported results, and result-to-data traceability.
+
+The skill must never claim a rerun occurred unless execution or direct verification actually occurred.
+
+Restricted or sensitive data can still support reproducible research through appropriately authorized controlled-access procedures.
+
+---
+
 ## Results, Discussion, and Implications
 
 The post-analysis workflow is:
@@ -553,6 +709,10 @@ Reviewer requests may be:
 - routed to reanalysis;
 - routed to source verification;
 - routed to methodology review;
+- routed to ethics/regulatory review;
+- routed to registration/deviation review;
+- routed to data governance or data-quality review;
+- routed to reproducibility review;
 - or routed to another upstream scientific skill.
 
 A response letter must never claim that:
@@ -561,7 +721,9 @@ A response letter must never claim that:
 - data were added;
 - citations were verified;
 - ethics approval exists;
+- registration exists;
 - a manuscript section was revised;
+- reproducibility was demonstrated;
 - or a reviewer concern was resolved
 
 unless that action actually occurred and was verified.
@@ -626,6 +788,14 @@ unless that action actually occurred and was verified.
 - `sampling-strategy`
 - `instrument-design`
 
+### Research Governance, Data Integrity, and Reproducibility
+
+- `ethics-regulatory-gate`
+- `registration-preregistration-builder`
+- `research-data-governance`
+- `data-quality-auditor`
+- `reproducibility-auditor`
+
 ### Analysis
 
 - `analysis-planner`
@@ -649,7 +819,7 @@ unless that action actually occurred and was verified.
 - `reviewer-simulator`
 - `reviewer-response`
 
-**Total: 46 skills.**
+**Total: 51 skills.**
 
 ---
 
@@ -693,14 +863,42 @@ novelty-builder
 novelty-auditor
 ```
 
-### Starting with a completed dataset
+### Starting with a study design before data collection
 
 ```text
+methodology-architect
+      ↓
+ethics-regulatory-gate
+      ↓
+registration-preregistration-builder
+      when appropriate
+      ↓
+research-data-governance
+```
+
+### Starting with an existing dataset
+
+```text
+research-data-governance
+      ↓
+data-quality-auditor
+      ↓
 analysis-planner
       ↓
 appropriate analysis skill
       ↓
 result-interpreter
+```
+
+### Starting with a completed analysis
+
+```text
+result-interpreter
+      ↓
+scientific-discussion
+      ↓
+reproducibility-auditor
+      when reconstruction or verification is needed
 ```
 
 ### Starting with a manuscript
@@ -718,7 +916,7 @@ journal-matcher
 ```text
 reviewer-response
       ↓
-appropriate upstream scientific skill
+appropriate upstream scientific or governance skill
       ↓
 verified revision
       ↓
@@ -738,17 +936,26 @@ Universal Research Skills is designed to prevent:
 - fabricated Scopus status;
 - fabricated analyses;
 - fabricated reviewer actions;
+- fabricated ethics approvals;
+- fabricated registration identifiers;
+- fabricated reproducibility claims;
 - citation padding;
 - reference mashups;
 - selective evidence inclusion;
 - suppression of contradictory evidence;
 - post-hoc novelty inflation;
 - HARKing;
+- outcome switching without disclosure;
 - significance chasing;
+- result-driven data cleaning;
 - unsupported causal escalation;
 - method-driven questions;
 - software-driven models;
 - journal-driven scientific distortion;
+- permission-by-assumption;
+- retrospective preregistration presented as prospective;
+- silent protocol deviation;
+- undocumented data transformation;
 - and premature claims of readiness.
 
 When the available evidence is insufficient, the framework should say so.
@@ -786,7 +993,7 @@ universal-research-skills/
 ├── .codex-plugin/
 │   └── plugin.json
 ├── skills/
-│   ├── <46 modular research skills>/
+│   ├── <51 modular research skills>/
 │   │   └── SKILL.md
 ├── providers/
 ├── methods/
@@ -819,7 +1026,13 @@ A user can begin with any of the following:
 - a research gap;
 - a research question;
 - a methodology;
+- a protocol;
+- an ethics or regulatory question;
+- a registration or preregistration need;
+- a data-governance problem;
+- a data-quality problem;
 - analytical outputs;
+- a reproducibility question;
 - a manuscript;
 - a target journal;
 - reviewer comments;
@@ -840,8 +1053,17 @@ Depending on the research stage, users may provide:
 - theses;
 - dissertations;
 - proposals;
+- protocols;
+- ethics approvals;
+- consent documents;
+- registration records;
+- preregistrations;
 - reports;
 - datasets;
+- raw data;
+- codebooks;
+- transformation logs;
+- analysis scripts;
 - spreadsheets;
 - statistical outputs;
 - regulations;
@@ -886,9 +1108,17 @@ Evidence Need
 ↓
 Appropriate Design
 ↓
+Ethical / Regulatory Feasibility
+↓
+Transparent Data Governance
+↓
+Audited Data Quality
+↓
 Transparent Analysis
 ↓
 Proportionate Interpretation
+↓
+Reconstructable Scientific Record
 ↓
 Defensible Scientific Claim
 ```
@@ -907,6 +1137,9 @@ Before adding or modifying a skill, contributors should preserve:
 - stop conditions where appropriate;
 - uncertainty handling;
 - cross-skill compatibility;
+- governance compatibility;
+- data provenance;
+- version traceability;
 - and the separation between scientific reasoning and publication strategy.
 
 See `CONTRIBUTING.md` for repository contribution guidance.
@@ -927,6 +1160,6 @@ See `LICENSE` for licensing terms.
 
 ## Project Goal
 
-Universal Research Skills aims to make advanced research reasoning reusable, transparent, modular, and accessible without reducing research to templates, software menus, journal tactics, or automatic claims of novelty.
+Universal Research Skills aims to make advanced research reasoning reusable, transparent, modular, and accessible without reducing research to templates, software menus, journal tactics, compliance rituals, or automatic claims of novelty.
 
-The framework succeeds when it helps a researcher identify the **next scientifically defensible action** while preserving the integrity of the evidence, the research question, the methods, the interpretation, and the scientific record.
+The framework succeeds when it helps a researcher identify the **next scientifically defensible action** while preserving the integrity of the evidence, the research question, the methods, the participants and permissions, the data, the analysis, the interpretation, and the scientific record.

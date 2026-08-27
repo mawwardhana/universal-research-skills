@@ -2,6 +2,69 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.16.0] - Research Governance, Data Integrity & Reproducibility Layer
+
+### Added
+
+- `research-data-governance` for governing the complete research-data lifecycle from source data, raw records, transformations, variable meaning, identifiers, permissions, privacy constraints, derived variables, linkage, versioning, analysis-ready datasets, retention, sharing, and archival handoff.
+- `data-quality-auditor` for scientifically auditing governed datasets for structural integrity, semantic consistency, value validity, duplicate and linkage integrity, missingness, temporal coherence, derived-variable correctness, laboratory or instrument plausibility, outlier provenance, and fitness for the intended analysis.
+- `reproducibility-auditor` for determining whether the scientific record can be reconstructed from research question and protocol through source data, governed transformations, analytical procedures, software environments, parameters, outputs, and reported results.
+- `ethics-regulatory-gate` for determining whether proposed, ongoing, revised, reused, shared, or published research activity may proceed ethically, institutionally, contractually, and regulatorily without confusing scientific validity with permission to proceed.
+- `registration-preregistration-builder` for building and maintaining transparent registration and preregistration records that distinguish prospective commitments, amendments, deviations, exploratory analyses, reviewer-requested analyses, and post-hoc decisions.
+
+### Updated
+
+- Expanded `research-router` from the previous research workflow into a cross-cutting governance-aware routing architecture.
+- Added conditional routing for ethics, regulatory review, registration, preregistration, data governance, data-quality auditing, and reproducibility assessment.
+- Added governance re-entry logic so reviewer or editor requests that alter participants, specimens, data use, outcomes, analysis, linkage, privacy exposure, or scientific provenance can be routed back to the appropriate upstream gate.
+- Removed the obsolete `research-program-builder` router reference and preserved `research-roadmap` as the long-term research-program architecture.
+- Updated `README.md` from **46 skills** to **51 skills** and documented the complete Research Governance, Data Integrity & Reproducibility architecture.
+- Expanded repository routing examples for studies before data collection, existing datasets, completed analyses, reviewer-driven changes, and reproducibility review.
+
+### Scientific Safeguards
+
+- Explicitly separates ethics approval from scientific validity.
+- Explicitly separates registration and preregistration from ethics approval.
+- Prevents retrospective registration from being presented as prospective preregistration.
+- Prevents fabricated ethics approvals, registration identifiers, regulatory statuses, or reproducibility claims.
+- Preserves data provenance from source records through governed transformations to analysis-ready datasets and reported results.
+- Distinguishes confirmed data errors from legitimate unusual observations and unresolved anomalies.
+- Prevents result-driven data cleaning, silent recoding, arbitrary outlier removal, undocumented transformation, and software-driven quality decisions.
+- Distinguishes computational reproducibility, analytical reproducibility, methodological replicability, and conceptual replication.
+- Prevents claims that analyses were rerun or reproduced unless actual execution or direct verification occurred.
+- Preserves privacy, consent, contractual restrictions, and controlled-access requirements when reproducibility is assessed.
+- Maintains explicit amendment and deviation history rather than rewriting the preregistered scientific record.
+- Preserves exploratory research as scientifically legitimate while preventing exploratory findings from being mislabeled as prespecified confirmatory results.
+
+### Framework Progression
+
+```text
+Scientific Question / Study Design
+        │
+        ├── Ethics / Regulatory Gate
+        │
+        ├── Registration / Preregistration
+        │
+        └── Research Data Governance
+                      ↓
+               Data Creation /
+             Receipt / Linkage
+                      ↓
+              Data Quality Audit
+                      ↓
+                   Analysis
+                      ↓
+                Interpretation
+                      ↓
+           Reproducibility Audit
+              when warranted
+                      ↓
+             Manuscript / Review
+                      ↓
+       Governance Gates Reactivated
+          when scientifically needed
+```
+
 ## [0.15.0] - Framework Restoration, Research Roadmap & Documentation Layer
 
 ### Restored and Strengthened
