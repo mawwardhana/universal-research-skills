@@ -985,3 +985,1626 @@ Use canonical DOI representation internally when possible:
 
 ```text
 10.xxxx/xxxxx
+```
+
+Treat the following as potentially equivalent representations when they resolve to the same DOI:
+
+```text
+https://doi.org/10.xxxx/xxxxx
+http://dx.doi.org/10.xxxx/xxxxx
+doi:10.xxxx/xxxxx
+10.xxxx/xxxxx
+```
+
+Normalize presentation without changing the underlying DOI.
+
+Do not infer that a DOI is valid merely because its syntax appears plausible.
+
+Route uncertain DOI identity to:
+
+`source-verification`
+
+---
+
+# 58. DOI Resolution Integrity
+
+When DOI validation is required, distinguish:
+
+- syntactically plausible DOI;
+- resolvable DOI;
+- DOI metadata match;
+- DOI-to-article identity match.
+
+Possible statuses:
+
+- `DOI_VERIFIED`
+- `DOI_RESOLVES_METADATA_MATCH`
+- `DOI_RESOLVES_METADATA_CONFLICT`
+- `DOI_NOT_RESOLVED`
+- `DOI_NOT_AVAILABLE`
+- `DOI_UNVERIFIED`
+
+A DOI resolving to a real article does not prove that it belongs to the cited article.
+
+---
+
+# 59. Alternative Identifier Integrity
+
+When DOI is absent, other identifiers may support identity checking.
+
+Examples:
+
+- PMID;
+- PMCID;
+- ISBN;
+- ISSN;
+- trial registration number;
+- report number;
+- dataset accession;
+- clinical guideline identifier;
+- regulation number.
+
+Do not substitute one identifier type for another without labeling it correctly.
+
+---
+
+# 60. Version Integrity
+
+Distinguish among:
+
+- preprint;
+- accepted manuscript;
+- version of record;
+- corrected version;
+- retracted version;
+- conference abstract;
+- full conference paper;
+- thesis chapter;
+- journal article derived from thesis;
+- dataset version.
+
+Use the scientifically appropriate version for the claim.
+
+Prefer the version of record when available and suitable.
+
+---
+
+# 61. Online-First and Final Publication
+
+Early-online and issue-assigned records may differ in:
+
+- publication year;
+- pagination;
+- issue;
+- article number;
+- DOI display.
+
+Do not create duplicate references when they represent the same article.
+
+Use canonical final metadata when available.
+
+---
+
+# 62. Duplicate Publication Detection
+
+Two bibliographic records may represent the same scientific work.
+
+Check:
+
+- title similarity;
+- DOI;
+- authors;
+- cohort;
+- sample size;
+- intervention;
+- dates;
+- outcome set.
+
+Possible status:
+
+`POSSIBLE_DUPLICATE_PUBLICATION`
+
+Do not count duplicate publications as independent evidence.
+
+---
+
+# 63. Multiple Reports from One Study
+
+A single study may produce several publications.
+
+Classify relationships where possible:
+
+- primary outcome report;
+- secondary outcome report;
+- follow-up;
+- subgroup analysis;
+- protocol;
+- methods paper;
+- economic analysis;
+- biomarker analysis.
+
+Do not merge scientifically distinct reports merely because they share a cohort.
+
+Do not count them as independent replication when they are not independent.
+
+---
+
+# 64. Study-Family Record
+
+When multiple papers belong to one study family, record:
+
+```yaml
+study_family:
+  study_id:
+  cohort_or_trial:
+  shared_population:
+  publications:
+    - reference_id:
+      role:
+      outcome_domain:
+      follow_up_period:
+  independence_status:
+  notes:
+```
+
+Unknown fields remain unknown.
+
+---
+
+# 65. Source Role Integrity
+
+Every citation should have a defensible role.
+
+Possible roles include:
+
+- `BACKGROUND`
+- `PHENOMENON`
+- `THEORY`
+- `MECHANISM`
+- `METHOD`
+- `INSTRUMENT`
+- `PRIMARY_EVIDENCE`
+- `SYSTEMATIC_REVIEW`
+- `META_ANALYSIS`
+- `GUIDELINE`
+- `POLICY`
+- `REGULATION`
+- `STATISTICS`
+- `CONTRADICTORY_EVIDENCE`
+- `COMPARATOR`
+- `NOVELTY_COMPETITOR`
+
+Do not use a source outside the role its evidence can support.
+
+---
+
+# 66. Scholarly vs Phenomenon Source Boundary
+
+Distinguish:
+
+```text
+SCHOLARLY EVIDENCE
+      ↓
+theory / mechanism / association / effect / method
+
+PHENOMENON EVIDENCE
+      ↓
+magnitude / burden / trend / policy / regulation / real-world context
+```
+
+Official statistics can establish magnitude or trend.
+
+They do not automatically establish scientific mechanism or causality.
+
+Journal articles can establish scholarly knowledge.
+
+They do not automatically replace current official statistics for population burden.
+
+---
+
+# 67. Authority-First Phenomenon Citation
+
+For real-world factual claims, prefer the most authoritative original source available.
+
+Examples:
+
+- national statistics agency;
+- ministry;
+- WHO;
+- World Bank;
+- regulatory authority;
+- official registry;
+- institutional data owner.
+
+When a news article reports an official statistic, recover the original authoritative source when possible.
+
+---
+
+# 68. News Citation Guard
+
+News may be useful for:
+
+- event discovery;
+- public communication context;
+- recent implementation events.
+
+News should not normally be the final source for:
+
+- official statistics;
+- regulation text;
+- scientific causal claims;
+- clinical effectiveness claims.
+
+Recover the underlying primary or authoritative source when possible.
+
+---
+
+# 69. Regulation and Policy Citation Guard
+
+Regulations and policies may support:
+
+- legal requirement;
+- policy mandate;
+- implementation target;
+- regulatory status.
+
+They do not by themselves prove:
+
+- intervention effectiveness;
+- biological mechanism;
+- clinical efficacy;
+- behavioral causality.
+
+Verify the current status when the claim depends on active policy or regulation.
+
+---
+
+# 70. Dataset Citation Integrity
+
+When datasets are cited, verify where possible:
+
+- dataset title;
+- producer;
+- version;
+- release date;
+- coverage period;
+- geography;
+- population;
+- access date when relevant;
+- persistent identifier.
+
+Do not cite a dataset as if it were a journal article.
+
+---
+
+# 71. Dashboard Citation Integrity
+
+Dynamic dashboards require additional care.
+
+Record when relevant:
+
+- dashboard owner;
+- indicator;
+- geography;
+- reference period;
+- access date;
+- extraction date.
+
+Do not confuse access date with the period represented by the data.
+
+---
+
+# 72. Publication Date vs Reference Period
+
+For statistics and reports distinguish:
+
+```text
+publication date
+≠
+reference period
+```
+
+A report published in 2026 may describe 2024 data.
+
+State the period that the claim actually represents.
+
+---
+
+# 73. Geographic Fit
+
+A source should not be generalized beyond its geographic evidence without justification.
+
+Possible status:
+
+- `GEOGRAPHY_MATCH`
+- `GEOGRAPHY_PARTIAL_MATCH`
+- `GEOGRAPHY_MISMATCH`
+- `GEOGRAPHY_NOT_APPLICABLE`
+
+---
+
+# 74. Population Fit
+
+Check whether the cited source actually concerns the relevant:
+
+- age group;
+- disease group;
+- profession;
+- education level;
+- species;
+- setting;
+- industry;
+- demographic subgroup.
+
+Do not silently generalize from one population to another.
+
+---
+
+# 75. Temporal Fit
+
+For time-sensitive claims, assess whether the evidence is sufficiently current.
+
+Possible status:
+
+- `TEMPORALLY_CURRENT`
+- `TEMPORALLY_ACCEPTABLE`
+- `HISTORICAL_BY_DESIGN`
+- `POTENTIALLY_OUTDATED`
+- `TEMPORAL_STATUS_UNKNOWN`
+
+Older seminal evidence may remain scientifically important.
+
+Recency should not erase foundational work.
+
+---
+
+# 76. Claim Context Fit
+
+Evaluate whether the cited evidence matches the claim's:
+
+- population;
+- exposure;
+- intervention;
+- comparator;
+- outcome;
+- setting;
+- time frame;
+- design.
+
+Topic similarity alone is not sufficient.
+
+---
+
+# 77. Causal Claim Citation Guard
+
+A causal claim requires evidence capable of supporting causal interpretation.
+
+Do not cite:
+
+- cross-sectional association;
+- uncontrolled descriptive evidence;
+- simple correlation;
+
+as sufficient proof of causal effect.
+
+Use:
+
+`CAUSAL_SUPPORT_INSUFFICIENT`
+
+when appropriate.
+
+---
+
+# 78. Prediction Claim Citation Guard
+
+Prediction evidence supports predictive performance.
+
+It does not automatically support causal explanation.
+
+Preserve:
+
+```text
+prediction
+≠
+causation
+```
+
+---
+
+# 79. Mechanistic Claim Citation Guard
+
+Mechanistic statements require evidence that actually addresses mechanism.
+
+Do not infer mechanism from outcome association alone.
+
+Possible status:
+
+`MECHANISM_OVERINFERRED`
+
+---
+
+# 80. Clinical Recommendation Citation Guard
+
+Clinical recommendations should be supported by evidence appropriate to the recommendation level.
+
+Consider:
+
+- guideline;
+- systematic review;
+- comparative clinical evidence;
+- safety evidence;
+- applicability.
+
+Do not derive treatment recommendations from weak observational findings alone.
+
+---
+
+# 81. Policy Recommendation Citation Guard
+
+Policy recommendations should distinguish:
+
+- evidence of a problem;
+- evidence of intervention effectiveness;
+- implementation feasibility;
+- legal or policy authority.
+
+Do not treat a policy document as proof that the policy works.
+
+---
+
+# 82. Negative or Null Evidence Integrity
+
+Do not rewrite:
+
+```text
+not statistically significant
+```
+
+as:
+
+```text
+no effect
+```
+
+unless the evidence supports equivalence or sufficiently precise absence.
+
+Citation wording should preserve uncertainty.
+
+---
+
+# 83. Contradictory Evidence Integrity
+
+Do not suppress credible contradictory studies merely because they weaken the preferred narrative.
+
+Classify when relevant:
+
+- `SUPPORTING`
+- `CONTRADICTORY`
+- `MIXED`
+- `INCONCLUSIVE`
+
+Balanced citation strengthens scientific integrity.
+
+---
+
+# 84. Consensus Claim Guard
+
+Claims such as:
+
+- "it is well established";
+- "the literature agrees";
+- "there is consensus";
+
+require evidence of broad agreement.
+
+One or two papers are usually insufficient.
+
+Use:
+
+`CONSENSUS_CLAIM_UNSUPPORTED`
+
+when appropriate.
+
+---
+
+# 85. Absence Claim Guard
+
+Claims such as:
+
+- "no studies exist";
+- "this has never been investigated";
+- "there is no evidence";
+
+are high-risk.
+
+They require a sufficiently broad and current literature search.
+
+Route to:
+
+`scopus-literature-search`
+
+and when needed:
+
+`citation-chaining`
+
+before accepting an absence claim.
+
+---
+
+# 86. First-Study Claim Guard
+
+Claims such as:
+
+- "the first study";
+- "the first evidence";
+- "the first application";
+
+require adversarial verification.
+
+Route novelty-related priority claims to:
+
+`novelty-auditor`
+
+Do not approve first-study language based only on a narrow search.
+
+---
+
+# 87. Gap Claim Support
+
+A research gap should be supported by the state of evidence, not a single citation.
+
+Preferred chain:
+
+```text
+verified literature
+      ↓
+screened evidence
+      ↓
+evidence synthesis
+      ↓
+state of the art
+      ↓
+gap validation
+```
+
+Reference integrity should not independently invent a gap.
+
+---
+
+# 88. Novelty Claim Support
+
+Novelty claims should identify the closest scientific competitors.
+
+Citation integrity requires:
+
+- verified competitor identity;
+- accurate representation;
+- no selective omission;
+- no false priority claim.
+
+---
+
+# 89. Citation Chaining Integrity Handoff
+
+After reference records are sufficiently verified and safe to use, citation-network expansion may route to:
+
+`citation-chaining`
+
+The guard should not conduct uncontrolled citation expansion itself.
+
+---
+
+# 90. Primary-Source Recovery
+
+When a secondary source points to a primary study central to a claim:
+
+attempt to recover and verify the primary source when practical.
+
+Use secondary citation transparently when primary recovery is not possible.
+
+---
+
+# 91. Secondary Citation Transparency
+
+Do not cite a primary source as if it was directly inspected when only a secondary source was read.
+
+Possible notation:
+
+`PRIMARY_NOT_DIRECTLY_VERIFIED`
+
+---
+
+# 92. Quote Traceability
+
+For direct quotations, record when useful:
+
+```yaml
+quotation:
+  reference_id:
+  exact_text:
+  page_or_location:
+  version:
+  verification_status:
+```
+
+Never invent page numbers.
+
+---
+
+# 93. Paraphrase Traceability
+
+A paraphrase must preserve:
+
+- direction;
+- magnitude;
+- uncertainty;
+- population;
+- design;
+- causal status.
+
+A more fluent paraphrase must not become a stronger claim.
+
+---
+
+# 94. Numeric Claim Integrity
+
+For numerical claims verify:
+
+- numerator;
+- denominator;
+- percentage;
+- units;
+- confidence interval;
+- time period;
+- population;
+- geography.
+
+Do not copy a number while dropping its denominator or context.
+
+---
+
+# 95. Relative vs Absolute Risk Guard
+
+Do not present relative effects as absolute effects.
+
+Preserve the measure used by the source.
+
+---
+
+# 96. Unit Integrity
+
+Check:
+
+- mg vs g;
+- mL vs L;
+- percentage vs proportion;
+- incidence vs prevalence;
+- rate vs count;
+- concentration units.
+
+Unit errors can invalidate otherwise correct citations.
+
+---
+
+# 97. Direction-of-Effect Integrity
+
+Ensure the manuscript does not reverse:
+
+- increased vs decreased;
+- protective vs harmful;
+- positive vs negative association;
+- higher vs lower risk.
+
+Use:
+
+`DIRECTION_MISMATCH`
+
+when detected.
+
+---
+
+# 98. Statistical Estimate Integrity
+
+Where a claim depends on a result, preserve the correct:
+
+- effect estimate;
+- uncertainty interval;
+- p-value when relevant;
+- model;
+- adjusted/unadjusted status.
+
+Do not cite an adjusted estimate as if it were unadjusted or vice versa.
+
+---
+
+# 99. Subgroup Integrity
+
+Do not generalize subgroup findings to the full sample without justification.
+
+Possible status:
+
+`SUBGROUP_GENERALIZATION`
+
+---
+
+# 100. Outcome Integrity
+
+Do not cite evidence for a surrogate outcome as if it directly demonstrated a clinical or real-world outcome.
+
+Label surrogate outcomes appropriately.
+
+---
+
+# 101. Composite Outcome Integrity
+
+When a source reports a composite outcome, do not attribute the effect to every component unless component results support it.
+
+---
+
+# 102. Abstract-Only Evidence Guard
+
+Abstract-only evidence may be insufficient for complex claims.
+
+Use:
+
+`ABSTRACT_ONLY_LIMITATION`
+
+when full-text verification is needed but unavailable.
+
+Do not imply full-method verification from an abstract alone.
+
+---
+
+# 103. Supplementary Material Integrity
+
+Important evidence may reside in supplementary materials.
+
+When a claim depends on supplemental data:
+
+verify the supplement when available.
+
+Do not assume main-text summaries fully represent supplemental analyses.
+
+---
+
+# 104. Table and Figure Source Integrity
+
+If data are extracted from a table or figure, preserve:
+
+- table/figure identity;
+- units;
+- subgroup;
+- footnotes;
+- denominator.
+
+Do not visually estimate exact numbers when exact values are unavailable unless explicitly labeled approximate.
+
+---
+
+# 105. Author Name Disambiguation
+
+Similar author names do not prove common authorship.
+
+Use identifiers such as ORCID only when verified.
+
+Do not merge researchers based on initials alone.
+
+---
+
+# 106. Journal Title Disambiguation
+
+Check journal identity carefully when titles or abbreviations are similar.
+
+Do not infer legitimacy or indexing from name similarity.
+
+---
+
+# 107. Publisher Identity Guard
+
+A publisher name alone does not establish:
+
+- peer review;
+- indexing;
+- journal quality;
+- source validity.
+
+Verification remains source-specific.
+
+---
+
+# 108. Scopus Source vs Document Distinction
+
+Preserve:
+
+```text
+journal/source indexed in Scopus
+≠
+specific document verified in Scopus
+```
+
+Do not collapse these statuses.
+
+---
+
+# 109. Quartile Claim Integrity
+
+Quartile claims are contextual metadata.
+
+Verify:
+
+- metric system;
+- year;
+- subject category;
+- source.
+
+Do not describe quartile as intrinsic evidence quality.
+
+---
+
+# 110. Citation Count Integrity
+
+Citation counts are time-dependent and provider-dependent.
+
+When used, record:
+
+- provider;
+- access date.
+
+Do not use citation count as a substitute for methodological quality.
+
+---
+
+# 111. APC and Evidence Independence
+
+Publication cost must not determine whether evidence is scientifically included.
+
+Preserve:
+
+```text
+evidence selection
+≠
+journal affordability preference
+```
+
+---
+
+# 112. Target-Journal Independence
+
+Target-journal strategy must not alter which scientific sources are needed.
+
+Relevant target-journal papers may be cited.
+
+Irrelevant target-journal papers must not be added for strategic reasons.
+
+---
+
+# 113. Reviewer-Requested Citation Guard
+
+When reviewers request citations:
+
+assess scientific relevance first.
+
+Do not add a reviewer-suggested citation automatically.
+
+Possible outcomes:
+
+- `ADD_RELEVANT_REFERENCE`
+- `PARTIALLY_RELEVANT`
+- `NOT_REQUIRED`
+- `SCIENTIFICALLY_IRRELEVANT`
+- `VERIFY_BEFORE_USE`
+
+---
+
+# 114. AI-Generated Reference Guard
+
+Any reference proposed by generative AI must be treated as unverified until checked.
+
+Never allow:
+
+```text
+AI-generated citation
+      ↓
+final reference list
+```
+
+without verification.
+
+---
+
+# 115. Reference Import Guard
+
+References imported from:
+
+- citation managers;
+- spreadsheets;
+- RIS;
+- BibTeX;
+- EndNote XML;
+- manuscript files;
+
+may still contain errors.
+
+Import is not verification.
+
+---
+
+# 116. OCR and Extraction Guard
+
+Automatically extracted references may contain:
+
+- character errors;
+- broken DOI;
+- merged authors;
+- incorrect pagination.
+
+Verify critical records before use.
+
+---
+
+# 117. Reference Mashup Detection
+
+A mashup may combine:
+
+- title from article A;
+- authors from article B;
+- DOI from article C.
+
+If detected:
+
+`REFERENCE_MASHUP`
+
+Route to:
+
+`source-verification`
+
+Do not repair by guessing.
+
+---
+
+# 118. Fabrication Escalation
+
+If a reference cannot be found after reasonable verification and appears fabricated:
+
+use:
+
+`POSSIBLE_FABRICATED_REFERENCE`
+
+Do not silently replace it with a different real article.
+
+---
+
+# 119. Reference Conflict Record
+
+When metadata providers disagree, record:
+
+```yaml
+reference_conflict:
+  reference_id:
+  field:
+  value_a:
+  source_a:
+  value_b:
+  source_b:
+  preferred_value:
+  resolution_basis:
+  status:
+```
+
+---
+
+# 120. Claim–Source Audit Record
+
+For high-value claims use:
+
+```yaml
+claim_source_audit:
+  claim_id:
+  claim_text:
+  claim_type:
+  citation_required:
+  reference_ids:
+  support_level:
+  population_fit:
+  geographic_fit:
+  temporal_fit:
+  design_fit:
+  causal_fit:
+  verification_status:
+  integrity_flags:
+  action:
+```
+
+---
+
+# 121. Reference Integrity Outcome
+
+Possible reference-level outcomes:
+
+- `REFERENCE_CLEARED`
+- `REFERENCE_CLEARED_WITH_LIMITATION`
+- `REFERENCE_CORRECTION_REQUIRED`
+- `SOURCE_VERIFICATION_REQUIRED`
+- `CLAIM_REVISION_REQUIRED`
+- `REFERENCE_EXCLUDE`
+- `RETRACTION_BLOCK`
+- `REFERENCE_MASHUP`
+- `POSSIBLE_FABRICATED_REFERENCE`
+
+---
+
+# 122. Claim Integrity Outcome
+
+Possible claim-level outcomes:
+
+- `SUPPORTED_AS_WRITTEN`
+- `SUPPORTED_AFTER_NARROWING`
+- `PARTIALLY_SUPPORTED`
+- `REQUIRES_ADDITIONAL_SOURCE`
+- `REQUIRES_PRIMARY_SOURCE`
+- `UNSUPPORTED_REMOVE_OR_REVISE`
+- `CAUSAL_OVERCLAIM`
+- `NOVELTY_OVERCLAIM`
+- `CONSENSUS_OVERCLAIM`
+- `ABSENCE_CLAIM_UNVERIFIED`
+
+---
+
+# 123. Audit Priority
+
+Prioritize:
+
+1. claims central to the research question;
+2. gap claims;
+3. novelty claims;
+4. causal or mechanistic claims;
+5. numerical claims;
+6. clinical or policy recommendations;
+7. methods and instrument provenance;
+8. discussion claims;
+9. background claims;
+10. cosmetic reference formatting.
+
+Scientific risk comes before formatting perfection.
+
+---
+
+# 124. Critical Reference Set
+
+Identify references whose failure would materially alter:
+
+- research rationale;
+- gap;
+- novelty;
+- theory;
+- method;
+- primary interpretation;
+- conclusion.
+
+These require the strongest verification.
+
+Use:
+
+`CRITICAL_REFERENCE`
+
+---
+
+# 125. Reference Integrity Matrix
+
+Recommended table:
+
+| Claim | Reference | Source Verified | Support | Integrity Flag | Action |
+|---|---|---:|---|---|---|
+
+Use a more detailed matrix when required.
+
+---
+
+# 126. Reference List Audit
+
+Check the final reference list for:
+
+- duplicates;
+- orphan references;
+- missing references;
+- incomplete metadata;
+- DOI mismatch;
+- retractions;
+- formatting inconsistency;
+- source-role anomalies.
+
+Do not treat formatting cleanup as completion if scientific integrity issues remain.
+
+---
+
+# 127. In-Text Citation Audit
+
+Check:
+
+- every citation resolves to a reference;
+- numbering/order is consistent;
+- author-year identity is correct;
+- citation placement matches the supported claim;
+- grouped citations are scientifically coherent.
+
+---
+
+# 128. Citation Group Audit
+
+When several citations appear together, verify that each citation is relevant to the grouped claim.
+
+Do not use a citation cluster to hide weak support.
+
+---
+
+# 129. Final Reference Eligibility Gate
+
+A reference may enter the final evidence system only when:
+
+- identity is sufficiently verified;
+- integrity status is acceptable;
+- it is relevant;
+- it is actually used;
+- it is not retracted;
+- its role is scientifically appropriate.
+
+---
+
+# 130. Synthesis Entry Gate
+
+Before a source feeds evidence synthesis:
+
+```text
+SOURCE VERIFIED
+      ↓
+REFERENCE INTEGRITY CLEARED
+      ↓
+PURPOSE-SPECIFIC SCREENING
+      ↓
+EVIDENCE SYNTHESIS
+```
+
+Reference integrity does not replace eligibility screening.
+
+---
+
+# 131. Gap and Novelty Gate
+
+Before evidence supports gap or novelty:
+
+```text
+verified source
+      ↓
+integrity-cleared representation
+      ↓
+screened evidence
+      ↓
+state of the art
+      ↓
+gap validation
+      ↓
+novelty audit
+```
+
+---
+
+# 132. Manuscript Gate
+
+Before manuscript submission, critical references should have:
+
+- verified identity;
+- correct metadata;
+- valid claim support;
+- no unresolved retraction issue;
+- no citation mashup;
+- accurate in-text/reference-list mapping.
+
+---
+
+# 133. Reviewer Response Gate
+
+When a reviewer challenges a citation:
+
+do not defend the citation reflexively.
+
+Reassess:
+
+- source identity;
+- relevance;
+- support;
+- wording;
+- whether a stronger source is needed.
+
+Route to:
+
+`reviewer-response`
+
+after integrity assessment when appropriate.
+
+---
+
+# 134. Research Passport Update
+
+When supported, update:
+
+```yaml
+reference_integrity:
+  audited_claims:
+  audited_references:
+  critical_references:
+  cleared_references:
+  corrected_references:
+  excluded_references:
+  orphan_citations:
+  orphan_references:
+  duplicate_references:
+  retraction_flags:
+  mashup_flags:
+  unsupported_claims:
+  causal_overclaims:
+  novelty_overclaims:
+  unresolved_items:
+  next_stage:
+```
+
+Do not fabricate counts.
+
+---
+
+# 135. Reference Integrity Report
+
+A full report may contain:
+
+## A. Audit Scope
+[...]
+
+## B. Critical Claims
+[...]
+
+## C. Reference Identity Issues
+[...]
+
+## D. Claim–Source Support
+[...]
+
+## E. DOI and Metadata Issues
+[...]
+
+## F. Retraction / Correction Status
+[...]
+
+## G. Duplicate / Orphan Records
+[...]
+
+## H. Scopus and Journal-Metadata Claims
+[...]
+
+## I. Gap / Novelty Citation Risks
+[...]
+
+## J. Required Corrections
+[...]
+
+## K. Final Integrity Status
+[...]
+
+---
+
+# 136. Compact Output
+
+For a small audit use:
+
+```text
+Claim:
+Reference:
+Integrity status:
+Support status:
+Problem:
+Required action:
+```
+
+---
+
+# 137. Integrity Status Summary
+
+Possible overall outcomes:
+
+- `REFERENCE_INTEGRITY_CLEARED`
+- `REFERENCE_INTEGRITY_CLEARED_WITH_MINOR_CORRECTIONS`
+- `REFERENCE_CORRECTION_REQUIRED`
+- `MAJOR_REFERENCE_INTEGRITY_PROBLEMS`
+- `SOURCE_REVERIFICATION_REQUIRED`
+- `NOT_READY_FOR_SCIENTIFIC_USE`
+
+---
+
+# 138. Relationship with Source Verification
+
+`source-verification` asks:
+
+> Is this source real, correctly identified, and sufficiently verified?
+
+`reference-integrity-guard` asks:
+
+> Is this source being used and represented correctly inside the research output?
+
+Conceptually:
+
+```text
+source-verification
+      ↓
+reference-integrity-guard
+```
+
+Do not collapse the two functions.
+
+---
+
+# 139. Relationship with Citation Chaining
+
+After anchor sources are verified and integrity-cleared:
+
+`citation-chaining`
+
+may expand backward and forward citation networks.
+
+Newly discovered sources must return through verification before scientific use.
+
+---
+
+# 140. Relationship with Literature Screening
+
+`literature-screening`
+
+determines purpose-specific inclusion.
+
+A real, integrity-cleared source may still be excluded because it does not meet the review or research criteria.
+
+---
+
+# 141. Relationship with Evidence Synthesis
+
+`evidence-synthesis`
+
+should synthesize evidence only after source identity, citation integrity, and screening are sufficiently secure.
+
+Do not synthesize fabricated, mashup, retracted, or materially misrepresented records.
+
+---
+
+# 142. Relationship with State of the Art
+
+`sota-builder`
+
+depends on accurate evidence representation.
+
+Reference integrity should protect SoTA classification from:
+
+- incorrect source identity;
+- selective citation;
+- overstated findings;
+- false consensus;
+- false absence.
+
+---
+
+# 143. Relationship with Gap Validation
+
+`gap-validator`
+
+requires an integrity-cleared evidence base.
+
+A gap cannot be validated merely because references are sparse or incorrectly represented.
+
+---
+
+# 144. Relationship with Novelty Builder
+
+`novelty-builder`
+
+may use verified competitor studies to define what is scientifically new.
+
+Reference integrity protects against false competitor comparison.
+
+---
+
+# 145. Relationship with Novelty Auditor
+
+`novelty-auditor`
+
+stress-tests priority and contribution claims.
+
+All novelty-defining references must be sufficiently verified and accurately represented.
+
+---
+
+# 146. Relationship with Theoretical Framework
+
+`theoretical-framework`
+
+may depend on:
+
+- seminal theory;
+- later refinements;
+- competing theories;
+- boundary conditions.
+
+Reference integrity should preserve original theory attribution and later evolution.
+
+---
+
+# 147. Relationship with Methodology
+
+Methods, instruments, algorithms, and protocols require accurate provenance.
+
+Route methodology-selection questions to:
+
+`methodology-architect`
+
+while preserving citation integrity here.
+
+---
+
+# 148. Relationship with Analysis Planning
+
+Statistical or analytical citations should support the actual method used.
+
+Route method-choice questions to:
+
+`analysis-planner`
+
+or:
+
+`statistical-method-selector`
+
+when needed.
+
+---
+
+# 149. Relationship with Scientific Discussion
+
+`scientific-discussion`
+
+depends on balanced and accurate comparison with previous evidence.
+
+Reference integrity must prevent:
+
+- cherry-picking;
+- contradictory-evidence suppression;
+- direction reversal;
+- causal overstatement.
+
+---
+
+# 150. Relationship with Manuscript Writer
+
+`manuscript-writer`
+
+may improve citation placement and prose.
+
+It must not invent sources or strengthen claims beyond verified evidence.
+
+---
+
+# 151. Relationship with Manuscript Auditor
+
+`manuscript-auditor`
+
+may use reference-integrity findings as part of scientific-readiness assessment.
+
+Unresolved major integrity issues should block submission readiness.
+
+---
+
+# 152. Relationship with Journal Matcher
+
+`journal-matcher`
+
+must not influence scientific source selection.
+
+Journal fit and reference integrity are separate decisions.
+
+---
+
+# 153. Relationship with Reviewer Simulator
+
+`reviewer-simulator`
+
+may challenge:
+
+- weak support;
+- outdated evidence;
+- citation padding;
+- missing contradictory literature;
+- inappropriate methods citations.
+
+Integrity findings may inform simulated reviewer concerns.
+
+---
+
+# 154. Relationship with Reviewer Response
+
+`reviewer-response`
+
+may route citation disputes here for verification.
+
+Do not add reviewer-requested references without relevance and integrity assessment.
+
+---
+
+# 155. User-Friendly Behavior
+
+Prefer precise explanations.
+
+Example:
+
+> The article is real, but the cited sentence is stronger than what the study actually supports. The safest correction is to narrow the claim rather than simply keep the citation.
+
+Or:
+
+> The DOI resolves, but it belongs to a different article. This reference should not be used until the correct source identity is recovered.
+
+Or:
+
+> These two papers use the same cohort, so they should not be treated as independent replication.
+
+Avoid unexplained integrity codes when plain language is more useful.
+
+---
+
+# 156. Avoid These Behaviors
+
+Do not:
+
+- fabricate a reference;
+- fabricate a DOI;
+- repair metadata by guessing;
+- treat DOI syntax as verification;
+- treat Scopus source indexing as document verification;
+- treat quartile as evidence quality;
+- cite retracted literature as valid evidence;
+- merge metadata from different papers;
+- add references only to increase citation count;
+- add target-journal citations strategically;
+- suppress contradictory evidence;
+- overstate causal or mechanistic support;
+- misrepresent secondary evidence as primary;
+- claim a primary source was read when it was not;
+- count shared cohorts as independent replication;
+- substitute citation formatting for scientific integrity;
+- allow APC preferences to alter evidence selection;
+- approve "first study" or "no studies exist" without adequate validation.
+
+---
+
+# Stop Conditions
+
+Do not clear the reference system when any critical issue remains unresolved, including:
+
+- possible fabricated reference;
+- reference mashup;
+- DOI-to-article mismatch;
+- retracted source supporting a substantive claim;
+- materially conflicting metadata;
+- central claim unsupported by its citations;
+- critical causal overclaim;
+- unverified first-study or absence claim central to novelty;
+- unresolved orphan citation affecting scientific traceability;
+- incorrect source being used to justify theory, method, result, gap, or novelty.
+
+Use:
+
+- `SOURCE_VERIFICATION_REQUIRED`
+- `CLAIM_REVISION_REQUIRED`
+- `REFERENCE_CORRECTION_REQUIRED`
+- `RETRACTION_BLOCK`
+- `NOVELTY_REVALIDATION_REQUIRED`
+- `NOT_READY_FOR_SCIENTIFIC_USE`
+
+as appropriate.
+
+---
+
+# Success Criterion
+
+`reference-integrity-guard` succeeds when the complete citation and reference system of a research output is scientifically traceable and defensible: every critical reference has a sufficiently verified identity; in-text citations and reference-list entries correspond correctly; DOI and bibliographic metadata are accurate enough for reliable use; retractions, corrections, duplicates, shared-study relationships, orphan citations, orphan references, and reference mashups are identified; each citation supports the claim at the appropriate level of strength, population, geography, time, design, and causal status; scholarly evidence is distinguished from phenomenon, policy, regulatory, and statistical evidence; contradictory evidence is not selectively suppressed; Scopus status, journal metrics, target-journal strategy, and APC preferences are kept separate from scientific evidence quality; gap, novelty, theory, methods, discussion, manuscript, reviewer-simulation, and reviewer-response workflows receive integrity-cleared evidence; unsupported or overstated claims are narrowed, re-sourced, or removed rather than cosmetically defended; and no reference is allowed to support a critical scientific conclusion while its identity, integrity, or claim-to-source relationship remains materially unresolved.

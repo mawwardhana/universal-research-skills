@@ -2,6 +2,143 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.15.0] - Framework Restoration, Research Roadmap & Documentation Layer
+
+### Restored and Strengthened
+
+- Restored and substantially expanded core scholarly-evidence and scientific-positioning skills whose previously committed repository versions were materially shorter than the complete working implementations.
+- `citation-chaining` now provides a comprehensive, provenance-aware architecture for backward, forward, bidirectional, related-paper, author, method, theory, replication, contradiction, continuation, and novelty-stress-test citation pathways.
+- `literature-screening` now provides purpose-specific eligibility logic, transparent inclusion and exclusion decisions, study-family handling, version and retraction awareness, contradictory-evidence retention, and auditable screening provenance.
+- `evidence-synthesis` now provides a full cross-study synthesis architecture covering convergence, contradiction, heterogeneity, mechanisms, uncertainty, evidence maturity, competing explanations, boundary conditions, and appropriate downstream scientific routing.
+- `sota-builder` now provides a complete State-of-the-Art architecture distinguishing `ESTABLISHED`, `EMERGING`, `CONTESTED`, `UNRESOLVED`, and `FRONTIER` knowledge while protecting against prestige, publication-count, citation-count, and target-journal distortions.
+- `gap-discovery` now explicitly separates candidate unresolved scientific conditions from validated research gaps and prevents literature scarcity, geography alone, additional variables, software choice, or publication strategy from being mistaken for scientific gaps.
+- `gap-validator` now performs adversarial, falsification-oriented validation against current literature, terminology variants, closest competitors, adjacent disciplines, equivalent methods, populations, mechanisms, replication, validation, and contradictory evidence.
+- `novelty-builder` now constructs comparator-grounded contribution claims that explicitly distinguish **WHAT IS NOVEL** from **WHAT IS NOT NOVEL**.
+- `novelty-auditor` now adversarially stress-tests proposed novelty against the strongest and closest existing research, alternative terminology, disciplines, methods, mechanisms, populations, contexts, validation studies, and recent evidence.
+- `reference-integrity-guard` now performs comprehensive claim-to-source, citation-to-reference, metadata, DOI, duplicate, shared-study, retraction, provenance, source-role, citation-padding, and reference-mashup integrity checks.
+- The restored evidence and positioning layer now forms a coherent sequence:
+
+```text
+scopus-literature-search
+        ↓
+source-verification
+        ↓
+reference-integrity-guard
+        ↓
+citation-chaining
+        ↓
+literature-screening
+        ↓
+evidence-synthesis
+        ↓
+sota-builder
+        ↓
+gap-discovery
+        ↓
+gap-validator
+        ↓
+novelty-builder
+        ↓
+novelty-auditor
+```
+
+### Added
+
+- `research-roadmap` skill for converting previous research, current State-of-the-Art evidence, validated uncertainties, audited scientific opportunities, defensible implications, researcher capabilities, feasibility constraints, and long-term goals into a coherent prospective research program.
+- Scientific stage architecture for distinguishing discovery, characterization, association, explanation, mechanism, prediction, validation, replication, intervention, implementation, translation, method development, measurement development, synthesis, theory development, contextualization, feasibility, optimization, safety, and other legitimate knowledge functions.
+- Explicit stage dependencies distinguishing hard and soft scientific, methodological, measurement, data, infrastructure, regulatory, ethical, capability, recruitment, computational, translational, partnership, financial, and temporal dependencies.
+- Decision-gate architecture supporting `PROCEED`, `REVISE`, alternative-route, and stop logic rather than assuming that every planned research stage will produce positive findings.
+- Support for parallel workstreams, branching research programs, replication, validation, negative findings, feasibility failure, capability development, scientific risk, project risk, and evidence-driven termination of research branches.
+- Revalidation gates requiring later roadmap stages to be checked against current literature, State of the Art, gap status, novelty, feasibility, regulatory context, and competing research before progression.
+- Roadmap safeguards separating scientific milestones from administrative milestones, research outputs from publication outputs, and scientific progression from calendar or publication-count planning.
+- Discipline-aware roadmap examples for biomedical, pharmacogenetic, precision-medicine, pharmacokinetic/PBPK, pharmaceutical formulation, education, social-science, engineering, evidence-synthesis, diagnostic, prediction, implementation, and translational research.
+- A complete root `README.md` documenting the full 46-skill Universal Research Skills framework.
+- README documentation for the dual evidence architecture:
+  - Scholarly Evidence — **Scopus-first**
+  - Phenomenon Evidence — **Authority-first**
+- README documentation for conditional research logic in which theory, hypotheses, and conceptual frameworks are used only when scientifically appropriate rather than forced into every study.
+- README documentation for previous-research continuation, State-of-the-Art construction, adversarial gap validation, novelty auditing, methodology development, analysis, scientific interpretation, implications, manuscript development, journal matching, reviewer simulation, reviewer response, and long-term research planning.
+- A complete 46-skill catalog and end-to-end routing overview.
+
+### Changed
+
+- Plugin version advanced from `0.14.0` to `0.15.0`.
+- The framework now contains **46 modular research skills**.
+- `research-roadmap` is now available as the formal prospective counterpart to `research-trajectory-mapper`, which remains responsible for retrospective research-trajectory reconstruction.
+- `implication-builder` can hand scientifically defensible future-research consequences to `research-roadmap`.
+- Continuation workflows can now progress from previous-research reconstruction and opportunity identification into an explicit long-term research program.
+- Repository documentation now reflects the actual current framework instead of leaving the root README empty.
+- Long-term planning is explicitly separated from publication strategy: journal prestige, quartile, Scopus status, APC preference, funding calls, fashionable technologies, software availability, and methodological familiarity must not redefine scientific progression.
+
+### Repository Integrity Audit
+
+A repository-wide consistency audit was performed before this release.
+
+Audit results:
+
+- 46 skill folders found.
+- 46 `SKILL.md` files found.
+- 0 missing `SKILL.md` files.
+- 0 duplicate YAML skill names.
+- 0 active dangling skill references.
+- 0 skills with zero incoming references.
+- `research-intake` and `research-resume` were confirmed structurally intact despite not using a dedicated `# Stop Conditions` heading.
+- Historical references to `no-apc-journal-finder` and `target-journal-intelligence` were confirmed as legacy documentation rather than active missing skills.
+- `target-journal-intelligence` remains intentionally available only as a plugin discovery keyword, while its former functional responsibilities are integrated into `journal-matcher`.
+- `research-roadmap` was confirmed to be connected to the active framework and automatically available through the plugin's `./skills/` path.
+
+### Framework Progression
+
+```text
+Previous Research / Current Research State
+        ↓
+Research Resume
+        ↓
+Prior Research Audit
+        ↓
+Research Trajectory Mapping
+        ↓
+Continuation Opportunity Identification
+        ↓
+Current Evidence Revalidation
+        ↓
+State of the Art
+        ↓
+Validated Gap
+        ↓
+Audited Novelty
+        ↓
+Research Question
+        ↓
+Theory / Hypothesis / Conceptual Framework
+        when scientifically appropriate
+        ↓
+Problem-Solving Approach
+        ↓
+Methodology
+        ↓
+Analysis
+        ↓
+Result Interpretation
+        ↓
+Scientific Discussion
+        ↓
+Implications
+        ↓
+Research Roadmap
+        ↓
+Next Defensible Study
+        ↓
+Decision Gate
+        ↓
+Subsequent Research Stage
+```
+The central principle of this release is:
+
+> **Build the research program from scientific dependency, not from publication counting or calendar convenience.**
+
+---
+
 ## [0.14.0] - Reviewer Response Layer
 
 ### Added

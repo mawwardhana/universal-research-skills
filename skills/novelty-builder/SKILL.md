@@ -508,3 +508,1844 @@ What this study will do differently
 Why that difference matters scientifically
         ↓
 NOVEL CONTRIBUTION
+```
+
+Novelty must be built from the surviving unresolved condition, not from rhetorical wording.
+
+---
+
+# 22. Novelty Claim Record
+
+Use:
+
+```yaml
+novelty_claim:
+  validated_gap:
+  gap_status:
+  scientific_frontier:
+  closest_competitors:
+  proposed_advancement:
+  novelty_type:
+  novelty_level:
+  scientific_contribution:
+  novelty_boundary:
+  what_is_novel:
+  what_is_not_novel:
+  evidence_basis:
+  major_threats:
+  audit_required:
+```
+
+Do not fabricate unavailable fields.
+
+---
+
+# 23. What Is Novel
+
+State the actual scientific advancement explicitly.
+
+Possible forms:
+
+- a previously untested mechanism;
+- external validation of an important finding;
+- stronger causal identification;
+- a meaningful theoretical refinement;
+- a new validated measurement approach;
+- a new translational step;
+- resolution of a major contradiction;
+- integration of previously disconnected evidence streams.
+
+The claim should explain why the advancement matters.
+
+---
+
+# 24. What Is Not Novel
+
+Every strong novelty statement should also identify what is **not** being claimed as novelty.
+
+Examples:
+
+- country alone;
+- institution alone;
+- sample size alone;
+- another software package;
+- another variable;
+- another questionnaire;
+- another dataset;
+- another concentration level;
+- another statistical model;
+- target journal;
+- Scopus status;
+- APC preference.
+
+This prevents inflated positioning.
+
+---
+
+# 25. Novelty Boundary
+
+A novelty claim must be bounded by:
+
+- population;
+- context;
+- mechanism;
+- method;
+- outcome;
+- theory;
+- translational stage;
+- evidence cutoff.
+
+Avoid universal claims when the contribution is local or conditional.
+
+---
+
+# 26. Closest-Competitor Requirement
+
+Novelty should be compared against the most scientifically similar prior work.
+
+Do not compare only against:
+
+- older papers;
+- weaker papers;
+- unrelated disciplines;
+- conveniently different populations.
+
+The closest competitors are the strongest test.
+
+---
+
+# 27. Competitor Comparison Dimensions
+
+Compare:
+
+- research question;
+- gap addressed;
+- theory;
+- mechanism;
+- population;
+- context;
+- design;
+- measurement;
+- intervention/exposure;
+- outcome;
+- analytical strategy;
+- validation;
+- translational stage;
+- contribution.
+
+---
+
+# 28. Competitor Matrix
+
+Use:
+
+| Competitor | Scientific Overlap | What It Already Solved | What Remains | Novelty Threat |
+|---|---|---|---|---|
+
+---
+
+# 29. Novelty Threat Levels
+
+Possible levels:
+
+- `CRITICAL_THREAT`
+- `MAJOR_THREAT`
+- `MODERATE_THREAT`
+- `MINOR_THREAT`
+- `NOT_A_THREAT`
+
+Threat level should reflect scientific overlap, not journal prestige.
+
+---
+
+# 30. Novelty Strength
+
+Possible provisional levels:
+
+- `POTENTIALLY_HIGH`
+- `MODERATE`
+- `INCREMENTAL_BUT_MEANINGFUL`
+- `WEAK`
+- `UNCERTAIN`
+
+These are builder-stage assessments only.
+
+Final defensibility belongs to `novelty-auditor`.
+
+---
+
+# 31. Theoretical Novelty
+
+Theoretical novelty may involve:
+
+- extending theory;
+- integrating theories;
+- specifying boundary conditions;
+- resolving competing theoretical predictions;
+- demonstrating theory failure;
+- proposing a new explanatory structure.
+
+Do not claim theoretical novelty merely because a theory has not been used in one location.
+
+---
+
+# 32. Conceptual Novelty
+
+Conceptual novelty may involve:
+
+- distinguishing previously conflated constructs;
+- defining a new scientifically necessary construct;
+- clarifying construct relationships;
+- integrating fragmented conceptual models.
+
+Do not create new labels for existing constructs and call them novel.
+
+---
+
+# 33. Mechanistic Novelty
+
+Mechanistic novelty may involve:
+
+- directly testing a pathway;
+- identifying an intermediate process;
+- resolving competing mechanisms;
+- linking molecular, behavioral, or contextual pathways.
+
+Do not infer mechanism from association alone.
+
+---
+
+# 34. Empirical Novelty
+
+Empirical novelty may involve:
+
+- testing a scientifically important unresolved proposition;
+- producing evidence where evidence is genuinely absent;
+- resolving contradictory empirical findings;
+- expanding the evidentiary boundary meaningfully.
+
+New data alone are not automatically novel.
+
+---
+
+# 35. Methodological Novelty
+
+Methodological novelty may involve:
+
+- a design that enables stronger inference;
+- improved causal identification;
+- better reproducibility;
+- higher measurement validity;
+- a scientifically consequential analytical innovation.
+
+Do not call software substitution methodological novelty.
+
+---
+
+# 36. Measurement Novelty
+
+Measurement novelty may involve:
+
+- new validated instrument;
+- improved assay;
+- better biomarker;
+- objective measurement replacing weak proxy;
+- cross-context measurement validation.
+
+Validation is central.
+
+---
+
+# 37. Analytical Novelty
+
+Analytical novelty may be defensible when it:
+
+- reveals a previously inaccessible pattern;
+- improves inference;
+- resolves model bias;
+- improves prediction or calibration;
+- integrates complex evidence appropriately.
+
+Using a fashionable method is insufficient.
+
+---
+
+# 38. Validation Novelty
+
+Validation can be a major contribution.
+
+Possible forms:
+
+- external validation;
+- temporal validation;
+- geographic validation;
+- prospective validation;
+- clinical validation;
+- cross-cultural validation.
+
+Do not disguise validation as discovery.
+
+---
+
+# 39. Predictive Novelty
+
+Prediction novelty may involve:
+
+- better calibration;
+- external validation;
+- transportability;
+- decision utility;
+- improved robustness.
+
+Higher derivation AUC alone is often weak novelty.
+
+---
+
+# 40. Intervention Novelty
+
+Intervention novelty may involve:
+
+- a truly new intervention mechanism;
+- meaningful adaptation;
+- improved comparative effectiveness;
+- improved safety;
+- implementation-sensitive design.
+
+Minor delivery changes may be incremental only.
+
+---
+
+# 41. Implementation Novelty
+
+Implementation novelty may involve:
+
+- new implementation strategy;
+- fidelity improvement;
+- scalable delivery;
+- sustainability evidence;
+- adoption mechanism;
+- real-world effectiveness.
+
+---
+
+# 42. Translational Novelty
+
+Translational novelty occurs when research meaningfully advances evidence across stages.
+
+```text
+Mechanistic
+      ↓
+Preclinical
+      ↓
+Early Human
+      ↓
+Clinical
+      ↓
+Implementation
+```
+
+Do not skip prerequisite evidence.
+
+---
+
+# 43. Contextual Novelty
+
+Contextual novelty can be meaningful when context plausibly changes:
+
+- mechanism;
+- exposure;
+- behavior;
+- policy;
+- implementation;
+- biological response;
+- education process;
+- market behavior.
+
+Context alone is weak.
+
+---
+
+# 44. Integrative Novelty
+
+Integrative novelty may arise from connecting evidence that was previously scientifically disconnected.
+
+Examples:
+
+- molecular + clinical;
+- quantitative + qualitative;
+- theory + mechanism;
+- laboratory + real world.
+
+Integration must produce new understanding.
+
+---
+
+# 45. Technological Novelty
+
+Technology novelty is defensible only if it enables meaningful scientific advancement.
+
+Examples:
+
+- improved resolution;
+- previously impossible measurement;
+- stronger validation;
+- new real-time data;
+- better mechanistic testing.
+
+New technology alone is not enough.
+
+---
+
+# 46. Novelty by Knowledge Function
+
+Classify the proposed advancement as:
+
+- discovery;
+- explanation;
+- validation;
+- prediction;
+- intervention;
+- implementation;
+- integration;
+- translation;
+- measurement;
+- method;
+- theory.
+
+This helps prevent novelty inflation.
+
+---
+
+# 47. Discovery Novelty
+
+Discovery novelty introduces genuinely unsupported knowledge.
+
+It requires strong evidence that the phenomenon or relationship is not already adequately established.
+
+---
+
+# 48. Validation Novelty as Independent Contribution
+
+Validation is not secondary by default.
+
+High-value validation may determine whether:
+
+- a model generalizes;
+- a biomarker replicates;
+- a treatment works externally;
+- a construct is stable;
+- an algorithm transports.
+
+---
+
+# 49. Replication Novelty
+
+Replication novelty may be meaningful when the original evidence is:
+
+- influential;
+- fragile;
+- context-bound;
+- underreplicated;
+- clinically important.
+
+Replication is not necessarily low novelty.
+
+---
+
+# 50. Contradiction-Resolution Novelty
+
+A study may be novel by explaining why prior studies disagree.
+
+Possible mechanisms:
+
+- measurement;
+- population;
+- context;
+- theory;
+- dose;
+- time;
+- design.
+
+This can be stronger than adding another study to the contradiction.
+
+---
+
+# 51. Boundary-Condition Novelty
+
+Novelty may arise from identifying when an established finding:
+
+- holds;
+- weakens;
+- reverses;
+- fails.
+
+Boundary-condition research can meaningfully refine theory and practice.
+
+---
+
+# 52. Negative-Result Value
+
+Ask:
+
+> Would the study remain scientifically valuable if the expected result is not supported?
+
+Strong novelty often survives a null or contradictory result.
+
+If value depends entirely on significance, novelty is fragile.
+
+---
+
+# 53. Novelty and Falsifiability
+
+The proposed contribution should be falsifiable.
+
+Avoid novelty statements that are true regardless of outcome.
+
+---
+
+# 54. Novelty and Scientific Importance
+
+Novelty without importance is weak.
+
+Ask:
+
+> If this contribution is real, what changes in scientific understanding?
+
+---
+
+# 55. Novelty and Practical Importance
+
+Practical benefit may strengthen relevance but does not replace scientific novelty.
+
+Separate:
+
+- scientific contribution;
+- clinical contribution;
+- policy contribution;
+- educational contribution;
+- industrial contribution.
+
+---
+
+# 56. Incremental Novelty
+
+Incremental novelty can still be valuable.
+
+Use `INCREMENTAL_BUT_MEANINGFUL` when:
+
+- the advance is narrow;
+- the scientific uncertainty is real;
+- the study improves confidence, validation, or boundary understanding.
+
+Do not oversell incremental work.
+
+---
+
+# 57. Transformative Novelty Guard
+
+Use high-level novelty language only when the proposed contribution can plausibly change:
+
+- theory;
+- mechanism;
+- paradigm;
+- method;
+- clinical practice;
+- major scientific interpretation.
+
+Avoid "groundbreaking" or "revolutionary" without extraordinary support.
+
+---
+
+# 58. Superficial Novelty Test
+
+Ask whether the only difference is:
+
+- geography;
+- institution;
+- sample;
+- age category;
+- one extra variable;
+- one software package;
+- one additional concentration;
+- one new questionnaire;
+- new year of data.
+
+If yes, novelty is likely weak unless the difference changes the scientific inference.
+
+---
+
+# 59. Complexity Guard
+
+More complex models are not automatically more novel.
+
+Do not add:
+
+- mediators;
+- moderators;
+- interactions;
+- constructs;
+- layers;
+
+merely to increase apparent sophistication.
+
+---
+
+# 60. Mediator Novelty Guard
+
+A new mediator is meaningful only when:
+
+- a mechanism is scientifically plausible;
+- evidence supports the pathway;
+- the mediator addresses the validated gap.
+
+---
+
+# 61. Moderator Novelty Guard
+
+A moderator is meaningful only when:
+
+- boundary conditions are unresolved;
+- effect modification is plausible;
+- the moderator can clarify contradictory evidence.
+
+---
+
+# 62. Geographic Novelty Guard
+
+Country-specific novelty requires scientifically relevant context.
+
+Ask whether the setting changes:
+
+- exposure;
+- mechanism;
+- population structure;
+- healthcare system;
+- regulation;
+- behavior;
+- implementation.
+
+---
+
+# 63. Population Novelty Guard
+
+A new population is meaningful when it tests:
+
+- generalizability;
+- biological variation;
+- clinical relevance;
+- developmental differences;
+- contextual boundary conditions.
+
+---
+
+# 64. Method Novelty Guard
+
+A new method should be judged by scientific gain.
+
+Ask:
+
+> What can this method answer that prior methods could not answer defensibly?
+
+---
+
+# 65. Software Novelty Guard
+
+Preserve:
+
+```text
+SmartPLS
+AMOS
+SPSS
+Jamovi
+R
+Python
+Stata
+SAS
+```
+
+are tools.
+
+Tool choice alone does not define scientific novelty.
+
+---
+
+# 66. AI Novelty Guard
+
+Using AI is not itself novelty.
+
+Meaningful AI novelty may involve:
+
+- validated predictive improvement;
+- improved generalization;
+- explainability;
+- robust integration;
+- new measurement capability;
+- scientifically useful decision support.
+
+---
+
+# 67. New Dataset Guard
+
+A new dataset may support novelty only when it enables:
+
+- new population inference;
+- stronger validation;
+- temporal insight;
+- rare outcome analysis;
+- better generalizability;
+- new mechanism testing.
+
+---
+
+# 68. Larger Sample Guard
+
+Larger sample size may improve precision and power.
+
+It is not by itself a novel contribution.
+
+---
+
+# 69. Higher Statistical Significance Guard
+
+Novelty is not defined by smaller p-values.
+
+---
+
+# 70. New Biomarker Guard
+
+A new biomarker can be novel only if:
+
+- biologically plausible;
+- analytically valid;
+- clinically or scientifically meaningful;
+- not already adequately evaluated.
+
+---
+
+# 71. New Formulation Guard
+
+A new formulation can be novel when it advances:
+
+- stability;
+- release;
+- mechanism;
+- efficacy;
+- safety;
+- manufacturability;
+- scale-up;
+- reproducibility.
+
+A novel ingredient combination alone may be weak.
+
+---
+
+# 72. New Qualitative Context Guard
+
+A new qualitative context may be valuable when it reveals:
+
+- new mechanism;
+- missing stakeholder perspective;
+- implementation barrier;
+- cultural meaning;
+- decision process.
+
+Do not claim novelty solely from interviewing a new location.
+
+---
+
+# 73. Mixed-Methods Novelty Guard
+
+Mixed methods are novel only when integration answers a question that one method alone cannot.
+
+---
+
+# 74. Interdisciplinary Novelty Guard
+
+Combining disciplines is not inherently novel.
+
+The integration must produce new scientific understanding.
+
+---
+
+# 75. Novelty and State of the Art
+
+Use `sota-builder` to identify:
+
+- established knowledge;
+- emerging evidence;
+- contested evidence;
+- unresolved knowledge;
+- frontier.
+
+Novelty should advance beyond the frontier rather than repeat established knowledge.
+
+---
+
+# 76. Novelty and Gap Validation
+
+Immediate upstream:
+
+```text
+gap-discovery
+      ↓
+gap-validator
+      ↓
+novelty-builder
+```
+
+Do not construct strong novelty from an unvalidated gap.
+
+---
+
+# 77. Gap Status Gate
+
+Preferred inputs:
+
+- `VALIDATED_STRONG_GAP`
+- `VALIDATED_MODERATE_GAP`
+- `PARTIALLY_VALIDATED_GAP`
+- `REFRAMED_GAP`
+
+Use caution with:
+
+- `WEAK_GAP`
+- `VALIDATION_INCONCLUSIVE`
+
+Do not build strong novelty from:
+
+- `GAP_REJECTED`
+- `GAP_SUBSTANTIALLY_RESOLVED`
+
+unless a different validated gap exists.
+
+---
+
+# 78. Novelty Candidate Record
+
+Use:
+
+```yaml
+novelty_candidate:
+  candidate_id:
+  validated_gap:
+  closest_competitor:
+  proposed_difference:
+  scientific_gain:
+  novelty_type:
+  novelty_level:
+  boundary:
+  threat:
+  evidence:
+```
+
+---
+
+# 79. Novelty Candidate Comparison
+
+When several study ideas exist, compare:
+
+| Candidate | Scientific Gain | Competitor Threat | Feasibility | Novelty Potential |
+|---|---|---|---|---|
+
+Do not prioritize publication attractiveness over scientific contribution.
+
+---
+
+# 80. Novelty Ranking
+
+Possible provisional rank:
+
+- `PRIORITY_1`
+- `PRIORITY_2`
+- `PRIORITY_3`
+- `DEPRIORITIZE`
+
+Ranking should consider scientific contribution and feasibility separately.
+
+---
+
+# 81. Novelty Strength Matrix
+
+Use:
+
+| Contribution | Already Addressed? | Scientific Gain | Threat | Provisional Strength |
+|---|---|---|---|---|
+
+---
+
+# 82. What-Is-Novel / What-Is-Not-Novel Matrix
+
+Use:
+
+| Proposed Element | Novel? | Why | Evidence |
+|---|---|---|---|
+
+This table is strongly recommended.
+
+---
+
+# 83. Novelty Contribution Sentence
+
+A good novelty statement should answer:
+
+1. what prior work already established;
+2. what remains unresolved;
+3. what this study uniquely adds;
+4. why the addition matters.
+
+---
+
+# 84. Novelty Sentence Template
+
+Use:
+
+> Building on evidence that [established knowledge], this study will address the validated uncertainty regarding [gap] by [specific advancement], which differs from the closest prior studies in [scientifically meaningful difference] and is expected to contribute [specific knowledge contribution].
+
+Avoid absolute "first" language unless separately audited.
+
+---
+
+# 85. Explicit Non-Novelty Sentence
+
+Use when helpful:
+
+> The novelty of this study does not arise merely from [country/software/additional variable], but from [scientifically meaningful advancement].
+
+---
+
+# 86. Contribution Classification
+
+Possible contribution classes:
+
+- theoretical;
+- conceptual;
+- mechanistic;
+- empirical;
+- methodological;
+- measurement;
+- validation;
+- prediction;
+- intervention;
+- implementation;
+- translational;
+- integrative;
+- contextual.
+
+---
+
+# 87. Primary and Secondary Novelty
+
+A study may have:
+
+- one primary novelty;
+- several secondary contributions.
+
+Do not present every feature as equally novel.
+
+---
+
+# 88. Primary Novelty Rule
+
+The primary novelty should be the strongest scientifically defensible advancement.
+
+It should not be selected merely because it sounds impressive.
+
+---
+
+# 89. Secondary Contribution Rule
+
+Secondary contributions should support or extend the primary novelty.
+
+Avoid constructing a long novelty list from trivial differences.
+
+---
+
+# 90. Novelty Dependency
+
+Some novelty claims depend on prior components.
+
+Example:
+
+```text
+validated mechanism gap
+      ↓
+mechanism study
+      ↓
+later predictive validation
+```
+
+Do not claim downstream novelty before prerequisites are met.
+
+---
+
+# 91. Novelty Portfolio
+
+For a research program, map:
+
+```text
+Study 1 → mechanism novelty
+Study 2 → validation novelty
+Study 3 → implementation novelty
+```
+
+Route longitudinal program design to `research-trajectory-mapper`.
+
+---
+
+# 92. Previous Research and Novelty
+
+For continuation studies ask:
+
+- What was novel in the previous work?
+- What has since become established?
+- What has been replicated?
+- What has been superseded?
+- What frontier remains?
+
+Use `prior-research-auditor` and `research-resume` when needed.
+
+---
+
+# 93. Continuation Novelty
+
+A continuation study should not repeat the original contribution.
+
+Possible progression:
+
+```text
+association
+      ↓
+mechanism
+      ↓
+validation
+      ↓
+prediction
+      ↓
+implementation
+```
+
+Route options to `continuation-opportunity-finder`.
+
+---
+
+# 94. Research Trajectory Handoff
+
+Use `research-trajectory-mapper` to organize novelty across multiple future studies.
+
+---
+
+# 95. Novelty and Research Question
+
+After novelty is constructed and later audited:
+
+route to:
+
+`research-question-builder`
+
+The RQ should operationalize the validated gap and defensible novelty.
+
+---
+
+# 96. Novelty and Hypothesis
+
+Do not create hypotheses directly from novelty wording.
+
+Hypotheses are downstream of:
+
+- finalized RQ;
+- theory or mechanism when required.
+
+Route to `hypothesis-builder` when appropriate.
+
+---
+
+# 97. Novelty and Theory
+
+If novelty depends on theoretical advancement:
+
+route to `theoretical-framework`.
+
+Theory should explain the science, not decorate novelty.
+
+---
+
+# 98. Novelty and Conceptual Framework
+
+If novelty depends on new or refined construct relationships:
+
+route to `conceptual-framework`.
+
+---
+
+# 99. Novelty and Methodology
+
+Methodology should test the novelty claim.
+
+Route to `methodology-architect` only after the research question is sufficiently clear.
+
+---
+
+# 100. Novelty and Sampling
+
+Population novelty may later affect `sampling-strategy`.
+
+Sampling is not the novelty itself unless the sample enables a substantively different scientific inference.
+
+---
+
+# 101. Novelty and Instrument Design
+
+Measurement novelty may route to `instrument-design`.
+
+---
+
+# 102. Novelty and Analysis Planning
+
+Analytical novelty may route to:
+
+- `analysis-planner`;
+- `statistical-method-selector`.
+
+Do not select methods merely because they appear advanced.
+
+---
+
+# 103. Novelty and Scientific Discussion
+
+After results exist, `scientific-discussion` should evaluate whether the anticipated novelty was actually realized.
+
+Do not assume the planned novelty was achieved.
+
+---
+
+# 104. Novelty and Result Interpretation
+
+`result-interpreter` should compare findings with the competitor evidence underlying the novelty claim.
+
+---
+
+# 105. Novelty and Implications
+
+Route practical or theoretical consequences to `implication-builder`.
+
+Implications must be proportional to what the study actually contributes.
+
+---
+
+# 106. Novelty and Manuscript Architecture
+
+`manuscript-architect` can place novelty appropriately in:
+
+- introduction;
+- objective;
+- discussion;
+- conclusion.
+
+Do not repeat the novelty claim mechanically throughout the manuscript.
+
+---
+
+# 107. Novelty and Manuscript Writing
+
+`manuscript-writer` should use calibrated novelty language.
+
+Avoid exaggerated adjectives.
+
+---
+
+# 108. Novelty and Manuscript Audit
+
+`manuscript-auditor` should verify that novelty claims match:
+
+- the current evidence;
+- the validated gap;
+- closest competitors;
+- actual methods/results.
+
+---
+
+# 109. Novelty and Journal Matching
+
+`journal-matcher` may use the novelty level to evaluate scientific fit.
+
+Journal prestige must not redefine novelty.
+
+---
+
+# 110. Novelty and Reviewer Simulation
+
+`reviewer-simulator` may challenge:
+
+- inflated novelty;
+- missing competitors;
+- first-study claims;
+- superficial differences;
+- weak contribution.
+
+This is additional stress testing.
+
+---
+
+# 111. Novelty and Reviewer Response
+
+If reviewers challenge novelty:
+
+route to `reviewer-response`.
+
+Reassess the science before drafting rebuttal language.
+
+---
+
+# 112. Novelty and Phenomenon Evidence
+
+`phenomenon-evidence-builder` can show why a real-world problem matters.
+
+Phenomenon importance does not prove scientific novelty.
+
+---
+
+# 113. Dual Evidence Boundary
+
+Preserve:
+
+```text
+Phenomenon Evidence
+      ↓
+Why the problem matters
+
+Scholarly Evidence
+      ↓
+What is already known
+
+Validated Gap
+      ↓
+What remains unresolved
+
+Novelty Builder
+      ↓
+What the proposed study adds
+```
+
+---
+
+# 114. Source Verification Gate
+
+Critical competitor and novelty-supporting sources should pass `source-verification`.
+
+---
+
+# 115. Reference Integrity Gate
+
+Use `reference-integrity-guard` to ensure:
+
+- source identity;
+- DOI integrity;
+- claim support;
+- duplicate handling;
+- study-family awareness.
+
+---
+
+# 116. Citation Chaining Gate
+
+Use `citation-chaining` when closest-competitor lineage may reveal:
+
+- earlier priority;
+- follow-up studies;
+- replications;
+- extensions;
+- contradictions.
+
+---
+
+# 117. Literature Screening Gate
+
+Newly discovered competitor evidence should pass `literature-screening`.
+
+---
+
+# 118. Evidence Synthesis Gate
+
+Use `evidence-synthesis` when novelty depends on comparing multiple evidence streams rather than isolated studies.
+
+---
+
+# 119. SoTA Currentness Gate
+
+If the SoTA is outdated for the field velocity:
+
+route back to `sota-builder` after updating the evidence.
+
+---
+
+# 120. Gap Validation Re-entry
+
+If novelty construction exposes evidence that undermines the validated gap:
+
+route back to `gap-validator`.
+
+Do not protect the novelty claim.
+
+---
+
+# 121. Novelty Auditor Requirement
+
+Preferred downstream:
+
+```text
+novelty-builder
+      ↓
+novelty-auditor
+```
+
+`novelty-builder` constructs the strongest evidence-grounded candidate contribution.
+
+`novelty-auditor` tries to defeat it.
+
+---
+
+# 122. Priority-Claim Boundary
+
+Claims such as:
+
+- "first";
+- "novel";
+- "unprecedented";
+- "no previous study";
+
+require adversarial novelty auditing.
+
+Do not certify them here.
+
+---
+
+# 123. Novelty Versioning
+
+Use:
+
+```yaml
+novelty_version:
+  version:
+  claim:
+  reason_for_change:
+  new_competitor:
+  threat:
+  status:
+```
+
+This is useful when evidence changes.
+
+---
+
+# 124. Novelty Reframing
+
+If a broad novelty claim is defeated, identify whether a narrower contribution survives.
+
+Example:
+
+```text
+Original:
+First study of X and Y.
+
+Reframed:
+First external validation of relationship X–Y under clinically meaningful condition Z.
+```
+
+Do not use "first" in the reframed claim until audited.
+
+---
+
+# 125. Novelty Loss
+
+A valid outcome may be:
+
+`NO_MEANINGFUL_NOVELTY`
+
+Do not invent a contribution merely because the user expects one.
+
+---
+
+# 126. Novelty Feasibility
+
+A scientifically strong contribution may be infeasible.
+
+Keep separate:
+
+- novelty strength;
+- project feasibility.
+
+---
+
+# 127. Novelty–Feasibility Matrix
+
+Use:
+
+| Candidate | Novelty Potential | Scientific Value | Feasibility | Decision |
+|---|---|---|---|---|
+
+---
+
+# 128. Novelty and Research Ethics
+
+Do not recommend ethically unjustified procedures merely to create novelty.
+
+---
+
+# 129. Novelty and Reproducibility
+
+Reproducibility can itself be a meaningful contribution when a field has fragile evidence.
+
+---
+
+# 130. Novelty and Open Science
+
+Open data, code, protocol transparency, or preregistration can improve scientific value.
+
+They do not automatically create substantive novelty.
+
+---
+
+# 131. Novelty and Negative Evidence
+
+Showing that a widely assumed mechanism does not hold can be novel.
+
+Novelty does not require a positive result.
+
+---
+
+# 132. Novelty and Null Results
+
+A well-powered, well-designed null result can meaningfully close an unresolved question.
+
+Do not equate novelty with statistical significance.
+
+---
+
+# 133. Novelty and Replication Failure
+
+A failed replication may create novelty by revealing:
+
+- boundary conditions;
+- measurement dependence;
+- context dependence;
+- original fragility.
+
+---
+
+# 134. Novelty and Generalizability
+
+External validation may be a strong contribution when prior evidence is concentrated in one setting.
+
+---
+
+# 135. Novelty and Scale-Up
+
+For applied research, moving from proof-of-concept to scale-up can be novel if the scientific implementation question is unresolved.
+
+---
+
+# 136. Novelty and Clinical Utility
+
+A prediction model may become scientifically useful only after clinical utility testing.
+
+Utility can represent a later-stage novelty.
+
+---
+
+# 137. Novelty and Regulatory Science
+
+Regulatory context can matter when the study evaluates:
+
+- safety;
+- quality;
+- validation;
+- implementation;
+- standards.
+
+Regulatory novelty should not be confused with policy novelty.
+
+---
+
+# 138. Novelty and Qualitative Research
+
+Qualitative novelty may involve:
+
+- new explanatory themes;
+- previously missing stakeholder perspectives;
+- mechanism of implementation;
+- contextual meaning;
+- conceptual refinement.
+
+Do not demand variable-based novelty.
+
+---
+
+# 139. Novelty and Mixed Methods
+
+Mixed-method novelty should arise from integration.
+
+Example:
+
+```text
+quantitative pattern
++
+qualitative mechanism
+      ↓
+new integrated explanation
+```
+
+---
+
+# 140. Novelty and Systematic Reviews
+
+Review novelty may involve:
+
+- new evidence since prior review;
+- unresolved contradiction;
+- improved methodology;
+- novel synthesis question;
+- updated evidence map.
+
+A newer review date alone is weak.
+
+---
+
+# 141. Novelty and Meta-Analysis
+
+Meta-analysis novelty may involve:
+
+- new large evidence base;
+- improved effect estimation;
+- unresolved heterogeneity;
+- new subgroup evidence;
+- improved methodology.
+
+Do not claim novelty only because software differs.
+
+---
+
+# 142. Novelty and Bibliometrics
+
+Bibliometric novelty should involve a meaningful scientific mapping contribution.
+
+A new visualization alone is weak.
+
+---
+
+# 143. Novelty and Experimental Research
+
+Experimental novelty may involve:
+
+- mechanism;
+- dose-response;
+- material property;
+- reproducibility;
+- biological interaction;
+- translational testing.
+
+---
+
+# 144. Novelty and Pharmacogenetics
+
+Potential meaningful contributions include:
+
+- independent genotype–response replication;
+- toxicity association;
+- haplotype effect;
+- functional mechanism;
+- dose interaction;
+- predictive validation.
+
+Do not rely only on national location.
+
+---
+
+# 145. Novelty and Pharmacokinetics
+
+Potential novelty may involve:
+
+- understudied physiologic population;
+- new covariate effect;
+- external model validation;
+- exposure–response;
+- PK/PD target refinement.
+
+---
+
+# 146. Novelty and Pharmaceutical Formulation
+
+Potential novelty may involve:
+
+- improved release mechanism;
+- stability;
+- physicochemical–biological relationship;
+- scale-up;
+- reproducibility;
+- translational performance.
+
+---
+
+# 147. Novelty and Education
+
+Meaningful novelty may involve:
+
+- learning mechanism;
+- longitudinal transfer;
+- implementation;
+- validated digital pedagogy;
+- contextual boundary conditions.
+
+---
+
+# 148. Novelty and Social Sciences
+
+Meaningful novelty may involve:
+
+- theory boundary;
+- construct clarification;
+- contextual mechanism;
+- longitudinal evidence;
+- causal identification.
+
+---
+
+# 149. Novelty and Engineering
+
+Meaningful novelty may involve:
+
+- robustness;
+- performance frontier;
+- scalability;
+- real-world validation;
+- safety;
+- new mechanism.
+
+---
+
+# 150. Novelty and Computational Research
+
+Meaningful novelty may involve:
+
+- external validation;
+- robustness;
+- calibration;
+- interpretability;
+- generalization;
+- benchmark advance;
+- scientifically useful integration.
+
+---
+
+# 151. Novelty Builder Passport
+
+Use:
+
+```yaml
+novelty_builder:
+  validated_gap:
+  gap_status:
+  evidence_cutoff:
+  scientific_frontier:
+  closest_competitors:
+  primary_novelty:
+  secondary_contributions:
+  novelty_type:
+  provisional_strength:
+  scientific_gain:
+  boundary:
+  what_is_novel:
+  what_is_not_novel:
+  main_threats:
+  feasibility:
+  audit_required:
+  next_stage:
+```
+
+---
+
+# 152. Novelty Builder Status
+
+Possible statuses:
+
+- `NOT_STARTED`
+- `GAP_VALIDATION_REQUIRED`
+- `EVIDENCE_UPDATE_REQUIRED`
+- `COMPETITOR_REVIEW_REQUIRED`
+- `NOVELTY_CANDIDATE_BUILT`
+- `NOVELTY_REFRAMING_REQUIRED`
+- `NO_MEANINGFUL_NOVELTY`
+- `READY_FOR_NOVELTY_AUDIT`
+
+---
+
+# 153. Readiness Gate
+
+Before `READY_FOR_NOVELTY_AUDIT`, ensure:
+
+- the gap is sufficiently validated or reframed;
+- current SoTA is adequate;
+- closest competitors are identified;
+- the proposed advancement is explicit;
+- scientific value is clear;
+- novelty boundaries are stated;
+- obvious superficial novelty is excluded;
+- major threats are recorded.
+
+---
+
+# 154. Full Output
+
+For a comprehensive task provide:
+
+## A. Validated Gap
+[...]
+
+## B. Current SoTA Position
+[...]
+
+## C. Closest Competitors
+[...]
+
+## D. What the Competitors Already Solved
+[...]
+
+## E. What Remains Unresolved
+[...]
+
+## F. Proposed Scientific Advancement
+[...]
+
+## G. Primary Novelty
+[...]
+
+## H. Secondary Contributions
+[...]
+
+## I. What Is Novel
+[...]
+
+## J. What Is Not Novel
+[...]
+
+## K. Novelty Type
+[...]
+
+## L. Novelty Boundary
+[...]
+
+## M. Scientific Importance
+[...]
+
+## N. Major Threats
+[...]
+
+## O. Feasibility
+[...]
+
+## P. Provisional Novelty Strength
+[...]
+
+## Q. Audit Requirements
+[...]
+
+## R. Recommended Next Skill
+[...]
+
+---
+
+# 155. Compact Output
+
+Use:
+
+```text
+Validated gap:
+Closest competitor:
+What it already solved:
+What remains unresolved:
+What this study adds:
+Why it matters:
+What is NOT novel:
+Provisional novelty:
+Next step:
+```
+
+---
+
+# 156. User-Friendly Behavior
+
+Prefer:
+
+> The strongest novelty is not the Indonesian setting itself. The more defensible contribution is external validation of a relationship that has been reported elsewhere but has not yet been tested under the relevant clinical/genetic boundary conditions.
+
+Or:
+
+> Adding another moderator would not strengthen the contribution. The better novelty is to test the unresolved mechanism that explains the contradictory prior findings.
+
+Or:
+
+> This appears to be meaningful validation novelty rather than discovery novelty. It should be presented that way rather than claiming the phenomenon is entirely new.
+
+---
+
+# 157. Avoid These Behaviors
+
+Do not:
+
+- fabricate novelty;
+- protect a preferred study idea against contradictory evidence;
+- claim "first" without audit;
+- treat geography alone as novelty;
+- treat software choice as novelty;
+- treat another variable as novelty;
+- treat larger sample size alone as novelty;
+- treat statistical significance as novelty;
+- treat newer technology alone as novelty;
+- inflate validation into discovery;
+- hide closest competitors;
+- ignore adjacent disciplines;
+- ignore method equivalence;
+- ignore negative evidence;
+- let journal prestige define novelty;
+- let Scopus status define novelty;
+- let APC influence novelty;
+- add target-journal citations strategically;
+- build hypotheses from novelty before RQ/theory are clear;
+- choose methodology merely to make the study look innovative.
+
+---
+
+# Stop Conditions
+
+Do not mark novelty ready for audit when:
+
+- the gap is rejected or substantially resolved without a different surviving validated gap;
+- the SoTA is materially outdated;
+- the closest competitor is unknown;
+- the proposed contribution is merely geographic;
+- the proposed contribution is merely another variable;
+- the proposed contribution is merely software substitution;
+- the scientific gain cannot be articulated;
+- novelty depends entirely on statistical significance;
+- critical competitor evidence is unverified;
+- the novelty boundary is unclear;
+- what is not novel has not been separated from what is novel;
+- strong priority claims are already being asserted without `novelty-auditor`.
+
+Use:
+
+- `GAP_VALIDATION_REQUIRED`
+- `EVIDENCE_UPDATE_REQUIRED`
+- `COMPETITOR_REVIEW_REQUIRED`
+- `SOURCE_VERIFICATION_REQUIRED`
+- `REFERENCE_INTEGRITY_REQUIRED`
+- `NOVELTY_REFRAMING_REQUIRED`
+- `NO_MEANINGFUL_NOVELTY`
+- `NOT_READY_FOR_NOVELTY_AUDIT`
+
+as appropriate.
+
+---
+
+# Success Criterion
+
+`novelty-builder` succeeds when a validated, partially validated, or appropriately reframed scientific gap is transformed into a precise comparator-based novelty claim that states exactly what the closest prior studies already established, what remains unresolved, what the proposed study will do differently, and why that difference advances scientific understanding; when theoretical, conceptual, mechanistic, empirical, methodological, measurement, analytical, validation, predictive, intervention, implementation, translational, contextual, integrative, technological, replication, contradiction-resolution, and boundary-condition contributions are distinguished appropriately; when primary novelty is separated from secondary contributions; when `WHAT IS NOVEL` and `WHAT IS NOT NOVEL` are both explicit; when geography, institution, sample size, additional variables, software choice, statistical significance, target-journal strategy, journal prestige, quartile, citation count, Scopus status, and APC preference do not masquerade as scientific novelty; when validation is not disguised as discovery, method complexity is not mistaken for contribution, and negative or null results can still produce scientific value where appropriate; when the claim is bounded by population, context, theory, mechanism, method, outcome, translational stage, and evidence cutoff as necessary; when closest competitors, citation lineage, current SoTA, gap status, evidence integrity, feasibility, and major novelty threats remain visible; when a scientifically valid outcome may be `NO_MEANINGFUL_NOVELTY`; when the resulting candidate novelty is explicitly provisional and routed to `novelty-auditor` for adversarial stress testing before strong priority claims are used; and when downstream research-question, hypothesis, theoretical-framework, conceptual-framework, methodology, research-trajectory, manuscript, journal-matching, reviewer-simulation, and reviewer-response workflows receive a scientifically proportionate contribution claim rather than publication-oriented exaggeration.
