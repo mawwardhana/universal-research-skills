@@ -2,6 +2,95 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.17.1] - ChatGPT Integrated Distribution & Release Traceability Patch
+
+### Added
+
+- Added `templates/chatgpt-integrated-skill/SKILL.md` as the single ChatGPT orchestration entry point for the Universal Research Skills framework.
+- Added `scripts/build_chatgpt_skill.py` to build a deterministic ChatGPT upload package from the repository's 56 canonical `skills/<skill-name>/SKILL.md` files.
+- Added build-time generation of `references/<skill-name>.md` as byte-for-byte copies of the canonical skill sources so ChatGPT can use the framework as one integrated skill package without modifying the canonical skill bodies.
+- Added `references/MANIFEST.json` generation with source/reference SHA-256 identity records for all 56 canonical skills.
+- Added `BUILD_INFO.json` generation to record framework version, Git commit, Git tag, working-tree status, entry-template hash, build mode, and canonical-skill count for release traceability.
+- Added deterministic ZIP generation and post-build integrity verification for the ChatGPT distribution artifact.
+- Added preview and release build modes. Release mode requires a clean Git working tree and an exact `v<plugin-version>` tag before an official release artifact can be produced.
+
+### Updated
+
+- Updated `.codex-plugin/plugin.json` version from `0.17.0` to `0.17.1`.
+- Preserved `"skills": "./skills/"` so the repository continues to expose the same 56 canonical skill directories.
+- Added a ChatGPT-specific orchestration layer without changing the scientific responsibilities, routing logic, success criteria, or workflow bodies of the 56 canonical research skills.
+- Preserved `research-router` as the primary coordinator for multi-stage research requests. The ChatGPT entry point routes into the canonical router and loads only the internal skill references required for the shortest scientifically defensible pathway.
+
+### ChatGPT Integrated Distribution Architecture
+
+```text
+GITHUB REPOSITORY — SOURCE OF TRUTH
+              │
+              ├── skills/<skill>/SKILL.md
+              │        56 canonical skills
+              │
+              ├── templates/chatgpt-integrated-skill/SKILL.md
+              │        single ChatGPT entry point
+              │
+              └── scripts/build_chatgpt_skill.py
+                         │
+                         ▼
+                RELEASE BUILD
+                         │
+             byte-for-byte copy
+                         │
+                         ▼
+Universal-Research-Skills-v0.17.1-ChatGPT.zip
+├── SKILL.md
+├── BUILD_INFO.json
+└── references/
+    ├── MANIFEST.json
+    ├── research-router.md
+    ├── research-intake.md
+    ├── ...
+    └── research-progress-auditor.md
+```
+
+### Canonical Integrity & Traceability
+
+- Canonical skill count remains **56**.
+- No canonical `skills/*/SKILL.md` file is modified by the ChatGPT build process.
+- Every generated `references/<skill-name>.md` must be byte-identical to its repository source.
+- Preview validation requires:
+  - 56 canonical skills found;
+  - 0 canonical files modified by the build;
+  - 56/56 byte-identical references;
+  - exactly one root `SKILL.md` in the ChatGPT package;
+  - balanced and structurally valid canonical skill files;
+  - successful ZIP integrity verification.
+- Official `--release` builds additionally require:
+  - Git available to the build process;
+  - a clean Git working tree;
+  - `HEAD` tagged exactly `v0.17.1`.
+- The generated release artifact records the Git commit and exact tag so the ChatGPT package can be traced back to the repository release that produced it.
+
+### Compatibility Scope
+
+- `v0.17.1` is a **distribution and traceability patch**, not a framework expansion.
+- No new research skill is introduced.
+- No existing canonical skill is merged, shortened, or rewritten for ChatGPT.
+- The ChatGPT root `SKILL.md` is an orchestration/distribution entry point and is not counted as a 57th research skill.
+- The integrated package uses progressive loading: `research-router` determines the relevant route, and only the required canonical reference resources should be consulted.
+- The framework remains non-linear and preserves cross-skill handoffs, backtracking, governance gates, evidence distinctions, and stop conditions.
+
+### Safeguards
+
+- Prevent platform-specific packaging constraints from silently changing canonical research logic.
+- Prevent 56 manual skill uploads from fragmenting the integrated framework.
+- Prevent release artifacts from being built from an uncommitted or untagged repository state.
+- Prevent a generated reference from being accepted when its SHA-256 differs from the canonical source.
+- Prevent the distribution wrapper from being treated as a new scientific skill.
+- Preserve GitHub Release as the auditable source of truth for framework versions and distribution artifacts.
+
+### Central Principle
+
+> **One integrated ChatGPT entry point, 56 unchanged canonical research skills, one traceable GitHub release.**
+
 ## [0.17.0] - Research Execution, Monitoring & Scientific Progress Layer
 
 ### Added

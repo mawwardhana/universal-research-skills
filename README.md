@@ -6,6 +6,8 @@ Universal Research Skills is designed to support researchers across disciplines 
 
 The framework currently contains **56 modular research skills** that can be entered from different research stages and connected through explicit scientific routing.
 
+For ChatGPT, release **v0.17.1** adds a traceable integrated distribution path: one ChatGPT entry skill orchestrates the same 56 canonical research skills as byte-identical reference resources generated from the tagged GitHub repository release.
+
 ---
 
 ## Core Principles
@@ -1120,12 +1122,15 @@ universal-research-skills/
 ├── skills/
 │   ├── <56 modular research skills>/
 │   │   └── SKILL.md
+├── templates/
+│   └── chatgpt-integrated-skill/
+│       └── SKILL.md
+├── scripts/
+│   └── build_chatgpt_skill.py
 ├── providers/
 ├── methods/
 ├── domains/
 ├── schemas/
-├── templates/
-├── scripts/
 ├── tests/
 ├── docs/
 ├── README.md
@@ -1134,6 +1139,10 @@ universal-research-skills/
 ├── CODE_OF_CONDUCT.md
 └── LICENSE
 ```
+
+The 56 files under `skills/*/SKILL.md` remain the canonical research-skill source.
+The ChatGPT template and build script are distribution infrastructure; they do not
+add a 57th research skill and do not rewrite canonical skill bodies.
 
 ---
 
@@ -1171,6 +1180,98 @@ A user can begin with any of the following:
 The framework should first determine what already exists and what is genuinely missing.
 
 It should not force the user to repeat work that has already been completed and remains scientifically valid.
+
+### Using Universal Research Skills in ChatGPT
+
+For ChatGPT, Universal Research Skills is distributed as **one integrated Skill package** rather than 56 manually uploaded independent skills.
+
+The official build architecture is:
+
+```text
+GitHub repository / tagged release
+        │
+        ├── skills/<skill>/SKILL.md
+        │        56 canonical skills
+        │
+        ├── templates/chatgpt-integrated-skill/SKILL.md
+        │        one ChatGPT orchestration entry point
+        │
+        └── scripts/build_chatgpt_skill.py
+                    │
+                    ▼
+          deterministic release build
+                    │
+                    ▼
+Universal-Research-Skills-v0.17.1-ChatGPT.zip
+├── SKILL.md
+├── BUILD_INFO.json
+└── references/
+    ├── MANIFEST.json
+    ├── research-router.md
+    ├── research-intake.md
+    ├── ...
+    └── research-progress-auditor.md
+```
+
+The generated `references/<skill-name>.md` files are byte-for-byte copies of the canonical repository files under `skills/<skill-name>/SKILL.md`. The build records SHA-256 identity for all 56 canonical skills.
+
+The ChatGPT runtime flow is:
+
+```text
+user research request
+        ↓
+root ChatGPT SKILL.md
+        ↓
+research-router
+        ↓
+determine current research state
+        ↓
+select the shortest scientifically defensible route
+        ↓
+load only the required canonical reference skill(s)
+        ↓
+preserve handoffs, backtracking, gates, and unresolved issues
+        ↓
+next scientifically defensible action
+```
+
+Integrated does **not** mean that all 56 skills run for every request. It means the relevant canonical skills can be composed coherently through `research-router`, while users can enter from different research stages without manually selecting each internal skill.
+
+#### Preview build
+
+From the repository root:
+
+```powershell
+python .\scripts\build_chatgpt_skill.py
+```
+
+A preview build validates the 56 canonical skills, creates 56 byte-identical references, verifies the generated ZIP, and writes a `-PREVIEW.zip` artifact under `dist/`.
+
+Preview artifacts are not official release assets.
+
+#### Official release build
+
+After the reviewed compatibility changes are committed, the working tree is clean, and `HEAD` is tagged exactly with the version declared in `.codex-plugin/plugin.json`:
+
+```powershell
+python .\scripts\build_chatgpt_skill.py --release
+```
+
+Release mode refuses to build if Git is unavailable, the working tree is not clean, or the exact release tag is missing.
+
+The resulting ChatGPT ZIP should be attached to the corresponding GitHub Release. This keeps the installed ChatGPT package traceable to a specific repository commit and tag.
+
+#### Installing in ChatGPT
+
+On a ChatGPT account that provides **Skills → Upload from your computer**:
+
+1. Download the official `Universal-Research-Skills-v<version>-ChatGPT.zip` asset from the matching GitHub Release.
+2. Open **Skills** in ChatGPT.
+3. Choose **Upload from your computer**.
+4. Upload the release ZIP as one Skill package.
+5. Use normal research-language requests; the user should not need to manually invoke the 56 internal skill names.
+
+GitHub Release remains the source of truth. Do not publish or distribute locally modified ChatGPT packages that are not produced from the reviewed, committed, and tagged repository state.
 
 ---
 
