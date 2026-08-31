@@ -712,12 +712,25 @@ until validated against current literature.
 
 Do not treat historical unresolved questions as current research gaps automatically.
 
-Each major continuation signal must later be checked through:
+Each major continuation signal must later be checked through a current-evidence refresh that is sufficiently complete for the claim being made:
 
-`scopus-literature-search`
-→ `source-verification`
+`source-verification` for prior-study / anchor records
+→ `scopus-literature-search`
+→ `citation-chaining` **when verified anchor publications exist and citation-network expansion is useful**
+→ `source-verification` for newly discovered records
+→ `reference-integrity-guard`
+→ `literature-screening`
+→ `research-landscape` **when mapping the current field structure is useful**
+→ `evidence-synthesis`
 → `sota-builder`
+→ `gap-discovery`
 → `gap-validator`
+
+Do not begin citation chaining from an unverified anchor.
+
+Records discovered through citation chaining must be verified before they are treated as evidence.
+
+A historical continuation signal remains provisional until the current evidence base is sufficiently current, verified, screened, synthesized, and the gap decision has been validated.
 
 Possible later status:
 
@@ -933,9 +946,16 @@ Generate candidate programs such as:
 * intervention program;
 * methodological program.
 
-These candidates should later be evaluated by:
+These candidates are historical/provisional program directions, not validated future-study choices.
+
+They should later be evaluated only after current-evidence refresh and gap validation by:
 
 `continuation-opportunity-finder`
+
+When novelty is relevant, route the surviving candidates through:
+
+`novelty-builder`
+→ `novelty-auditor`
 
 ---
 
@@ -994,19 +1014,32 @@ This skill identifies:
 
 It does not select the final next study.
 
+Historical continuation signals remain provisional.
+
 Selection belongs to:
 
 `continuation-opportunity-finder`
 
-after current literature revalidation.
+only after the relevant current-evidence refresh, SoTA, and gap validation are sufficiently complete.
+
+When novelty is relevant to the user's goal, a selected continuation candidate should then proceed to:
+
+`novelty-builder`
+→ `novelty-auditor`
+
+before it is presented as a defensible novel next study.
 
 ---
 
-# 35. Relationship with Research Program Builder
+# 35. Relationship with Future Research Planning
 
 This skill reconstructs the existing trajectory.
 
-`research-program-builder` later designs the future trajectory.
+It does not by itself design the future research program.
+
+After current literature, SoTA, gap validation, continuation-option evaluation, and novelty assessment are sufficiently defensible, future planning may route to:
+
+`research-roadmap`
 
 Conceptually:
 
@@ -1017,13 +1050,16 @@ research-trajectory-mapper
       ↓
 
 PRESENT
-current literature + SoTA + gap validation
+current evidence + SoTA + gap validation
++ continuation evaluation + novelty audit
 
       ↓
 
 FUTURE
-research-program-builder
+research-roadmap
 ```
+
+Do not create or imply a future multi-year research program merely from the historical trajectory alone.
 
 ---
 

@@ -1016,8 +1016,8 @@ Preserve:
 for later:
 
 `journal-matcher`
-and:
-`no-apc-journal-finder`
+
+Use `journal-matcher` to apply journal-fit, indexing, publication-model, and no-mandatory-APC preferences downstream. Do not route to a non-canonical journal-selection skill.
 
 ---
 

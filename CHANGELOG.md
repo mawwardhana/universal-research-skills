@@ -2,6 +2,124 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.17.2] - Routing Consistency & Canonical Handoff Patch
+
+### Fixed
+
+- Corrected ChatGPT continuation routing so `research-router` remains the visible primary entry point when routing transparency is requested.
+- Corrected continuation-study ordering so current evidence refresh, State of the Art, gap discovery, and gap validation occur before `continuation-opportunity-finder` finalizes next-study options.
+- Made `research-trajectory-mapper` conditional rather than automatic for a single isolated previous study.
+- Required verified anchor records before citation chaining and re-verification of records discovered through citation chains.
+- Restored the full evidence spine where comprehensive continuation revalidation is required: source verification, reference-integrity checking, literature screening, evidence synthesis, optional research landscape mapping, State of the Art, gap discovery, and gap validation.
+- Added an evidence-sufficiency backtracking guard for direct proposed-gap entry to `gap-validator`.
+- Separated analysis planning from result interpretation so interpretation/discussion/implication skills are not activated when no results exist.
+- Replaced the linear manuscript-to-reviewer-response route with conditional branches for journal matching, reviewer simulation, actual reviewer response, or stop.
+- Replaced the root theory/hypothesis example with conditional research-logic routing.
+- Removed dangling references to non-canonical legacy skills:
+  - `research-program-builder`
+  - `no-apc-journal-finder`
+  - `target-journal-intelligence`
+- Consolidated long-term continuation planning to `research-roadmap`.
+- Consolidated downstream journal fit, indexing, publication-model, and no-mandatory-APC handling to `journal-matcher`.
+
+### Updated
+
+- Updated `.codex-plugin/plugin.json` version from `0.17.1` to `0.17.2`.
+- Updated `templates/chatgpt-integrated-skill/SKILL.md` to enforce router-first transparency, conditional skill activation, and corrected continuation/evidence sequencing.
+- Updated `skills/research-router/SKILL.md` to enforce conditional trajectory mapping, verified-anchor citation chaining, evidence backfill, and continuation-after-gap-validation routing.
+- Updated `skills/research-resume/SKILL.md` so historical continuation signals remain provisional until current-evidence and gap validation are complete.
+- Updated `skills/research-trajectory-mapper/SKILL.md` so historical gaps are revalidated through the current evidence spine before future-study planning.
+- Updated `skills/continuation-opportunity-finder/SKILL.md` so trajectory mapping is not a universal prerequisite and continuation candidates remain provisional when evidence is insufficient.
+- Updated `skills/emerging-topic-discovery/SKILL.md` to route no-mandatory-APC publication preferences through `journal-matcher`.
+- Updated `skills/idea-discovery/SKILL.md` to route target-journal fit through `journal-matcher`.
+- Updated `scripts/build_chatgpt_skill.py` so preview release instructions use the version declared in `.codex-plugin/plugin.json` rather than a hard-coded release number.
+
+### Routing Architecture
+
+```text
+research-router
+      ↓
+research-resume
+      ↓
+prior-research-auditor
+      ↓
+research-trajectory-mapper
+ONLY when multiple related studies exist
+or trajectory/program/roadmap positioning is requested
+      ↓
+CURRENT EVIDENCE REFRESH
+source-verification of prior / anchor records
+      ↓
+scopus-literature-search
+      ↓
+citation-chaining when verified anchors exist
+      ↓
+source-verification of newly discovered records
+      ↓
+reference-integrity-guard
+      ↓
+literature-screening
+      ↓
+research-landscape when useful
+      ↓
+evidence-synthesis
+      ↓
+sota-builder
+      ↓
+gap-discovery
+      ↓
+gap-validator
+      ↓
+continuation-opportunity-finder
+      ↓
+novelty-builder
+      ↓
+novelty-auditor
+      ↓
+research-question-builder and/or research-roadmap
+according to the user's goal
+```
+
+### Canonical Integrity
+
+- Canonical research-skill count remains **56**.
+- No new research skill is introduced.
+- `research-router` remains the primary coordinator.
+- The ChatGPT distribution wrapper remains an orchestration layer, not a 57th research skill.
+- Legacy dangling routes identified in v0.17.1 routing audit are removed.
+- The integrated ChatGPT package continues to generate canonical references from repository skill sources and verify source/reference identity at build time.
+
+### Key Distinctions Reinforced
+
+```text
+single prior study ≠ research trajectory
+historical limitation ≠ current research gap
+continuation signal ≠ validated continuation opportunity
+candidate gap ≠ validated gap
+novelty claim ≠ audited novelty
+citation-chain record ≠ verified evidence
+analysis plan ≠ analysis result
+manuscript exists ≠ reviewer response required
+journal preference ≠ evidence-selection criterion
+```
+
+### Release Scope
+
+`v0.17.2` is a **routing consistency and canonical handoff patch**, not a framework expansion.
+
+It does **not**:
+
+- add a 57th research skill;
+- change the 56-skill scientific architecture;
+- convert the framework into one monolithic workflow;
+- change GitHub Release as the source of truth;
+- weaken gap or novelty validation;
+- make theory, hypotheses, trajectory mapping, analysis interpretation, or reviewer response mandatory.
+
+### Central Principle
+
+> **Integrated means conditional, evidence-aware handoffs between canonical skills—not automatic execution of every stage.**
+
 ## [0.17.1] - ChatGPT Integrated Distribution & Release Traceability Patch
 
 ### Added

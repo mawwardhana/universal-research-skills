@@ -34,16 +34,19 @@ without changing its content.
 For a substantive research request that can involve more than one research stage:
 
 1. Read `references/research-router.md`.
-2. Determine the user's actual entry state, available materials, scientific goal, and unresolved decisions.
+2. Determine the user's actual entry state, available materials, scientific goal, unresolved decisions, and whether the request is single-stage or multi-stage.
 3. Follow the router's shortest scientifically defensible path.
 4. When the router selects a skill, read `references/<selected-skill>.md` before applying that skill.
 5. When a selected skill hands off to another skill, read the next canonical reference before continuing.
-6. Preserve outputs, uncertainties, gates, unresolved issues, and backtracking requirements across handoffs.
-7. Stop when the user's current request has been answered or the next defensible action has been established.
+6. Preserve outputs, uncertainties, gates, unresolved issues, conditional activation rules, and backtracking requirements across handoffs.
+7. Re-enter an earlier evidence, governance, methodology, or quality stage when a downstream skill finds that its upstream requirements are insufficient.
+8. Stop when the user's current request has been answered or the next defensible action has been established.
 
 Do not load all 56 resources merely for completeness.
 
 If the user explicitly requests one narrow function and the correct skill is unambiguous, consult that canonical skill directly. Use the router whenever stage, sequence, or handoff is uncertain.
+
+If the user asks to see the internal route, the displayed route must begin with `research-router` whenever router-first behavior was used. Do not hide the router and present a downstream skill as the apparent entry point.
 
 ---
 
@@ -168,18 +171,32 @@ A valid result can be rejection, narrowing, reframing, or conditional acceptance
 
 Do not force theory, hypotheses, or conceptual frameworks into every study.
 
-Route according to the research question and design.
+Route according to the research question, design, and inferential purpose.
 
-Possible paths include:
+Use conditional branches rather than a single default chain:
 
 ```text
 research-question-builder
-→ theoretical-framework
-→ hypothesis-builder
-→ conceptual-framework
+      │
+      ├── theory needed
+      │      ↓
+      │ theoretical-framework
+      │      ↓
+      │ hypothesis-builder when hypothesis testing is appropriate
+      │
+      ├── hypothesis appropriate without a formal theory-building step
+      │      ↓
+      │ hypothesis-builder
+      │
+      └── neither theory nor hypothesis required
+             ↓
+        proceed without forcing them
+
+conceptual-framework
+→ use when scientifically useful or required by the design
 ```
 
-or shorter/non-hypothesis paths for exploratory, qualitative, descriptive, methodological, validation, review, and other legitimate designs.
+Exploratory, qualitative, descriptive, methodological, validation, review, and other legitimate designs may follow shorter or non-hypothesis paths.
 
 ---
 
@@ -239,18 +256,39 @@ A defensible decision may be proceed, proceed with conditions, replan, amend, pa
 
 ## Analysis and Interpretation
 
-Use analysis resources according to the study and evidence:
+Distinguish **analysis planning** from **interpretation of actual results**.
+
+When the user is planning analysis and no results yet exist:
 
 ```text
 analysis-planner
-→ statistical-method-selector
-  or qualitative-analysis
-  or mixed-method-analysis
-  or meta-analysis
-→ result-interpreter
-→ scientific-discussion
-→ implication-builder
+      ↓
+statistical-method-selector
+or
+qualitative-analysis
+or
+mixed-method-analysis
+or
+meta-analysis
+      ↓
+analysis plan / method decision
+      ↓
+STOP unless another planning stage is requested
 ```
+
+When analysis outputs or study results actually exist:
+
+```text
+appropriate analysis skill(s)
+      ↓
+result-interpreter
+      ↓
+scientific-discussion when requested or needed
+      ↓
+implication-builder when requested or needed
+```
+
+Do not invoke `result-interpreter`, `scientific-discussion`, or `implication-builder` merely because an analysis method has been selected.
 
 Preserve uncertainty, effect magnitude, contradictions, study-design boundaries, and causal limits.
 
@@ -258,16 +296,25 @@ Preserve uncertainty, effect magnitude, contradictions, study-design boundaries,
 
 ## Manuscript and Publication
 
-When appropriate:
+Use manuscript resources according to the user's actual publication state.
+
+A common manuscript-development route is:
 
 ```text
 manuscript-architect
-→ manuscript-writer
-→ manuscript-auditor
-→ journal-matcher
-→ reviewer-simulator
-→ reviewer-response
+      ↓
+manuscript-writer
+      ↓
+manuscript-auditor
+      ↓
+branch according to the user's goal
+      ├── journal selection / positioning → journal-matcher
+      ├── pre-submission stress test      → reviewer-simulator
+      ├── actual reviewer/editor comments → reviewer-response
+      └── no further publication task     → STOP
 ```
+
+`reviewer-response` requires actual reviewer/editor comments or an explicitly identified simulated-review output. Do not activate it merely because a manuscript exists.
 
 Do not rewrite the scientific record to fit a journal.
 
@@ -277,16 +324,55 @@ Keep simulated peer review distinct from actual peer review.
 
 ## Continuation and Roadmapping
 
-For continuation of previous research:
+For continuation of previous research, use a **current-evidence-first validation route** rather than selecting the next study from historical limitations alone.
 
 ```text
+research-router
+      ↓
 research-resume
-→ prior-research-auditor
-→ research-trajectory-mapper
-→ continuation-opportunity-finder
-→ current evidence revalidation
-→ research-roadmap
+      ↓
+prior-research-auditor
+      ↓
+research-trajectory-mapper
+ONLY when multiple related studies exist
+or the user explicitly requests trajectory / program / roadmap positioning
+      ↓
+CURRENT EVIDENCE REFRESH
+source-verification of prior / anchor records
+      ↓
+scopus-literature-search
+      ↓
+citation-chaining when verified anchors exist
+      ↓
+source-verification of newly discovered records
+      ↓
+reference-integrity-guard
+      ↓
+literature-screening
+      ↓
+research-landscape when mapping is useful
+      ↓
+evidence-synthesis
+      ↓
+sota-builder
+      ↓
+gap-discovery
+      ↓
+gap-validator
+      ↓
+continuation-opportunity-finder
+      ↓
+novelty-builder
+      ↓
+novelty-auditor
+      ↓
+research-question-builder and/or research-roadmap
+according to the user's goal
 ```
+
+For a **single isolated previous study**, do not automatically activate `research-trajectory-mapper`. Route directly from `prior-research-auditor` into the current-evidence refresh unless broader trajectory positioning is explicitly needed.
+
+A continuation idea inferred from an old study before current-evidence validation is only a **provisional continuation opportunity**. Do not present it as a validated research gap, defensible novelty claim, or recommended next study until the required current-evidence, gap-validation, and novelty-audit stages have been completed.
 
 Research progression should follow scientific dependency rather than publication counting.
 

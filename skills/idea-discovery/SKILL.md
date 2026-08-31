@@ -706,11 +706,13 @@ If the researcher already has a target journal, record it.
 
 Do not shape the research idea artificially around the target journal.
 
-Later:
+Later, when journal-fit or publication-positioning work is actually needed, route to:
 
-`target-journal-intelligence`
+`journal-matcher`
 
-may analyze relevant publications from that journal to determine legitimate scholarly fit.
+`journal-matcher` may assess legitimate scholarly fit, current indexing, publication model, scope, and relevant target-journal evidence without allowing journal strategy to distort the research question, evidence base, gap, or novelty claim.
+
+Do not route to a non-canonical target-journal intelligence skill.
 
 ---
 

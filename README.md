@@ -6,7 +6,9 @@ Universal Research Skills is designed to support researchers across disciplines 
 
 The framework currently contains **56 modular research skills** that can be entered from different research stages and connected through explicit scientific routing.
 
-For ChatGPT, release **v0.17.1** adds a traceable integrated distribution path: one ChatGPT entry skill orchestrates the same 56 canonical research skills as byte-identical reference resources generated from the tagged GitHub repository release.
+For ChatGPT, release **v0.17.1** added a traceable integrated distribution path: one ChatGPT entry skill orchestrates the same 56 canonical research skills as byte-identical reference resources generated from the tagged GitHub repository release.
+
+Release **v0.17.2** strengthens that integration with routing-consistency and canonical-handoff safeguards so conditional skills activate only when scientifically justified, continuation-study decisions follow current-evidence revalidation, and legacy non-canonical handoffs are removed.
 
 ---
 
@@ -1202,7 +1204,7 @@ GitHub repository / tagged release
           deterministic release build
                     │
                     ▼
-Universal-Research-Skills-v0.17.1-ChatGPT.zip
+Universal-Research-Skills-v<version>-ChatGPT.zip
 ├── SKILL.md
 ├── BUILD_INFO.json
 └── references/
@@ -1236,6 +1238,67 @@ next scientifically defensible action
 ```
 
 Integrated does **not** mean that all 56 skills run for every request. It means the relevant canonical skills can be composed coherently through `research-router`, while users can enter from different research stages without manually selecting each internal skill.
+
+#### Routing consistency in v0.17.2
+
+The integrated runtime now enforces several routing safeguards:
+
+```text
+single prior study ≠ automatic research trajectory
+historical limitation ≠ current research gap
+continuation signal ≠ validated continuation opportunity
+candidate gap ≠ validated gap
+novelty claim ≠ audited novelty
+citation-chain record ≠ verified evidence
+analysis plan ≠ analysis result
+manuscript exists ≠ reviewer response required
+journal preference ≠ evidence-selection criterion
+```
+
+For continuation of previous research, the preferred route is conditional and current-evidence-first:
+
+```text
+research-router
+      ↓
+research-resume
+      ↓
+prior-research-auditor
+      ↓
+research-trajectory-mapper
+ONLY when multiple related studies exist
+or trajectory/program/roadmap positioning is requested
+      ↓
+current evidence refresh
+      ↓
+source verification + literature search
+      ↓
+citation chaining only from verified anchors, when useful
+      ↓
+re-verify newly discovered records
+      ↓
+reference-integrity checking
+      ↓
+literature screening
+      ↓
+research-landscape when useful
+      ↓
+evidence synthesis
+      ↓
+State of the Art
+      ↓
+gap discovery
+      ↓
+gap validation
+      ↓
+continuation-opportunity-finder
+      ↓
+novelty builder / novelty auditor when relevant
+      ↓
+research-question-builder and/or research-roadmap
+according to the user's goal
+```
+
+A continuation idea derived from an older study remains provisional until the necessary current-evidence, gap-validation, and novelty-audit stages are complete.
 
 #### Preview build
 

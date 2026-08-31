@@ -492,8 +492,8 @@ def main() -> None:
     if not args.release:
         print(
             "PREVIEW ONLY: do not publish this ZIP as a GitHub Release asset. "
-            "For the official release, commit the reviewed v0.17.1 changes, "
-            "tag HEAD v0.17.1, then run this script with --release."
+            f"For the official release, commit the reviewed v{version} changes, "
+            f"tag HEAD v{version}, then run this script with --release."
         )
 
 

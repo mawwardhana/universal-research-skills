@@ -300,7 +300,11 @@ The auditor will examine:
 * unexpected findings;
 * continuation signals.
 
-Do not duplicate that detailed audit here.
+Treat continuation signals from a single historical study as **provisional** until they are checked against current scholarly evidence. Do not convert an old limitation, recommendation, or unfinished analysis directly into a current research gap or novelty claim.
+
+Do not automatically activate `research-trajectory-mapper` for one isolated previous study. Use it only when the user explicitly wants to position that study within a broader trajectory, program, or roadmap.
+
+Do not duplicate the detailed prior-study audit here.
 
 ---
 
@@ -342,19 +346,29 @@ That belongs to:
 
 # Current Literature Refresh
 
-A continuation workflow normally requires updated literature.
+A continuation workflow normally requires updated literature before a future study is selected.
 
 Typical route:
 
 `prior-research-auditor`
-→ `research-trajectory-mapper` when needed
-→ `citation-chaining`
+→ `research-trajectory-mapper` **only when multiple related studies exist or broader trajectory/program positioning is explicitly needed**
+→ verify prior-study / anchor records with `source-verification`
 → `scopus-literature-search`
-→ `source-verification`
-→ `research-landscape`
+→ `citation-chaining` **only when verified anchor publications exist and citation-network expansion is useful**
+→ `source-verification` for newly discovered records
+→ `reference-integrity-guard`
+→ `literature-screening`
+→ `research-landscape` **when mapping the current field structure is useful**
+→ `evidence-synthesis`
 → `sota-builder`
+→ `gap-discovery`
+→ `gap-validator`
 
-This determines how the field has evolved since the prior research.
+This determines how the field has evolved since the prior research and whether historical continuation signals still correspond to a defensible current gap.
+
+Do not begin citation chaining from an unverified anchor. Records found through citation chaining must be verified before they are treated as evidence.
+
+Do not present a historical limitation, recommendation, or continuation signal as a current research opportunity until the relevant evidence-refresh and gap-validation stages have been completed.
 
 ---
 
@@ -461,11 +475,14 @@ When useful, produce:
 **Historical gap claims requiring revalidation:**
 [...]
 
+**Provisional continuation signals:**
+[...]
+
 **Current literature refresh required:**
 [...]
 
 **Trajectory mapping required:**
-[...]
+[YES only for multiple related studies or explicit trajectory/program/roadmap intent; otherwise NO]
 
 **Publication preference:**
 [...]
@@ -506,6 +523,8 @@ continuation:
   prior_research_audit_required:
   trajectory_mapping_required:
   current_literature_refresh_required:
+  provisional_continuation_signals:
+  validated_continuation_status:
 
 publication:
   scopus_preference:
@@ -540,6 +559,10 @@ Route to:
 
 `prior-research-auditor`
 
+Then move into current-evidence refresh when continuation is being considered.
+
+Do not activate `research-trajectory-mapper` unless broader trajectory/program positioning is explicitly needed.
+
 ## Several related studies
 
 Route to:
@@ -547,34 +570,53 @@ Route to:
 `prior-research-auditor`
 → `research-trajectory-mapper`
 
+Then move into current-evidence refresh before selecting continuation opportunities.
+
 ## Literature is outdated
 
 Route later to:
 
-`citation-chaining`
+`source-verification` for prior-study / anchor records
 → `scopus-literature-search`
-→ `source-verification`
+→ `citation-chaining` when verified anchors exist and chaining is useful
+→ `source-verification` for newly discovered records
+→ `reference-integrity-guard`
+→ `literature-screening`
+→ `research-landscape` when mapping is useful
+→ `evidence-synthesis`
 
 ## Current gap must be established
 
-Route later to:
+Route after a sufficient current evidence base to:
 
 `sota-builder`
 → `gap-discovery`
 → `gap-validator`
 
+If the evidence base is not yet sufficiently current, verified, screened, and synthesized, complete the evidence-refresh route before finalizing the gap decision.
+
 ## Continuation alternatives are needed
 
-Route later to:
+Route only after current evidence and gap validation to:
 
 `continuation-opportunity-finder`
 
+Continuation candidates remain provisional until novelty is also evaluated when novelty is relevant to the user's goal.
+
+## Novelty must be established
+
+Route after defensible continuation candidates to:
+
+`novelty-builder`
+→ `novelty-auditor`
+
 ## Long-term agenda is needed
 
-Route later to:
+Route to:
 
-`research-program-builder`
-→ `research-roadmap`
+`research-roadmap`
+
+Use the roadmap only after the relevant current evidence, gap, continuation, and novelty decisions are sufficiently defensible for long-term planning.
 
 ---
 

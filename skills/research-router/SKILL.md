@@ -252,15 +252,23 @@ Recommended route:
 
 → `prior-research-auditor`
 
-→ `research-trajectory-mapper`
+→ `research-trajectory-mapper` **only when multiple related studies exist or the user explicitly asks for trajectory, program, or roadmap positioning**
 
-→ `citation-chaining`
+→ verify the prior study / anchor records with `source-verification`
 
 → `scopus-literature-search`
 
-→ `source-verification`
+→ `citation-chaining` **only from verified anchor publications when citation-network expansion is useful**
 
-→ `research-landscape`
+→ `source-verification` for newly discovered records before they are used as evidence
+
+→ `reference-integrity-guard`
+
+→ `literature-screening`
+
+→ `research-landscape` **when mapping the current field structure is useful**
+
+→ `evidence-synthesis`
 
 → `sota-builder`
 
@@ -274,7 +282,11 @@ Recommended route:
 
 → `novelty-auditor`
 
-→ `research-roadmap`
+→ `research-question-builder` and/or `research-roadmap` **according to the user's goal**
+
+For a **single isolated previous study**, do not automatically activate `research-trajectory-mapper`. After `prior-research-auditor`, move directly into current-evidence revalidation unless the user needs broader trajectory positioning.
+
+A continuation idea derived from an old study before current-evidence revalidation is only a **provisional continuation opportunity**. Do not present it as a validated research gap, defensible novelty claim, or recommended next study until the relevant current-evidence, gap-validation, and novelty-audit stages have been completed.
 
 When continuation depends on old participant permissions, data, specimens, protocols, or analytical files, activate the relevant governance routes conditionally:
 
@@ -312,15 +324,23 @@ Recommended route:
 
 `scopus-literature-search`
 
-→ `source-verification`
+→ `source-verification` for candidate anchor and included records
 
-→ `citation-chaining`
+→ `citation-chaining` **when verified anchor publications exist and citation-network expansion is useful**
+
+→ `source-verification` for newly discovered citation-chain records
+
+→ `reference-integrity-guard`
 
 → `literature-screening`
+
+→ `research-landscape` **when field mapping is useful**
 
 → `evidence-synthesis`
 
 → `sota-builder`
+
+Do not begin citation chaining from an unverified anchor. Records discovered through citation chaining must be verified before they are treated as evidence.
 
 ---
 
@@ -349,6 +369,8 @@ Do not automatically accept it.
 Route directly to:
 
 `gap-validator`
+
+Direct entry to `gap-validator` does **not** waive upstream evidence requirements. The validator must assess whether the supplied evidence is sufficiently current, verified, screened, and synthesized. If evidence is outdated, incomplete, or weak, backtrack to the required literature-search and evidence-synthesis stages before finalizing the gap decision.
 
 ---
 
@@ -1860,11 +1882,23 @@ Previous Research
 
 → `prior-research-auditor`
 
-→ `research-trajectory-mapper`
+→ `research-trajectory-mapper` **only when multiple related studies exist or broader trajectory/program positioning is explicitly needed**
+
+→ verify previous-study / anchor records
 
 → current Scopus-first literature search
 
-→ citation chaining
+→ citation chaining from verified anchors when useful
+
+→ verify newly discovered records
+
+→ reference-integrity checking
+
+→ literature screening
+
+→ current research landscape when useful
+
+→ evidence synthesis
 
 → current State of the Art
 
@@ -1876,7 +1910,11 @@ Previous Research
 
 → novelty development
 
-→ research roadmap development
+→ novelty audit
+
+→ research-question development and/or research roadmap development according to the user's goal
+
+For one isolated previous study, skip `research-trajectory-mapper` unless broader trajectory positioning is explicitly requested. Treat any continuation idea generated before current-evidence and gap validation as provisional.
 
 Expected outputs may include:
 

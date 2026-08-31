@@ -44,14 +44,16 @@ A good continuation study should advance knowledge rather than mechanically repe
 Use this skill when:
 
 * a previous study has been audited;
-* a research trajectory has been mapped;
-* unresolved questions have been identified;
-* current literature has been reviewed;
+* unresolved questions or continuation signals have been identified;
+* current literature has been reviewed sufficiently for the continuation decision;
+* the relevant gap has been validated, or the candidate is explicitly being retained only as provisional;
 * several possible next studies exist;
 * the researcher asks what to study next;
 * a research roadmap is being developed;
 * a research program needs prioritization;
 * a grant or publication strategy requires selecting the next study.
+
+`research-trajectory-mapper` is **not** a universal prerequisite. Use trajectory mapping only when multiple related previous studies exist or the user explicitly wants broader trajectory, program, or roadmap positioning.
 
 Typical requests include:
 
@@ -70,19 +72,34 @@ Prefer inputs from:
 
 `research-resume`
 → `prior-research-auditor`
-→ `research-trajectory-mapper`
 
-and, when current evidence is required:
+Add:
 
-`citation-chaining`
+`research-trajectory-mapper`
+
+**only when multiple related previous studies exist or broader trajectory/program positioning is explicitly needed.**
+
+Before a continuation opportunity is finalized, use a current-evidence route appropriate to the claim:
+
+`source-verification` for prior-study / anchor records
 → `scopus-literature-search`
-→ `source-verification`
-→ `research-landscape`
+→ `citation-chaining` **when verified anchor publications exist and citation-network expansion is useful**
+→ `source-verification` for newly discovered records
+→ `reference-integrity-guard`
+→ `literature-screening`
+→ `research-landscape` **when mapping the field structure is useful**
+→ `evidence-synthesis`
 → `sota-builder`
 → `gap-discovery`
 → `gap-validator`
 
+Do not begin citation chaining from an unverified anchor.
+
+Records discovered through citation chaining must be verified before they are treated as evidence.
+
 A continuation study should not be finalized solely from the limitation section of a previous paper.
+
+If current evidence or gap validation is not yet sufficient, keep the candidate labeled `PROVISIONAL_CONTINUATION_OPPORTUNITY` rather than ranking it as a validated next study.
 
 ---
 
@@ -1278,17 +1295,18 @@ How it supports future research.
 
 Do not produce a complete multi-year roadmap yet unless requested.
 
-The selected candidate should later feed into:
+When long-term planning is requested, the selected and sufficiently validated candidate should later feed into:
 
-`research-program-builder`
-→ `research-roadmap`
+`research-roadmap`
 
 Conceptually:
 
 ```text
 Previous Studies
       ↓
-Research Trajectory
+Prior-Study Audit
+      ↓
+Research Trajectory when applicable
       ↓
 Current Evidence
       ↓
@@ -1296,12 +1314,14 @@ Validated Gaps
       ↓
 Continuation Candidates
       ↓
-Priority Next Study
+Novelty Assessment when relevant
       ↓
-Future Research Program
+Priority Next Study
       ↓
 Research Roadmap
 ```
+
+Do not imply a future multi-year research program before the relevant current-evidence, gap, continuation, and novelty decisions are sufficiently defensible.
 
 ---
 
@@ -1351,11 +1371,15 @@ This skill suggests high-level design direction.
 
 ---
 
-# 45. Relationship with Research Program Builder
+# 45. Relationship with Future Research Planning
 
 This skill selects promising next studies.
 
-`research-program-builder` organizes several studies into a coherent future scientific program.
+When the user needs a coherent future sequence of studies, route the sufficiently validated continuation decision to:
+
+`research-roadmap`
+
+Do not create or imply a separate future-program stage that is not represented by a canonical skill.
 
 ---
 
