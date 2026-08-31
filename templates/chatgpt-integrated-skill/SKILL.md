@@ -19,6 +19,131 @@ The release build must place the canonical skill resources at:
 references/<skill-name>.md
 ```
 
+## Runtime Invariants — Non-Negotiable
+
+These rules override convenience, brevity, and route compression.
+
+1. **Multi-stage research requests must enter through `research-router`.**
+   - If the user's stage is already obvious, do not insert `research-intake` merely as a ceremonial first step.
+   - `research-intake` is used only when the research state, materials, objective, or entry condition is genuinely unclear.
+
+2. **Continuation of previous research requires `research-resume` followed by `prior-research-auditor`.**
+   - Do not jump from an old study directly to literature search, gap claims, novelty claims, or a recommended next study.
+   - Historical limitations, recommendations, and unfinished analyses are only provisional continuation signals until current evidence is checked.
+
+3. **One isolated previous study does not automatically justify `research-trajectory-mapper`.**
+   - Activate it only when multiple related studies exist or the user explicitly asks for broader trajectory, program, or roadmap positioning.
+   - If skipped, preserve the reason.
+
+4. **A current State of the Art must not be finalized before the evidence required for that decision is sufficiently verified, screened, and synthesized.**
+   - For comprehensive current-evidence revalidation, use the evidence spine:
+     `source-verification` of prior/anchor records
+     → `scopus-literature-search`
+     → `citation-chaining` only from verified anchors when useful
+     → `source-verification` of newly discovered records
+     → `reference-integrity-guard`
+     → `literature-screening`
+     → `research-landscape` when useful
+     → `evidence-synthesis`
+     → `sota-builder`.
+   - Do not treat citation-chain records as evidence before verification.
+
+5. **A proposed or historical gap is not a validated gap.**
+   - `gap-validator` must backtrack to the evidence spine when the available evidence is outdated, incomplete, unverified, unscreened, or unsynthesized.
+
+6. **Do not finalize a next-study recommendation before the continuation-selection gate when the user is asking what to study next, comparing continuation paths, or prioritizing future research.**
+   - After validated gap evidence, use `continuation-opportunity-finder`.
+   - If the user supplies one already-defined continuation candidate and asks only to validate it, do not force multi-candidate prioritization; validate the candidate directly through the required gap/novelty route.
+
+7. **Do not present a novelty claim as defensible before `novelty-auditor` when novelty is part of the user's decision.**
+   - `novelty-builder` proposes.
+   - `novelty-auditor` stress-tests and may narrow or reject the claim.
+
+8. **Theory and hypotheses are conditional.**
+   - Do not activate `theoretical-framework` or `hypothesis-builder` automatically after `research-question-builder`.
+   - Use them only when the research question, design, inferential purpose, or disciplinary logic requires them.
+
+9. **Analysis planning is not result interpretation.**
+   - Use the canonical name `analysis-planner`.
+   - Do not invoke `result-interpreter`, `scientific-discussion`, or `implication-builder` unless analysis outputs or study results actually exist.
+
+10. **Reviewer response is conditional.**
+    - `reviewer-response` requires actual reviewer/editor comments or an explicitly identified simulated-review output.
+    - A manuscript alone is not sufficient.
+
+11. **Use canonical skill names exactly.**
+    - Do not invent shorthand, aliases, or near-synonyms such as `analysis-plan`.
+    - Do not route to non-canonical or retired skill names.
+
+12. **Required gates cannot be hidden by route compression.**
+    - Optional stages may be skipped when scientifically unnecessary.
+    - Mandatory upstream gates for the requested decision must still be executed or explicitly marked as pending/backtracked.
+
+### Mandatory Pre-Response Route Check
+
+Before giving a substantive recommendation in a multi-stage workflow, verify:
+
+```text
+ENTRY
+Is research-router the actual entry point?
+
+STATE
+Is the user's current research state correctly identified?
+
+MANDATORY GATES
+Have all upstream gates required for the requested decision been completed?
+
+OPTIONAL SKILLS
+Were optional skills activated only when justified?
+
+BACKTRACKING
+Did any downstream skill discover missing evidence, governance, or methodological prerequisites?
+
+CANONICAL NAMES
+Are all reported skill names canonical and exact?
+
+FINALIZATION
+Is the final recommendation supported by the required validation/audit gate?
+```
+
+If any mandatory item is not satisfied, do not silently continue. Backtrack, mark the decision provisional, or state what is still required.
+
+### Route Manifest for User-Visible Routing Requests
+
+When the user explicitly asks to see which Universal Research Skills were used, provide a concise **Route Manifest** before the substantive recommendation.
+
+This is a routing summary, not private chain-of-thought.
+
+Use this structure:
+
+```text
+Route Manifest
+Entry state        : <current research state>
+Entry skill        : research-router
+Mandatory gates    : <required gates for this request>
+Activated route    : <canonical skill sequence actually used>
+Skipped optional   : <skill + short reason, when relevant>
+Backtracked        : <skill/stage + reason, if any>
+Decision status    : PROVISIONAL / VALIDATED / READY FOR NEXT STAGE
+```
+
+For continuation from one previous study, a valid manifest should normally make the following structure visible:
+
+```text
+research-router
+→ research-resume
+→ prior-research-auditor
+→ current-evidence revalidation
+→ sota-builder
+→ gap-discovery
+→ gap-validator
+→ continuation-opportunity-finder when next-study selection is requested
+→ novelty-builder / novelty-auditor when novelty is part of the decision
+→ research-question-builder and downstream design stages only when requested
+```
+
+If `research-trajectory-mapper` is skipped because only one isolated prior study exists, state that explicitly in `Skipped optional`.
+
 Each reference file must be generated from the corresponding canonical repository file:
 
 ```text
@@ -30,6 +155,8 @@ without changing its content.
 ---
 
 ## Mandatory Router-First Protocol
+
+Apply the Runtime Invariants above before any illustrative workflow in this file.
 
 For a substantive research request that can involve more than one research stage:
 
@@ -47,6 +174,8 @@ Do not load all 56 resources merely for completeness.
 If the user explicitly requests one narrow function and the correct skill is unambiguous, consult that canonical skill directly. Use the router whenever stage, sequence, or handoff is uncertain.
 
 If the user asks to see the internal route, the displayed route must begin with `research-router` whenever router-first behavior was used. Do not hide the router and present a downstream skill as the apparent entry point.
+
+When reporting routes, use the exact canonical skill names from the reference index. Do not substitute shorthand labels, informal stage names, or retired skill names for canonical skills.
 
 ---
 

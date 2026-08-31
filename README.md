@@ -10,6 +10,8 @@ For ChatGPT, release **v0.17.1** added a traceable integrated distribution path:
 
 Release **v0.17.2** strengthens that integration with routing-consistency and canonical-handoff safeguards so conditional skills activate only when scientifically justified, continuation-study decisions follow current-evidence revalidation, and legacy non-canonical handoffs are removed.
 
+Release **v0.17.3** adds runtime invariants and a Route Manifest so ChatGPT must preserve required scientific gates at execution time rather than merely knowing that those gates exist.
+
 ---
 
 ## Core Principles
@@ -1299,6 +1301,60 @@ according to the user's goal
 ```
 
 A continuation idea derived from an older study remains provisional until the necessary current-evidence, gap-validation, and novelty-audit stages are complete.
+
+#### Runtime invariants in v0.17.3
+
+The ChatGPT orchestration entry now includes non-negotiable runtime checks so required gates cannot be silently omitted by route compression.
+
+```text
+multi-stage request
+→ research-router must be the entry point
+
+previous-research continuation
+→ research-resume
+→ prior-research-auditor
+
+one isolated previous study
+→ research-trajectory-mapper is skipped unless explicitly justified
+
+State of the Art
+→ requires sufficiently verified, screened, and synthesized evidence
+
+next-study prioritization
+→ continuation-opportunity-finder when selection among continuation paths is requested
+
+novelty decision
+→ novelty-auditor before novelty is presented as defensible
+
+theory / hypotheses
+→ conditional, never automatic
+
+analysis planning
+≠ result interpretation
+
+reviewer response
+→ requires reviewer/editor comments or an explicit simulated-review output
+
+route reporting
+→ exact canonical skill names only
+```
+
+Before a substantive recommendation in a multi-stage workflow, the runtime checks entry state, mandatory gates, optional-skill justification, backtracking needs, canonical naming, and whether the requested decision is ready to be finalized.
+
+When a user explicitly asks which skills were used, the runtime should expose a concise routing summary:
+
+```text
+Route Manifest
+Entry state        : <current research state>
+Entry skill        : research-router
+Mandatory gates    : <required gates for this request>
+Activated route    : <canonical skill sequence actually used>
+Skipped optional   : <skill + reason, when relevant>
+Backtracked        : <stage + reason, if any>
+Decision status    : PROVISIONAL / VALIDATED / READY FOR NEXT STAGE
+```
+
+The Route Manifest is a workflow summary, not private chain-of-thought.
 
 #### Preview build
 

@@ -2,6 +2,134 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.17.3] - Runtime Invariants & Route Manifest Patch
+
+### Fixed
+
+- Added non-negotiable runtime invariants to the ChatGPT integrated orchestrator so required research gates cannot be silently skipped by route compression.
+- Enforced `research-router` as the entry point for multi-stage research requests.
+- Prevented ceremonial use of `research-intake` when the user's research state is already clear.
+- Required continuation workflows to pass through `research-resume` and `prior-research-auditor` before literature revalidation, gap claims, novelty claims, or next-study recommendations.
+- Reinforced the single-study guard so `research-trajectory-mapper` is not automatically activated for one isolated previous study.
+- Enforced the current-evidence spine before finalizing State of the Art where comprehensive revalidation is required:
+  - verified prior / anchor records;
+  - Scopus-first literature search;
+  - citation chaining only from verified anchors when useful;
+  - re-verification of newly discovered records;
+  - reference-integrity checking;
+  - literature screening;
+  - research-landscape mapping when useful;
+  - evidence synthesis;
+  - State of the Art.
+- Required `gap-validator` to backtrack when evidence is outdated, incomplete, unverified, unscreened, or unsynthesized.
+- Required `continuation-opportunity-finder` before final next-study prioritization when the user asks what to study next or requests comparison among continuation paths.
+- Required `novelty-auditor` before a novelty claim is presented as defensible when novelty is part of the decision.
+- Reinforced conditional activation of `theoretical-framework` and `hypothesis-builder`.
+- Reinforced the distinction between analysis planning and result interpretation.
+- Reinforced the requirement that `reviewer-response` only activate when actual reviewer/editor comments or an explicit simulated-review output exists.
+- Prohibited invented shorthand, aliases, or retired skill names in user-visible route reporting.
+
+### Added
+
+- Added a **Mandatory Pre-Response Route Check** for multi-stage workflows.
+- Added a user-visible **Route Manifest** format for requests that ask which Universal Research Skills were used.
+- Added explicit route-status fields:
+  - entry state;
+  - entry skill;
+  - mandatory gates;
+  - activated route;
+  - skipped optional skills;
+  - backtracking;
+  - decision status.
+- Added explicit decision-state labels:
+  - `PROVISIONAL`
+  - `VALIDATED`
+  - `READY FOR NEXT STAGE`
+
+### Runtime Invariants
+
+```text
+1. Multi-stage request
+   → research-router MUST be first.
+
+2. Previous research continuation
+   → research-resume
+   → prior-research-auditor.
+
+3. One isolated previous study
+   → research-trajectory-mapper is skipped unless explicitly justified.
+
+4. State of the Art
+   → cannot be finalized before evidence is sufficiently verified, screened, and synthesized.
+
+5. Proposed/historical gap
+   → cannot be treated as validated without gap-validator.
+
+6. Next-study prioritization
+   → continuation-opportunity-finder is required when selection among continuation paths is requested.
+
+7. Novelty decision
+   → novelty-auditor is required before novelty is presented as defensible.
+
+8. Theory / hypotheses
+   → conditional, never automatic.
+
+9. Analysis planning
+   ≠ result interpretation.
+
+10. Reviewer response
+    → requires reviewer/editor comments or an explicit simulated-review output.
+
+11. Route reporting
+    → canonical skill names only.
+
+12. Required gates
+    → cannot be hidden by route compression.
+```
+
+### Route Manifest
+
+When a user explicitly asks which skills were used, the integrated ChatGPT runtime should expose a concise routing summary such as:
+
+```text
+Route Manifest
+Entry state        : <current research state>
+Entry skill        : research-router
+Mandatory gates    : <required gates>
+Activated route    : <canonical skill sequence>
+Skipped optional   : <skill + reason>
+Backtracked        : <stage + reason, if any>
+Decision status    : PROVISIONAL / VALIDATED / READY FOR NEXT STAGE
+```
+
+This manifest is a routing summary, not private chain-of-thought.
+
+### Canonical Integrity
+
+- Canonical research-skill count remains **56**.
+- No new research skill is introduced.
+- `research-router` remains the primary coordinator.
+- The ChatGPT root `SKILL.md` remains an orchestration layer, not a 57th research skill.
+- Canonical skill names remain unchanged.
+- The v0.17.2 routing-consistency fixes remain intact.
+
+### Release Scope
+
+`v0.17.3` is a **runtime enforcement patch**, not a framework expansion.
+
+It does **not**:
+
+- add a new research skill;
+- redesign the scientific architecture;
+- force all 56 skills to run for every request;
+- expose private chain-of-thought;
+- make trajectory mapping, theory, hypotheses, analysis interpretation, or reviewer response mandatory;
+- change GitHub Release as the source of truth.
+
+### Central Principle
+
+> **Integrated means the runtime must respect the framework's scientific gates, not merely know that those gates exist.**
+
 ## [0.17.2] - Routing Consistency & Canonical Handoff Patch
 
 ### Fixed
