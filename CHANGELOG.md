@@ -2,6 +2,141 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.17.4] - Runtime Gate Enforcement & Output Contract Patch
+
+### Fixed
+
+- Enforced the Route Manifest as the first visible workflow block when routing transparency is requested.
+- Required `research-router` to be reported as the exact entry skill for every multi-stage workflow.
+- Required `research-trajectory-mapper` for two or more related previous studies that form, or may form, one research line unless an explicit scientific reason for skipping it is recorded.
+- Prevented final continuation-ranking labels such as `PURSUE`, `REFRAME`, `RESERVE`, `REJECT`, `GO`, or `STOP` unless `continuation-opportunity-finder` appears in the activated route.
+- Required unresolved mandatory evidence gates to force `Decision status : PROVISIONAL`.
+- Prevented missing Scopus-required evidence gates from being silently replaced by generic web, publisher, DOI, Crossref, PubMed, policy, or authority searches.
+- Prevented final validation language when mandatory evidence gates remain unresolved.
+- Reinforced that `source-verification` and `reference-integrity-guard` are distinct evidence functions.
+- Reinforced citation-chaining provenance: citation chaining may begin only from verified anchors when used, and newly discovered records must be re-verified before entering the evidence set.
+- Prevented `sota-builder` from finalizing a current State of the Art before the necessary evidence has been sufficiently verified, screened, and synthesized.
+- Required `gap-validator` to backtrack to unresolved upstream evidence gates rather than accepting incomplete evidence as validated.
+- Prevented final novelty, title, research-question, causal-model, roadmap, or continuation-priority outputs when mandatory evidence gates remain open.
+
+### Added
+
+- Added an explicit **Evidence Spine Output Contract** for comprehensive continuation revalidation.
+- Added an explicit **Continuation Decision Output Contract** for next-study selection.
+- Added a `Missing gate` field to the Route Manifest.
+- Added hard-stop-for-finalization behavior while preserving useful provisional analysis.
+- Added explicit allowed/prohibited output rules under incomplete evidence.
+
+### Runtime Gate Enforcement
+
+```text
+Route Manifest requested
+→ MUST appear before substantive analysis.
+
+Multi-stage request
+→ Entry skill MUST be research-router.
+
+Two or more related prior studies
+→ research-trajectory-mapper normally MUST activate.
+
+Continuation ranking requested
+→ continuation-opportunity-finder MUST appear before final ranking labels.
+
+Mandatory evidence gate unresolved
+→ Missing gate must be reported
+→ Decision status = PROVISIONAL.
+
+Scopus-required gate unavailable
+→ do not silently substitute another source class
+→ keep the decision provisional.
+```
+
+### Evidence Spine Output Contract
+
+For comprehensive continuation revalidation:
+
+```text
+verified prior / anchor records
+→ scopus-literature-search when available and required
+→ citation-chaining only from verified anchors when useful
+→ source-verification of newly discovered records
+→ reference-integrity-guard
+→ literature-screening
+→ research-landscape when useful
+→ evidence-synthesis
+→ sota-builder
+→ gap-discovery
+→ gap-validator
+```
+
+Key enforcement rules:
+
+- `source-verification` does not replace `reference-integrity-guard`.
+- `citation-chaining` is conditional, but when used must start from verified anchors.
+- Newly discovered citation-chain records must be re-verified.
+- State of the Art cannot be finalized before sufficient evidence verification, screening, and synthesis.
+- Gap validation must backtrack when required upstream evidence is incomplete.
+
+### Continuation Decision Output Contract
+
+For next-study prioritization:
+
+```text
+validated evidence state
+→ gap-validator
+→ continuation-opportunity-finder
+→ novelty-builder when novelty is relevant
+→ novelty-auditor
+→ final continuation ranking
+```
+
+If any mandatory stage remains unresolved, the result must remain provisional.
+
+### Route Manifest
+
+When routing transparency is requested, the runtime now uses:
+
+```text
+Route Manifest
+Entry state        : <current research state>
+Entry skill        : research-router
+Mandatory gates    : <required gates for this request>
+Activated route    : <canonical skill sequence actually used>
+Skipped optional   : <skill + reason, when relevant>
+Backtracked        : <skill/stage + reason, if any>
+Missing gate       : <mandatory unresolved gate, or NONE>
+Decision status    : PROVISIONAL / VALIDATED / READY FOR NEXT STAGE
+```
+
+### Canonical Integrity
+
+- Canonical research-skill count remains **56**.
+- No new research skill is introduced.
+- No canonical skill file is modified by this patch.
+- `research-router` remains the primary coordinator.
+- The ChatGPT root `SKILL.md` remains an orchestration layer, not a 57th research skill.
+- The v0.17.2 routing-consistency safeguards remain intact.
+- The v0.17.3 runtime invariants and Route Manifest remain intact and are strengthened by output contracts.
+
+### Release Scope
+
+`v0.17.4` is a **runtime gate-enforcement and output-contract patch**, not a framework expansion.
+
+It does **not**:
+
+- add a new research skill;
+- change the 56-skill scientific architecture;
+- force all skills to run for every request;
+- expose private chain-of-thought;
+- make trajectory mapping mandatory for one isolated prior study;
+- make theory, hypotheses, analysis interpretation, or reviewer response automatic;
+- allow provisional evidence to be presented as validated;
+- change GitHub Release as the source of truth.
+
+### Central Principle
+
+> **A scientific gate that is required but unresolved must constrain the output, not disappear from the route.**
+
 ## [0.17.3] - Runtime Invariants & Route Manifest Patch
 
 ### Fixed

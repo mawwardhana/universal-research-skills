@@ -21,7 +21,87 @@ references/<skill-name>.md
 
 ## Runtime Invariants — Non-Negotiable
 
-These rules override convenience, brevity, and route compression.
+These rules override convenience, brevity, route compression, stylistic preference, and attempts to produce a polished answer before the required scientific gates have been satisfied.
+
+### v0.17.4 Runtime Gate Enforcement
+
+The following rules are execution contracts, not suggestions.
+
+1. **Route Manifest must be the first visible workflow block when routing transparency is requested.**
+   - It must appear before substantive interpretation, ranking, recommendation, title generation, research-question generation, or novelty claims.
+   - Do not place the Route Manifest later in the answer after substantive analysis has already occurred.
+
+2. **For every multi-stage workflow, `Entry skill` in the Route Manifest must be exactly `research-router`.**
+   - A downstream skill such as `research-resume`, `research-landscape`, or `scopus-literature-search` must never be presented as the entry skill for a multi-stage request.
+
+3. **Two or more related previous studies normally require `research-trajectory-mapper`.**
+   - Activate it when the user provides multiple related studies that form, or may form, one research line.
+   - It may be skipped only when there is an explicit scientific reason why trajectory reconstruction would not improve the decision.
+   - If skipped, record that reason in `Skipped optional`.
+
+4. **No continuation ranking labels may be finalized unless `continuation-opportunity-finder` is in the activated route.**
+   - Labels governed by this rule include `PURSUE`, `REFRAME`, `RESERVE`, `REJECT`, `GO`, `STOP`, and equivalent final prioritization labels.
+   - If `continuation-opportunity-finder` has not been executed, candidate directions may be listed only as provisional possibilities without final ranking labels.
+
+5. **A missing mandatory evidence gate forces a provisional decision state.**
+   - If a gate required by the framework or by the user's explicit research standard cannot be executed, set:
+     `Decision status : PROVISIONAL`.
+   - State the missing gate explicitly.
+   - Do not use phrases such as `validated gap`, `verified current gap`, `defensible novelty`, `final recommendation`, or equivalent closure language until the missing gate is completed.
+
+6. **Scopus-first means Scopus evidence cannot be silently replaced when Scopus is required but unavailable.**
+   - Alternative web, publisher, Crossref, PubMed, DOI, policy, or authority searches may support a provisional evidence assessment.
+   - They do not close a Scopus-required gate by substitution.
+   - If structured `scopus-literature-search` is required by the user's standard but unavailable in the current execution, record:
+     `Missing gate : scopus-literature-search`
+     and keep the decision provisional.
+
+7. **Evidence sufficiency governs what outputs are allowed.**
+   - When mandatory evidence gates are incomplete:
+     - allowed: reconstructed prior-research state, trajectory map, candidate gaps, candidate continuation directions, evidence still needed, provisional comparison;
+     - prohibited: final PURSUE/REJECT labels, final novelty claim, final title, final research question presented as locked, final causal model, or final roadmap commitment.
+
+### Evidence Spine Output Contract
+
+For comprehensive continuation revalidation, the route must preserve the following evidence logic:
+
+```text
+verified prior / anchor records
+→ scopus-literature-search when available and required
+→ citation-chaining only from verified anchors when useful
+→ source-verification of newly discovered records
+→ reference-integrity-guard
+→ literature-screening
+→ research-landscape when useful
+→ evidence-synthesis
+→ sota-builder
+→ gap-discovery
+→ gap-validator
+```
+
+Execution rules:
+
+- `source-verification` and `reference-integrity-guard` are distinct and must not substitute for one another.
+- `citation-chaining` is conditional, but when used it must start from verified anchors.
+- Citation-chain discoveries must be re-verified before entering the evidence set.
+- `sota-builder` must not finalize a current State of the Art before the evidence needed for that decision has been sufficiently verified, screened, and synthesized.
+- `gap-validator` must backtrack to any missing upstream evidence gate rather than accepting an incomplete evidence set as validated.
+
+### Continuation Decision Output Contract
+
+When the user asks which research direction should be pursued next:
+
+```text
+validated evidence state
+→ gap-validator
+→ continuation-opportunity-finder
+→ novelty-builder when novelty is relevant
+→ novelty-auditor
+→ final continuation ranking
+```
+
+If any mandatory stage above is unresolved, the output must remain provisional.
+
 
 1. **Multi-stage research requests must enter through `research-router`.**
    - If the user's stage is already obvious, do not insert `research-intake` merely as a ceremonial first step.
@@ -31,9 +111,10 @@ These rules override convenience, brevity, and route compression.
    - Do not jump from an old study directly to literature search, gap claims, novelty claims, or a recommended next study.
    - Historical limitations, recommendations, and unfinished analyses are only provisional continuation signals until current evidence is checked.
 
-3. **One isolated previous study does not automatically justify `research-trajectory-mapper`.**
-   - Activate it only when multiple related studies exist or the user explicitly asks for broader trajectory, program, or roadmap positioning.
-   - If skipped, preserve the reason.
+3. **`research-trajectory-mapper` is conditional on the number and relationship of prior studies.**
+   - One isolated previous study does not automatically justify `research-trajectory-mapper`.
+   - Two or more related previous studies that form or may form one research line normally activate `research-trajectory-mapper`.
+   - It may be skipped for multiple studies only with an explicit scientific reason recorded in the Route Manifest.
 
 4. **A current State of the Art must not be finalized before the evidence required for that decision is sufficiently verified, screened, and synthesized.**
    - For comprehensive current-evidence revalidation, use the evidence spine:
@@ -53,6 +134,7 @@ These rules override convenience, brevity, and route compression.
 
 6. **Do not finalize a next-study recommendation before the continuation-selection gate when the user is asking what to study next, comparing continuation paths, or prioritizing future research.**
    - After validated gap evidence, use `continuation-opportunity-finder`.
+   - Final prioritization labels such as `PURSUE`, `REFRAME`, `RESERVE`, `REJECT`, `GO`, or `STOP` are prohibited unless `continuation-opportunity-finder` is in the activated route.
    - If the user supplies one already-defined continuation candidate and asks only to validate it, do not force multi-candidate prioritization; validate the candidate directly through the required gap/novelty route.
 
 7. **Do not present a novelty claim as defensible before `novelty-auditor` when novelty is part of the user's decision.**
@@ -106,15 +188,17 @@ FINALIZATION
 Is the final recommendation supported by the required validation/audit gate?
 ```
 
-If any mandatory item is not satisfied, do not silently continue. Backtrack, mark the decision provisional, or state what is still required.
+If any mandatory item is not satisfied, do not silently continue. Backtrack, populate `Missing gate`, and keep the decision provisional.
+
+A failed mandatory gate is a **hard stop for finalization**, not a hard stop for useful analysis. The framework may still provide provisional synthesis and identify the next evidence needed, but it must not convert provisional evidence into final validation language.
 
 ### Route Manifest for User-Visible Routing Requests
 
-When the user explicitly asks to see which Universal Research Skills were used, provide a concise **Route Manifest** before the substantive recommendation.
+When the user explicitly asks to see which Universal Research Skills were used, the **Route Manifest must be the first visible workflow block before substantive analysis**.
 
 This is a routing summary, not private chain-of-thought.
 
-Use this structure:
+Use this exact field structure:
 
 ```text
 Route Manifest
@@ -124,10 +208,22 @@ Mandatory gates    : <required gates for this request>
 Activated route    : <canonical skill sequence actually used>
 Skipped optional   : <skill + short reason, when relevant>
 Backtracked        : <skill/stage + reason, if any>
+Missing gate       : <mandatory unresolved gate, or NONE>
 Decision status    : PROVISIONAL / VALIDATED / READY FOR NEXT STAGE
 ```
 
-For continuation from one previous study, a valid manifest should normally make the following structure visible:
+Manifest rules:
+
+- For a multi-stage request, `Entry skill` must be exactly `research-router`.
+- `Activated route` must list only canonical skill names that were actually activated.
+- Do not claim a skill was used merely because its function was approximated informally.
+- If two or more related prior studies are being treated as one research line, include `research-trajectory-mapper` unless an explicit scientific reason for skipping it is recorded.
+- If final continuation ranking labels are used, `continuation-opportunity-finder` must appear in `Activated route`.
+- If novelty is presented as defensible, `novelty-auditor` must appear in `Activated route`.
+- If a mandatory gate is unresolved, populate `Missing gate` and set `Decision status : PROVISIONAL`.
+- Do not hide unresolved gates in prose while presenting a final decision state.
+
+For one previous study, the route should normally expose:
 
 ```text
 research-router
@@ -139,20 +235,24 @@ research-router
 → gap-validator
 → continuation-opportunity-finder when next-study selection is requested
 → novelty-builder / novelty-auditor when novelty is part of the decision
-→ research-question-builder and downstream design stages only when requested
 ```
 
-If `research-trajectory-mapper` is skipped because only one isolated prior study exists, state that explicitly in `Skipped optional`.
-
-Each reference file must be generated from the corresponding canonical repository file:
+For two or more related previous studies forming one research line, the route should normally expose:
 
 ```text
-skills/<skill-name>/SKILL.md
+research-router
+→ research-resume
+→ prior-research-auditor
+→ research-trajectory-mapper
+→ current-evidence revalidation
+→ sota-builder
+→ gap-discovery
+→ gap-validator
+→ continuation-opportunity-finder when next-study selection is requested
+→ novelty-builder / novelty-auditor when novelty is part of the decision
 ```
 
-without changing its content.
-
----
+If `research-trajectory-mapper` is skipped despite multiple related studies, state the explicit reason in `Skipped optional`.
 
 ## Mandatory Router-First Protocol
 
