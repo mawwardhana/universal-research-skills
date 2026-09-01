@@ -2,6 +2,113 @@
 
 All notable changes to Universal Research Skills will be documented in this file.
 
+## [0.17.5] - Capability, Execution & Gate-Completion Patch
+
+### Fixed
+
+- Separated runtime capability, skill execution, and mandatory gate completion as three distinct states.
+- Prevented unavailable database- or tool-specific skills from being reported as successfully activated.
+- Defined `SCOPUS_ACCESS_MODE: NO_DIRECT_ACCESS`, authentication failure, unavailable connector/API, or equivalent access failure as an incomplete `scopus-literature-search` gate.
+- Required unavailable mandatory skills to be recorded in `Backtracked`.
+- Required unresolved source-specific gates to populate `Missing gate`.
+- Required `Decision status : PROVISIONAL` whenever a mandatory gate is unavailable, incomplete, or substituted by fallback evidence.
+- Prevented `Missing gate : NONE` when any mandatory gate required for the claimed decision state remains incomplete.
+- Prevented `VALIDATED` or `READY FOR NEXT STAGE` status when `Missing gate` is not `NONE`.
+- Prevented final continuation labels (`PURSUE`, `REFRAME`, `RESERVE`, `REJECT`, `GO`, `STOP`) when a required evidence gate remains unresolved.
+- Prevented fallback publisher/DOI/Crossref/PubMed/web/authority evidence from being treated as successful execution of an unavailable database-specific skill.
+- Reinforced that claim strength must follow the level of completed evidence gates.
+
+### Capability, Execution, and Gate-Completion Contract
+
+```text
+CAPABILITY AVAILABLE
+≠ SKILL EXECUTED
+≠ MANDATORY GATE COMPLETED
+```
+
+A source-specific skill may appear in `Activated route` only when it was actually executed using the source or method required by that canonical skill.
+
+When a mandatory source-specific capability is unavailable:
+
+```text
+Backtracked        : <canonical skill> — unavailable / NO_DIRECT_ACCESS
+Missing gate       : <canonical skill>
+Decision status    : PROVISIONAL
+```
+
+Fallback evidence may still support useful provisional analysis, but it does not close the missing mandatory gate.
+
+### Scopus Access Enforcement
+
+If Scopus direct access is unavailable:
+
+```text
+SCOPUS_ACCESS_MODE: NO_DIRECT_ACCESS
+```
+
+then the runtime must not report:
+
+```text
+Activated route : ... → scopus-literature-search → ...
+Missing gate    : NONE
+Decision status : VALIDATED
+```
+
+Instead it must report:
+
+```text
+Backtracked     : scopus-literature-search — NO_DIRECT_ACCESS
+Missing gate    : scopus-literature-search
+Decision status : PROVISIONAL
+```
+
+Publisher pages, DOI resolution, Crossref, PubMed, generic web search, policy databases, or authority sources may be used as fallback evidence only.
+
+### Claim-Level Enforcement
+
+When a mandatory database/search gate remains unresolved, allowed language includes:
+
+- `provisional leading direction`;
+- `candidate gap`;
+- `candidate novelty`;
+- `evidence currently supports`;
+- `requires database-level confirmation`.
+
+Prohibited language includes:
+
+- `validated gap`;
+- `verified current gap`;
+- `defensible novelty`;
+- `final recommendation`;
+- final `PURSUE / REFRAME / RESERVE / REJECT / GO / STOP`.
+
+### Canonical Integrity
+
+- Canonical research-skill count remains **56**.
+- New research skills: **0**.
+- No canonical skill file is modified by this patch.
+- `research-router` remains the primary coordinator.
+- The integrated root `SKILL.md` remains an orchestration layer, not a 57th research skill.
+- v0.17.4 runtime gate-enforcement and output-contract safeguards remain intact.
+
+### Release Scope
+
+`v0.17.5` is a **capability/execution/gate-completion runtime patch**, not a framework expansion.
+
+It does **not**:
+
+- add a new research skill;
+- change the 56-skill scientific architecture;
+- force all skills to run for every request;
+- expose private chain-of-thought;
+- make unavailable tools appear available;
+- treat fallback evidence as equivalent to an unavailable required database;
+- change GitHub Release as the source of truth.
+
+### Central Principle
+
+> **An unavailable capability is not an executed skill, and an unexecuted mandatory skill cannot be treated as a completed scientific gate.**
+
 ## [0.17.4] - Runtime Gate Enforcement & Output Contract Patch
 
 ### Fixed

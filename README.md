@@ -14,6 +14,8 @@ Release **v0.17.3** adds runtime invariants and a Route Manifest so ChatGPT must
 
 Release **v0.17.4** strengthens runtime enforcement with explicit output contracts: the Route Manifest must appear before substantive analysis when requested, multi-stage routing must report `research-router` as the entry skill, multi-study continuation must normally activate `research-trajectory-mapper`, unresolved mandatory evidence gates force a provisional decision state, and continuation-ranking labels cannot be finalized before `continuation-opportunity-finder`.
 
+Release **v0.17.5** separates capability availability, actual skill execution, and mandatory gate completion. An unavailable source-specific capability such as direct Scopus access can no longer be reported as a successfully executed skill or a completed gate; fallback evidence may support provisional analysis, but unresolved mandatory gates must be surfaced explicitly and keep the decision provisional.
+
 ---
 
 ## Core Principles
@@ -1431,6 +1433,66 @@ validated evidence state
 When a mandatory evidence gate is missing, the framework may still provide useful provisional analysis, trajectory reconstruction, candidate gaps, candidate continuation directions, and a statement of what evidence is still needed. It must not present provisional evidence as a validated gap, defensible novelty, final research title, locked research question, final causal model, or final continuation ranking.
 
 v0.17.4 does not add a research skill and does not change the canonical count of **56 modular research skills**.
+
+#### Capability, execution, and gate completion in v0.17.5
+
+Release v0.17.5 adds a strict runtime distinction:
+
+```text
+CAPABILITY AVAILABLE
+≠ SKILL EXECUTED
+≠ MANDATORY GATE COMPLETED
+```
+
+A source-specific canonical skill may appear in `Activated route` only when that skill was actually executed using the source or method required by the skill. Knowing how the skill works, simulating its function, or using a fallback source is not equivalent to executing it.
+
+When a mandatory source-specific capability is unavailable, the runtime must expose the unresolved gate instead of hiding it inside a successful-looking route.
+
+For example, if direct Scopus access is unavailable:
+
+```text
+SCOPUS_ACCESS_MODE: NO_DIRECT_ACCESS
+```
+
+the correct runtime state is:
+
+```text
+Backtracked        : scopus-literature-search — NO_DIRECT_ACCESS
+Missing gate       : scopus-literature-search
+Decision status    : PROVISIONAL
+```
+
+The runtime must not report:
+
+```text
+Activated route    : ... → scopus-literature-search → ...
+Missing gate       : NONE
+Decision status    : VALIDATED
+```
+
+when direct Scopus execution did not occur.
+
+Fallback evidence from publisher pages, DOI resolution, Crossref, PubMed, generic web search, policy databases, or authority sources may still support useful provisional analysis. It does not close a missing mandatory source-specific gate.
+
+The claim level must follow the completed gate level. When a mandatory evidence gate remains unresolved, allowed language includes:
+
+- `provisional leading direction`;
+- `candidate gap`;
+- `candidate novelty`;
+- `evidence currently supports`;
+- `requires database-level confirmation`.
+
+The runtime must not present unresolved evidence as:
+
+- `validated gap`;
+- `verified current gap`;
+- `defensible novelty`;
+- `final recommendation`;
+- final `PURSUE / REFRAME / RESERVE / REJECT / GO / STOP`.
+
+`Missing gate : NONE` is permitted only when every mandatory gate needed for the claimed decision state has actually been completed.
+
+v0.17.5 does not add a research skill and does not change the canonical count of **56 modular research skills**.
 
 #### Preview build
 

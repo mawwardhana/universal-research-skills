@@ -52,14 +52,84 @@ The following rules are execution contracts, not suggestions.
 6. **Scopus-first means Scopus evidence cannot be silently replaced when Scopus is required but unavailable.**
    - Alternative web, publisher, Crossref, PubMed, DOI, policy, or authority searches may support a provisional evidence assessment.
    - They do not close a Scopus-required gate by substitution.
-   - If structured `scopus-literature-search` is required by the user's standard but unavailable in the current execution, record:
-     `Missing gate : scopus-literature-search`
-     and keep the decision provisional.
+   - `SCOPUS_ACCESS_MODE: NO_DIRECT_ACCESS`, authentication failure, unavailable connector/API, or equivalent access failure means `scopus-literature-search` was **not completed**.
+   - In that state, do not list `scopus-literature-search` as successfully activated merely because fallback searching occurred.
+   - Record the access failure in `Backtracked`, set `Missing gate : scopus-literature-search`, and keep `Decision status : PROVISIONAL`.
 
 7. **Evidence sufficiency governs what outputs are allowed.**
    - When mandatory evidence gates are incomplete:
      - allowed: reconstructed prior-research state, trajectory map, candidate gaps, candidate continuation directions, evidence still needed, provisional comparison;
      - prohibited: final PURSUE/REJECT labels, final novelty claim, final title, final research question presented as locked, final causal model, or final roadmap commitment.
+
+### Capability, Execution, and Gate-Completion Contract
+
+Runtime availability and scientific completion are three different states:
+
+```text
+CAPABILITY AVAILABLE
+≠ SKILL EXECUTED
+≠ MANDATORY GATE COMPLETED
+```
+
+The runtime must never collapse these states.
+
+Rules:
+
+1. **A named database/tool may appear in `Activated route` only when the corresponding canonical skill was actually executed using the evidence source or method required by that skill.**
+   - Knowing how the skill would work is not execution.
+   - Simulating the function with a different source class is not execution.
+   - A fallback search is not execution of a database-specific search skill.
+
+2. **`NO_DIRECT_ACCESS`, authentication failure, unavailable connector, unavailable database, inaccessible API, or equivalent capability failure means the gate is not completed.**
+   - Do not list that unavailable skill as successfully activated.
+   - Record the failure in `Backtracked`.
+   - Populate `Missing gate` with the canonical skill name.
+   - Set `Decision status : PROVISIONAL`.
+
+3. **Fallback evidence may support provisional analysis but cannot satisfy a missing mandatory source-specific gate.**
+   - Publisher pages, DOI resolution, Crossref, PubMed, generic web search, policy databases, or authority sources may still be used when scientifically appropriate.
+   - When they are substitutes for an unavailable required source, label them as fallback evidence rather than as successful execution of the unavailable skill.
+
+4. **`Missing gate : NONE` is allowed only when every mandatory gate required for the claimed decision state has actually been completed.**
+   - If any required gate is unavailable, attempted but incomplete, or replaced by fallback evidence, `Missing gate` must name it.
+
+5. **`Decision status : VALIDATED` or `READY FOR NEXT STAGE` is prohibited when `Missing gate` is not `NONE`.**
+   - The status must remain `PROVISIONAL`.
+   - Final ranking labels governed by the continuation contract are also prohibited.
+
+6. **Do not hide an unavailable mandatory skill inside a successful-looking route.**
+   - Prefer:
+
+```text
+Activated route    : ... → source-verification → reference-integrity-guard → ...
+Backtracked        : scopus-literature-search — NO_DIRECT_ACCESS; fallback publisher/DOI/authority evidence collected provisionally
+Missing gate       : scopus-literature-search
+Decision status    : PROVISIONAL
+```
+
+   - Do not write:
+
+```text
+Activated route    : ... → scopus-literature-search → ...
+Missing gate       : NONE
+Decision status    : VALIDATED
+```
+
+when direct Scopus execution did not occur.
+
+7. **The scientific claim level must follow the completed gate level.**
+   - With a missing mandatory database/search gate, allowed language includes:
+     - `provisional leading direction`;
+     - `candidate gap`;
+     - `candidate novelty`;
+     - `evidence currently supports`;
+     - `requires database-level confirmation`.
+   - Prohibited language includes:
+     - `validated gap`;
+     - `verified current gap`;
+     - `defensible novelty`;
+     - `final recommendation`;
+     - final `PURSUE / REFRAME / RESERVE / REJECT / GO / STOP`.
 
 ### Evidence Spine Output Contract
 
@@ -186,6 +256,12 @@ Are all reported skill names canonical and exact?
 
 FINALIZATION
 Is the final recommendation supported by the required validation/audit gate?
+
+CAPABILITY VS EXECUTION
+Has any unavailable source-specific capability been mistaken for a successfully executed skill?
+
+GATE COMPLETION
+Is `Missing gate : NONE` used only when every mandatory gate required for the claimed decision state is actually complete?
 ```
 
 If any mandatory item is not satisfied, do not silently continue. Backtrack, populate `Missing gate`, and keep the decision provisional.
@@ -220,7 +296,9 @@ Manifest rules:
 - If two or more related prior studies are being treated as one research line, include `research-trajectory-mapper` unless an explicit scientific reason for skipping it is recorded.
 - If final continuation ranking labels are used, `continuation-opportunity-finder` must appear in `Activated route`.
 - If novelty is presented as defensible, `novelty-auditor` must appear in `Activated route`.
-- If a mandatory gate is unresolved, populate `Missing gate` and set `Decision status : PROVISIONAL`.
+- If a mandatory gate is unresolved, unavailable, attempted but incomplete, or replaced by fallback evidence, populate `Missing gate` and set `Decision status : PROVISIONAL`.
+- `Activated route` must not list an unavailable source-specific skill as successfully executed when only fallback evidence was used.
+- `Missing gate : NONE` is permitted only when every mandatory gate needed for the claimed decision state has actually been completed.
 - Do not hide unresolved gates in prose while presenting a final decision state.
 
 For one previous study, the route should normally expose:
